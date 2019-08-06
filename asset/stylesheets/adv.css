@@ -1,0 +1,107 @@
+:root {
+    --adv-width: 1280px;
+    --adv-height: 800px;
+    --adv-backimage: url("../.././asset/images/backdrop.jpg");
+}
+
+/* scene */
+div.SceneBody {
+    width: var(--adv-width);
+    height: var(--adv-height);
+    position: relative;
+    background-size: cover;
+    background-image: var(--adv-backimage);
+}
+
+div.TeamData {
+    background: pink;
+    position: absolute;
+    left: calc(var(--adv-width) / 50);
+    top: calc(var(--adv-width) / 50);
+    width: calc(var(--adv-width) / 4);
+}
+p.TeamData {
+    margin: 8px;
+    font-size: x-large;
+}
+
+div.MainText {
+    background: aqua;
+    position: absolute;
+    top: calc(var(--adv-height) * 3 / 4);
+    left: calc(var(--adv-width) / 50);
+    width: calc(var(--adv-width) - var(--adv-width) / 25);
+    height: calc(var(--adv-height) / 4 - var(--adv-width) / 50);
+}
+p.MainText {
+    margin: 0px;
+    font-size: x-large;
+}
+
+/* title */
+h1.Title {
+    background: green;
+    position: absolute;
+    left: calc(var(--adv-width) / 3);
+    top: calc(var(--adv-height) / 3);
+	
+}
+button.StartButton {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    left: calc(var(--adv-width) / 2);
+    top: calc(var(--adv-height) / 2);
+}
+
+/* quiz */
+button.QuizAnswer {
+    --adv-span: calc(var(--adv-width)/50);
+    
+    width: calc(var(--adv-width) / 2 - var(--adv-span) * 3);
+    height: 100px;
+    position: absolute;
+}
+
+.QuizAnswer.Answer0 {
+    left: calc(var(--adv-span)*2);
+    top: calc(var(--adv-height)*3/4 - var(--adv-span) - 260px);
+}
+.QuizAnswer.Answer1 {
+    left: calc(var(--adv-width)/2 + var(--adv-span));
+    top: calc(var(--adv-height)*3/4 - var(--adv-span) - 260px);
+}
+.QuizAnswer.Answer2 {
+    left: calc(var(--adv-span)*2);
+    top: calc(var(--adv-height)*3/4 - var(--adv-span) - 150px);
+}
+.QuizAnswer.Answer3 {
+    left: calc(var(--adv-width)/2 + var(--adv-span));
+    top: calc(var(--adv-height)*3/4 - var(--adv-span) - 150px);
+}
+
+button.QuizGiveUp {
+    background: green;
+
+    width: calc(var(--adv-width) / 5);
+    height: 60px;
+
+    position: absolute;
+    left: calc(var(--adv-width) * 3 / 4);
+    top: calc(var(--adv-height) * 3 /4 - 70px);
+}
+
+button.Select {
+    --adv-span: calc(var(--adv-width) / 25);
+    
+    width: calc(var(--adv-width) / 2 - var(--adv-span) * 2);
+    height: 100px;
+    position: absolute;
+    top: calc(var(--adv-height) * 3 / 4 - var(--adv-span) - 100px);
+}
+button.Select.Left {
+    left: var(--adv-span);
+}
+button.Select.Right {
+    left: calc(var(--adv-width) / 2 + var(--adv-span));
+}
