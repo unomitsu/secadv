@@ -36,6 +36,7 @@ class SceneTitle extends Scene {
     }
     // -- スタートボタンイベント
     buttonStart_clickEvent() {
+	previousScene = currentScene;
 	currentScene = new SceneScenario();
     }
 }

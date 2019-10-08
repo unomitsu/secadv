@@ -15,6 +15,7 @@ appendScript("./asset/javascripts/scenario.js");
 appendScript("./asset/javascripts/quiz.js");
 appendScript("./asset/javascripts/result.js");
 appendScript("./asset/javascripts/select.js");
+appendScript("./asset/javascripts/home.js");
 appendScript("./asset/javascripts/main.js");
 
 appendScript("./asset/databases/insert.js");

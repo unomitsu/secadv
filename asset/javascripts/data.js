@@ -14,6 +14,7 @@ var quizData = {
 };
 
 var currentScene;   // 現在のシーン
+var previousScene;  // 一つ前のシーン
 
 /* back image */
 var backImagePath;  // 背景画像のパス

@@ -85,6 +85,7 @@ class SceneQuiz extends Scene {
     }
     // -- ギブアップボタンのイベント
     buttonGiveUp_clickEvent() {
+	previousScene = currentScene;
 	currentScene = new SceneTitle();
     }
 }

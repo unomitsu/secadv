@@ -17,6 +17,7 @@ class SceneScenario extends Scene {
 	this.changeBackImage("../../assets/images/backdrop.jpg");
 	this.setDivMainText();
 	this.setDivTeamData();
+	this.setButtonHome();
 
 	this.setScenarioMove();
     }
@@ -40,6 +41,7 @@ class SceneScenario extends Scene {
 	}
 	// テキストがなければ, クイズシーンへ遷移
 	else {
+	    previousScene = currentScene;
 	    currentScene = new SceneQuiz();
 	}
     }

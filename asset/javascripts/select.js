@@ -10,6 +10,7 @@ class SceneSelect extends Scene {
 	this.setDivScene();
 	this.setDivTeamData();
 	this.setDivMainText();
+	this.setButtonHome();
 
 	//this.setBackImage("");
 	this.setButtonSelect();
@@ -33,10 +34,12 @@ class SceneSelect extends Scene {
     }
     // 左ボタン クリックイベント
     buttonLeft_clickEvent() {
+	previoudScene = currentScene;
 	currentScene = new SceneQuiz();
     }
     // 右ボタン クリックイベント
     buttonRight_clickEvent() {
+	previoudScene = currentScene;
 	currentScene = new SceneQuiz();
     }
 }

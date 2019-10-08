@@ -1,5 +1,5 @@
-
 /* ===== シーン 共通部分 ===== */
+
 class Scene {
     constructor() {
 	// 画面の初期化
@@ -11,6 +11,8 @@ class Scene {
 	this.divTeamData = document.createElement('div');
 	// テキストを表示する区画
 	this.divMainText = document.createElement('div');
+	// ホームボタン
+	this.buttonHome = document.createElement('button');
     }
     /* ----- ADVBody を初期化 ----- */
     clearSceneAll() {
@@ -67,6 +69,18 @@ class Scene {
     // テキスト区画の文字列の削除
     clearMainText() {
 	this.divMainText.innerHTML = "";
+    }
+    
+    /* ----- ホームボタンの設定 ----- */
+    setButtonHome() {
+	this.buttonHome.className = "ButtonHome";
+	this.buttonHome.addEventListener(
+	    "click", this.buttonHome_clickEvent, false
+	);
+	this.divScene.appendChild(this.buttonHome);
+    }
+    buttonHome_clickEvent() {
+	currentScene = new SceneHome();
     }
 }
 
