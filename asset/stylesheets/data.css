@@ -1,0 +1,10 @@
+:root {
+    /*
+      --adv-width: 1280px;
+      --adv-height: 800px;
+   */
+
+    --adv-width: 800px;
+    --adv-height: 600px;
+    --adv-backimage: url("../.././asset/images/backdrop.jpg");
+}

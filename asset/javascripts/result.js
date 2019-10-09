@@ -71,12 +71,10 @@ class SceneResult extends Scene {
     // -- 再挑戦ボタンのイベント
     setButtonRevenge_clickEvent() {
 	quizData["text"] = "quizquiz"
-	previousScene = currentScene;
 	currentScene = new SceneQuiz(quizData);
     }
     // -- ギブアップボタンのイベント
     setButtonGiveUp_clickEvent() {
-	previousScene = currentScene;
 	currentScene = new SceneTitle();
     }
 }

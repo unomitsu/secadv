@@ -41,7 +41,6 @@ class SceneScenario extends Scene {
 	}
 	// テキストがなければ, クイズシーンへ遷移
 	else {
-	    previousScene = currentScene;
 	    currentScene = new SceneQuiz();
 	}
     }

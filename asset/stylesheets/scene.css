@@ -1,0 +1,45 @@
+div.SceneBody {
+    position: relative;
+    background-size: cover;
+    background-image: var(--adv-backimage);
+
+    width: var(--adv-width);
+    height: var(--adv-height);
+}
+
+div.TeamData {
+    background: pink;
+    position: absolute;
+
+    left: calc(var(--adv-width) / 50);
+    top: calc(var(--adv-width) / 50);
+    width: calc(var(--adv-width) / 4);
+}
+
+p.TeamData {
+    margin: 8px;
+}
+
+div.MainText {
+    background: aqua;
+    position: absolute;
+    padding: 4px;
+
+    top: calc(var(--adv-height) * 3 / 4);
+    left: calc(var(--adv-width) / 50);
+    width: calc(var(--adv-width) - var(--adv-width) /25 - 8px);
+    height: calc(var(--adv-height) / 4 - var(--adv-width) / 50);
+}
+
+p.MainText {
+    margin: 0px;
+}
+
+button.ButtonHome {
+    position: absolute;
+
+    left: calc(var(--adv-width) * 4 / 5);
+    top: calc(var(--adv-width) / 50);
+    width: calc(var(--adv-width) * 3 / 17);
+    height: calc(var(--adv-height) / 10);
+}

@@ -8,6 +8,9 @@ function appendScript(url) {
 
 // import javascript
 // tmp -- appendScript("./asset/javascripts/.js");
+appendScript("./asset/databases/startup.js");
+appendScript("./asset/databases/insert.js");
+
 appendScript("./asset/javascripts/data.js");
 appendScript("./asset/javascripts/scene.js");
 appendScript("./asset/javascripts/title.js");
@@ -18,4 +21,5 @@ appendScript("./asset/javascripts/select.js");
 appendScript("./asset/javascripts/home.js");
 appendScript("./asset/javascripts/main.js");
 
-appendScript("./asset/databases/insert.js");
+appendScript("./asset/javascripts/makeq.js");
+

@@ -34,12 +34,10 @@ class SceneSelect extends Scene {
     }
     // 左ボタン クリックイベント
     buttonLeft_clickEvent() {
-	previoudScene = currentScene;
 	currentScene = new SceneQuiz();
     }
     // 右ボタン クリックイベント
     buttonRight_clickEvent() {
-	previoudScene = currentScene;
 	currentScene = new SceneQuiz();
     }
 }

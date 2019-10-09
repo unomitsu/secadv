@@ -49,9 +49,29 @@ class SceneQuiz extends Scene {
     /* -- 問題回答ボタン関連の設定 -- */
     setButtonQuiz() {
 	for (let i = 0; i < this.buttonQuiz.length; i++) {
-	    this.buttonQuiz[i].className = "QuizAnswer Answer" + i;
+	    this.buttonQuiz[i].id = i;
+	    
+	    // -- 配置設定
+	    // 大きさと配置方法
+	    this.buttonQuiz[i].className = "quizAnswer";
 
-	    // マウスクリックイベントの設定
+	    // 縦方向の配置
+	    if (i < 2) {
+		this.buttonQuiz[i].className += " topSide";
+	    }
+	    else {
+		this.buttonQuiz[i].className += " bottomSide";
+	    }
+	    
+	    //横方向の配置
+	    if (i%2 == 0) {
+		this.buttonQuiz[i].className += " leftSide";
+	    }
+	    else {
+		this.buttonQuiz[i].className += " rightSide";
+	    }
+	    
+	    // -- マウスクリックイベントの設定
 	    this.buttonQuiz[i].addEventListener(
 		"click", this.buttonQuiz_clickEvent, false
 	    );
@@ -73,7 +93,7 @@ class SceneQuiz extends Scene {
 
     /* ----- ギブアップボタン ----- */
     setButtonGiveUp() {
-	this.buttonGiveUp.className = "QuizGiveUp";
+	this.buttonGiveUp.className = "quizGiveup";
 	this.buttonGiveUp.textContent = "ギブアップ";
 
 	// イベント設定
@@ -85,7 +105,6 @@ class SceneQuiz extends Scene {
     }
     // -- ギブアップボタンのイベント
     buttonGiveUp_clickEvent() {
-	previousScene = currentScene;
 	currentScene = new SceneTitle();
     }
 }

@@ -5,15 +5,15 @@ const { app, BrowserWindow } = require('electron')
 function createWindow () {
   // Create the browser window.
   let win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 835,
+    height: 642,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
   // and load the index.html of the app.
-  /win.loadFile('index.html')
+  win.loadFile('index.html')
   //win.loadFile('./asset/databases/test.html')
 }
 

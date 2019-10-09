@@ -1,0 +1,29 @@
+h1.Title {
+    background: green;
+    position: absolute;
+
+    left: calc(var(--adv-width) / 3);
+    top: calc(var(--adv-height) / 3);
+}
+
+button.StartButton {
+    position: absolute;
+    width: calc(var(--adv-width) / 4);
+    height: calc(var(--adv-height) / 6);
+
+    left: calc(var(--adv-width) / 2);
+    top: calc(var(--adv-height) / 2);
+}
+
+button.ButtonMake {
+    position: absolute;
+    width: calc(var(--adv-width) / 4);
+    height: calc(var(--adv-height) / 6);
+
+    left: calc(var(--adv-width) / 4);
+    top: calc(var(--adv-height) / 2);
+}
+
+.MakeElement {
+    margin: calc(var(--adv-height) / 20);
+}

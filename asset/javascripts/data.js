@@ -1,6 +1,7 @@
 // var は大域変数です.
-var gameWidth = 1200;
-var gameHeight = 800;
+var gameWidth = 800;
+var gameHeight = 600;
+
 var player = {
     name:  "TEAM_A",        // プレイヤー名
     score: 100,             // 得点
@@ -14,7 +15,6 @@ var quizData = {
 };
 
 var currentScene;   // 現在のシーン
-var previousScene;  // 一つ前のシーン
 
 /* back image */
 var backImagePath;  // 背景画像のパス
@@ -22,6 +22,10 @@ var backImagePath;  // 背景画像のパス
 function setBackImagePath(path) {
     BackImagePath = path;
 }
+
+/* database */
+var sqlite3 = require('sqlite3');
+var dbName = ('./asset/databases/example.sqlite');
 
 /* game start */
 function gameStart() {
