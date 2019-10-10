@@ -21,5 +21,7 @@ appendScript("./asset/javascripts/select.js");
 appendScript("./asset/javascripts/home.js");
 appendScript("./asset/javascripts/main.js");
 
-appendScript("./asset/javascripts/makeq.js");
+appendScript("./asset/javascripts/admin.js");
+appendScript("./asset/javascripts/makequiz.js");
+appendScript("./asset/javascripts/makescenario.js");
 

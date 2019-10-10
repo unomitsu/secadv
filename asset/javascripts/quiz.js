@@ -30,7 +30,7 @@ class SceneQuiz extends Scene {
 
 	// 実行内容
 	this.setDivScene();
-	this.setDivTeamData();
+	this.setDivPlayerData();
 	this.setDivMainText();
 
 	this.changeBackImage("./asset/images/backdrop.jpg");

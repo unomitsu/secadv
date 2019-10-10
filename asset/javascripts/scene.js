@@ -8,7 +8,7 @@ class Scene {
 	// シーン全体の区画
 	this.divScene = document.createElement('div');	
 	// チーム情報を表示する区画
-	this.divTeamData = document.createElement('div');
+	this.divPlayerData = document.createElement('div');
 	// テキストを表示する区画
 	this.divMainText = document.createElement('div');
 	// ホームボタン
@@ -19,12 +19,12 @@ class Scene {
 	advFrame.innerHTML = "";
     }
 
-    /* ----- シーン区画の追加 ----- */
+    /* ----- シーン画面 ----- */
     setDivScene() {
 	this.divScene.className = "SceneBody";
 	advFrame.appendChild(this.divScene);
     }
-    // -- 背景画像のパスを変更
+    // -- 背景画像のパスを変更__未完成
     changeBackImage(path) {
 	var obt = getComputedStyle(document.documentElement).getPropertyValue('--adv-backimage');
 	console.log(obt);
@@ -34,51 +34,54 @@ class Scene {
 	//this.divScene.style.backgroundImage = "url("+path+")";
     }
     
-    /* ----- チーム情報区画の設定 ----- */
-    setDivTeamData() {
-	this.divTeamData.className = "TeamData";
-	
-	// データの描画
-	this.drawStringTeamData("NAME  : " + player.name);
-	this.drawStringTeamData("SCORE : " + player.score);
-	this.drawStringTeamData("MONEY : " + player.money);	
-
+    /* ----- プレイヤー情報区画 ----- */
+    setDivPlayerData() {
+	// CSSクラスで配置
+	this.divPlayerData.className = "playerData";
+	// テキストの追加
+	this.divPlayerData.textContent
+	    = "Name->" + player.name
+	    + "__SCORE->" + player.score
+	    + "__MONEY->" + player.money
+	    + "__HINT->" + 100
+	    + "__ITEM->" + 100;
 	// 親要素への追加
-	this.divScene.appendChild(this.divTeamData);
-    }
-    // -- チームデータ区画への, 文字列の p タグでの描画
-    drawStringTeamData(string) {
-	let pstr = document.createElement('p');
-	pstr.className = "TeamData"
-	pstr.textContent = string;
-	this.divTeamData.appendChild(pstr);
+	this.divScene.appendChild(this.divPlayerData);
     }
     
     /* ----- テキスト区画の設定 ----- */
     setDivMainText() {
+	// CSSクラスで配置
 	this.divMainText.className = "MainText";
+	// シーン画面へ追加
 	this.divScene.appendChild(this.divMainText);
     }
-    // テキスト区画への文字列の描画
+    // -- テキスト区画への文字列の描画
     setMainText(str) {
+	// 仮DOMの作成
 	let pstr = document.createElement('p');
 	pstr.className = "MainText";
 	pstr.textContent = str;
 	this.divMainText.appendChild(pstr);
     }
-    // テキスト区画の文字列の削除
+    // -- テキスト区画の文字列の削除
     clearMainText() {
 	this.divMainText.innerHTML = "";
     }
     
     /* ----- ホームボタンの設定 ----- */
     setButtonHome() {
+	// CSSでは位置
 	this.buttonHome.className = "ButtonHome";
+	// テキスト、イベントの設定
+	this.buttonHome.textContent = "家";
 	this.buttonHome.addEventListener(
 	    "click", this.buttonHome_clickEvent, false
 	);
+	// シーン画面へ追加
 	this.divScene.appendChild(this.buttonHome);
     }
+    // -- ホーム画面へ遷移
     buttonHome_clickEvent() {
 	currentScene = new SceneHome();
     }

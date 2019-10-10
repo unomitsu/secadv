@@ -1,42 +1,34 @@
-/* ===== 問題を作るページ ===== */
+/* ===== 問題作成ページ ===== */
 
 class SceneMakeQuiz extends Scene {
     constructor() {
 	super();  // 親クラスの読み込み
-
-	this.initialize();
+	this.initialize(); // 初期処理
     }
     initialize() {
-	// 戻るボタン
+	// 管理者用ページへ戻るボタン
 	this.buttonBack = document.createElement('button');
-
-	// 登録ボタン
+	// 問題登録ボタン
 	this.buttonAdd = document.createElement('button');
-
-	// 問題文
+	// 問題文入力欄
 	this.textAreaQuiz = document.createElement('textarea');
-
-	// 解答選択肢
+	// 解答選択肢入力欄
 	this.textAnswer1 = document.createElement('input');
 	this.textAnswer2 = document.createElement('input');
 	this.textAnswer3 = document.createElement('input');
 	this.textAnswer4 = document.createElement('input');
-
-	// 解説文
+	// 解説文入力欄
 	this.textAreaExplanation = document.createElement('textarea');
 	
-	// 親クラスのメソッド
+	// 親クラス系の初期設定
 	this.setDivScene();
 
-	// 各設定
+	// 各初期設定
 	this.setButtonBack();
 	this.setTextAreaQuiz();
 	this.setTextAnswer();
 	this.setTextAreaExplanation();
 	this.setButtonAdd();
-
-	// データベースを開いておきたい
-	//db = new sqlite.Database('./asset/databases/example.sqlite');
     }
 
     /* ----- 戻るボタン ----- */
@@ -51,8 +43,7 @@ class SceneMakeQuiz extends Scene {
     }
     // -- タイトルへ戻るイベント
     buttonBack_clickEvent() {
-	//db.close();
-	currentScene = new SceneTitle();
+	currentScene = new SceneAdmin();
     }
 
     /* ----- データベースへ追加するボタン ----- */
@@ -69,19 +60,8 @@ class SceneMakeQuiz extends Scene {
     // -- データベースへ追加するイベント
     buttonAdd_clickEvent() {
 	dbInsert();
-	/*
-	db.serialize(function() {
-	    db.run('INSERT INTO user (name, age) VALUES ($i, $j)',
-		   {
-		       $i: "Wah",
-		       $j: 100
-		   }
-		  );
-	});
-	*/
     }
-		    
-		     
+		    		     
     /* ----- 問題文 ----- */
     setTextAreaQuiz() {
 	this.textAreaQuiz.className = "MakeElement";

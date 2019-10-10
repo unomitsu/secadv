@@ -1,0 +1,29 @@
+/* シナリオ作成ページ テキストエリア */
+textarea.makescenario {
+    position: absolute;
+    resize: none;
+    width: calc(var(--adv-width) / 2);
+
+    left: calc(var(--adv-width) / 10);
+}
+.makescenario.input {
+    height: calc(var(--adv-height) / 4);
+    top: calc(var(--adv-height) / 10);
+}
+.makescenario.output {
+    height: calc(var(--adv-height) / 2);
+    top: calc(var(--adv-height) / 10 + var(--adv-height) / 3);
+}
+/* admin.css内のadminButton継承 */
+.buttonL.makescenario {
+    left: calc(var(--adv-width) * 2 / 3);
+}
+.makescenario.backAdmin {
+    top: calc(var(--adv-height) / 10);
+}
+.makescenario.addTemporaryScenario {
+    top: calc(var(--adv-height) / 5 + var(--adv-height) / 6);
+}
+.makescenario.addScenarioToDB {
+    top: calc(var(--adv-height) * 2 / 5 + var(--adv-height) / 4);
+}

@@ -17,7 +17,7 @@ class SceneResult extends Scene {
 
 	// 各設定
 	this.setDivScene();
-	this.setDivTeamData();
+	this.setDivPlayerData();
 	this.setDivMainText();
 	this.setButtonHome();
 

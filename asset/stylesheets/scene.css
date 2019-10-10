@@ -1,3 +1,4 @@
+/* ----- シーン画面 ----- */
 div.SceneBody {
     position: relative;
     background-size: cover;
@@ -7,39 +8,42 @@ div.SceneBody {
     height: var(--adv-height);
 }
 
-div.TeamData {
-    background: pink;
+/* ----- プレイヤーデータ ----- */
+div.playerData {
     position: absolute;
+    text-align: right;
+    padding: 10px;
+    background: gray;
+    color: white;
 
-    left: calc(var(--adv-width) / 50);
-    top: calc(var(--adv-width) / 50);
-    width: calc(var(--adv-width) / 4);
+    width: var(--adv-width);
+    height: calc(var(--adv-height) / 50);
 }
 
-p.TeamData {
-    margin: 8px;
-}
-
+/* ----- メインテキスト ----- */
 div.MainText {
-    background: aqua;
+    background: white;
     position: absolute;
     padding: 4px;
+    border: 6px groove;
 
     top: calc(var(--adv-height) * 3 / 4);
     left: calc(var(--adv-width) / 50);
-    width: calc(var(--adv-width) - var(--adv-width) /25 - 8px);
-    height: calc(var(--adv-height) / 4 - var(--adv-width) / 50);
+    width: calc(var(--adv-width) - var(--adv-width) /25 - 20px);
+    height: calc(var(--adv-height) / 4 - var(--adv-width) / 50 - 20px);
 }
 
 p.MainText {
     margin: 0px;
 }
 
+/* ----- ホームボタン ----- */
 button.ButtonHome {
     position: absolute;
+    background: gray;
+    color: white;
+    border: 2px ridge;
 
-    left: calc(var(--adv-width) * 4 / 5);
-    top: calc(var(--adv-width) / 50);
-    width: calc(var(--adv-width) * 3 / 17);
-    height: calc(var(--adv-height) / 10);
+    width: calc(var(--adv-width) / 10);
+    height: calc(var(--adv-width) / 10);
 }

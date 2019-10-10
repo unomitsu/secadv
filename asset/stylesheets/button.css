@@ -1,0 +1,11 @@
+button.buttonL {
+    position: absolute;
+    width: calc(var(--adv-width) / 4);
+    height: calc(var(--adv-height) / 6);
+}
+
+button.buttonM {
+    position: absolute;
+    width: calc(var(--adv-width) / 8);
+    height: calc(var(--adv-height) / 12);
+}

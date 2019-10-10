@@ -11,7 +11,7 @@ class SceneHome extends Scene {
 	document.createElement('button');
 	
 	this.setDivScene();
-	this.setDivTeamData();
+	this.setDivPlayerData();
 	this.setDivMainText();
 
 	this.changeBackImage("./asset/images/backdrop.jpg");

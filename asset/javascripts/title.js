@@ -3,58 +3,67 @@
 class SceneTitle extends Scene {
     constructor() {
 	super();  // 親クラスの読み込み
-
+	this.initialize();  // 初期処理
+    }
+    initialize() {
 	// タイトル文字列
 	this.h1Title = document.createElement('h1');
-
-	// 遷移ボタン
+	// ゲーム開始ボタン
 	this.buttonStart = document.createElement('button');
-
-	// 問題作成ボタン
-	this.buttonMake = document.createElement('button');
+	// 管理者用ページボタン
+	this.buttonAdmin = document.createElement('button');
 	
-	// 実行内容
+	// 親クラス系の初期処理
 	this.setDivScene();
+	this.changeBackImage("./asset/images/backdrop.jpg");
 
-	this.divScene.style.background = "green";
+	// 初期処理
 	this.setH1Title();
 	this.setButtonStart();
-	this.setButtonMake();
+	this.setButtonAdmin();
     }
+
     /* ----- タイトル 文字列 ----- */
     setH1Title() {
+	// CSSクラスで配置
 	this.h1Title.className = "Title";
-	this.h1Title.textContent = "ADV_ADV_ADV";
+	// タイトルの文字列設定
+	this.h1Title.textContent = "SECADV";
+	// シーン画面へ追加
 	this.divScene.appendChild(this.h1Title);
     }
+
     /* ----- ゲームスタートボタン ----- */
     setButtonStart() {
-	this.buttonStart.className = "StartButton";
+	// CSSクラスで配置
+	this.buttonStart.className = "buttonL startButton";
+	// テキスト、イベントの設定
 	this.buttonStart.textContent = "はじめる";
-	
 	this.buttonStart.addEventListener(
 	    "click", this.buttonStart_clickEvent, false
 	);
-	
+	// シーン画面へ追加
 	this.divScene.appendChild(this.buttonStart);
     }
-    // -- スタートボタンイベント
+    // -- シナリオシーンへ遷移
     buttonStart_clickEvent() {
 	currentScene = new SceneScenario();
     }
 
-    /* ----- 問題作成ボタン ----- */
-    setButtonMake() {
-	this.buttonMake.className = "ButtonMake";
-	this.buttonMake.textContent = "問題作成";
-	this.buttonMake.addEventListener(
-	    "click", this.buttonMake_clickEvent, false
+    /* ----- 管理者用ページボタン ----- */
+    setButtonAdmin() {
+	// CSSクラスで配置
+	this.buttonAdmin.className = "buttonM buttonAdmin";
+	// テキスト、イベントの設定
+	this.buttonAdmin.textContent = "管理者用";
+	this.buttonAdmin.addEventListener(
+	    "click", this.buttonAdmin_clickEvent, false
 	);
-
-	this.divScene.appendChild(this.buttonMake);
+	// シーン画面へ追加
+	this.divScene.appendChild(this.buttonAdmin);
     }
-    // 問題作成ページへの遷移イベント
-    buttonMake_clickEvent() {
-	currentScene = new SceneMakeQuiz();
+    // 管理者用ページへ遷移
+    buttonAdmin_clickEvent() {
+	currentScene = new SceneAdmin();
     }
 }

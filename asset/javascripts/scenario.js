@@ -16,7 +16,7 @@ class SceneScenario extends Scene {
 	this.setDivScene();
 	this.changeBackImage("../../assets/images/backdrop.jpg");
 	this.setDivMainText();
-	this.setDivTeamData();
+	this.setDivPlayerData();
 	this.setButtonHome();
 
 	this.setScenarioMove();
