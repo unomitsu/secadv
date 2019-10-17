@@ -21,6 +21,9 @@ class SceneTitle extends Scene {
 	this.setH1Title();
 	this.setButtonStart();
 	this.setButtonAdmin();
+
+	//
+	dbSelectQuizAll();
     }
 
     /* ----- タイトル 文字列 ----- */

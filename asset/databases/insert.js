@@ -1,4 +1,4 @@
-function dbInsert() {
+function dbInsertQuiz() {
     var db = new sqlite3.Database(dbName);  // DBを開く
 
     // データベースへ追加
@@ -9,6 +9,21 @@ function dbInsert() {
 		   $j: 987
 	       });
     });		  
+
+    db.close();  // DBを閉じる
+}
+
+function dbInsertScenario(id, snum, scenario) {
+    var db = new sqlite3.Database(dbName);  // DBを開く
+
+    db.serialize( () => {
+	db.run('INSERT INTO scenarios (id, snum, scenario) VALUES ($a, $b, $c)',
+	       {
+		   $a: id,
+		   $b: snum,
+		   $c: scenario
+	       });
+    });
 
     db.close();  // DBを閉じる
 }

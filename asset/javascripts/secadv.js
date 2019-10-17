@@ -10,6 +10,7 @@ function appendScript(url) {
 // tmp -- appendScript("./asset/javascripts/.js");
 appendScript("./asset/databases/startup.js");
 appendScript("./asset/databases/insert.js");
+appendScript("./asset/databases/select.js");
 
 appendScript("./asset/javascripts/data.js");
 appendScript("./asset/javascripts/scene.js");
