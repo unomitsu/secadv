@@ -4,11 +4,13 @@
     "description": "",
     "main": "./index.js",
     "scripts": {
-	"start": "electron ."
+        "start": "electron ."
     },
     "author": "unomitsu",
     "license": "ISC",
-    "devDependencies": {
-	"electron": "^5.0.6"
+    "devDependencies": {},
+    "dependencies": {
+        "electron": "^7.0.0",
+        "electron-rebuild": "^1.8.6"
     }
 }
