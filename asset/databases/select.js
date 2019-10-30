@@ -1,19 +1,29 @@
-function dbSelectQuizAll() {
-    var db = new sqlite3.Database(dbName);  // DBを開く
-    
-    // データベースから全問題データを取得
-    db.all('SELECT * FROM quizzes', function (err, rows) {
-        // エラーが発生した場合、エラーを返す
-        if (err) { throw err; }
-        // 
-        rows.forEach(function (row) {
-            console.log(row);
+
+/* ----- quizzes table から全データを取得 ----- */ 
+function getQuizzes() {
+    return new Promise(resolve => {
+        var db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全クイズデータを取得
+        db.serialize(() => {
+            db.all('SELECT * FROM quizzes', function (err, rows) {
+                // エラーが発生した場合、エラーを返す
+                if (err) { throw err; }
+
+                db.close();  // DBを閉じる
+                resolve(rows);  // Promiseで返すresolveを設定
+            });
         });
     });
-
-    db.close();  // DBを閉じる
 }
 
+async function dbSelectQuizzesAll() {
+    const result = await getQuizzes();
+    console.log("<SELECT quizzes>", result);
+    return result;
+}
+
+/* ----- scenarios table から全データを取得 ----- */
 function getScenario() {
     return new Promise(resolve => {
         var db = new sqlite3.Database(dbName);  // DBを開く
@@ -21,8 +31,6 @@ function getScenario() {
         // データベースから全シナリオデータを取得
         db.serialize(() => {
             db.all('SELECT * FROM scenarios', function (err, rows) {
-                console.log("get -> ", rows);
-
                 db.close();  // DBを閉じる
                 resolve(rows);  // Promiseで返すresolveを設定
             });
@@ -32,7 +40,7 @@ function getScenario() {
 
 async function dbSelectScenarioAll() {
     const result = await getScenario();
-    console.log(result);
+    console.log("<SELECT scenario>", result);
     return result;
 }
 

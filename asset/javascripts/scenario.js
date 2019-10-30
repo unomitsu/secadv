@@ -2,10 +2,12 @@
 /* ===== シーン シナリオ ===== */
 class SceneScenario extends Scene {
     constructor() {
+        console.log("[BEGIN] SceneScenario load...");
+
         super();  // 親クラスの読み込み
         this.initialize();  // 初期処理
     }
-    initialize() {
+    async initialize() {
         // シナリオ配列
         this.scenarios = "";
         // シナリオ添字
@@ -19,8 +21,10 @@ class SceneScenario extends Scene {
         this.setButtonHome();
 
         // 初期設定
-        this.loadScenarios();
+        await this.loadScenarios();
         this.setScenarioMove();
+
+        console.log("[FINISH] SceneScenario !");
     }
 
     /* ----- シーン画面の設定 ----- */
@@ -35,21 +39,14 @@ class SceneScenario extends Scene {
 
     // -- シーン画面のイベント
     scenario_clickEvent() {
-        currentScene.scenarioId += 1;
-        let id = currentScene.scenarioId;
-        let len = currentScene.scenarios.length;
-
-        console.log("EVE", currentScene.scenarios);
-        console.log("EVE", currentScene.scenarios[0]['scenaio']);
-        console.log("EVE", currentScene.scenarioId, " +++ ", currentScene.scenarios.length);
-
+        currentScene.scenarioId += 1;  // 現在のシナリオ位置を進める
+        
         // テキストがあれば、テキストの表示を更新
-        if (id < len) {
+        if (currentScene.scenarioId < currentScene.scenarios.length) {
+            // テキスト表示エリアの初期化
             currentScene.clearMainText();
-            currentScene.setMainText(
-                currentScene.scenarios[currentScene.scenarioId]['scenario']
-            );
-            console.log(currentScene.scenarios[currentScene.scenarioId]['scenario']);
+            // テキストの設定
+            currentScene.setMainText(currentScene.scenarios[currentScene.scenarioId]['scenario']);
         }
         // テキストがなければ, クイズシーンへ遷移
         else {
@@ -59,9 +56,10 @@ class SceneScenario extends Scene {
 
     /* ----- シナリオの読み込み ----- */
     async loadScenarios() {
+        console.log("[BEGIN] Scenario load...");
+
         // DBからシナリオデータの読み込み
-        await dbSelectScenarioAll().then(res => {
-            console.log(res);
+        const result = await dbSelectScenarioAll().then(res => {
             currentScene.scenarios = res;
         });
 
@@ -70,10 +68,10 @@ class SceneScenario extends Scene {
             currentScene.scenarios = ["シナリオがありません。"];
         }
         
-        console.log("<after>", currentScene.scenarios);
-        console.log("<after>", currentScene.scenarios.length);
-
-        // テキストの設定
+        // 初めのテキストの設定
         this.setMainText(currentScene.scenarios[0]['scenario']);
+
+        console.log("[FINISH] Scenario -> ", currentScene.scenarios);
+        return result;
     }
 }

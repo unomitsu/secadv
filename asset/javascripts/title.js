@@ -2,8 +2,12 @@
 
 class SceneTitle extends Scene {
     constructor() {
+        console.log("[BEGIN] SceneTitle load...");
+
         super();  // 親クラスの読み込み
         this.initialize();  // 初期処理
+
+        console.log("[FINISH] SceneTitle !");
     }
     initialize() {
         // タイトル文字列
@@ -21,9 +25,6 @@ class SceneTitle extends Scene {
         this.setH1Title();
         this.setButtonStart();
         this.setButtonAdmin();
-
-        //
-        dbSelectQuizAll();
     }
 
     /* ----- タイトル 文字列 ----- */
