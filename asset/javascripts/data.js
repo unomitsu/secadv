@@ -40,7 +40,8 @@ function setBackImagePath(path) {
 var sqlite3 = require('sqlite3');
 var dbName = ('./asset/databases/example.sqlite');
 
-/* ===== game start ====== */
+/* ===== game start ====== 
 function gameStart() {
     currentScene = new SceneTitle();
 }
+*/

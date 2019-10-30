@@ -8,12 +8,13 @@ function appendScript(url) {
 
 // import javascript
 // tmp -- appendScript("./asset/javascripts/.js");
+appendScript("./asset/databases/newtable.js");
 appendScript("./asset/databases/startup.js");
 appendScript("./asset/databases/insert.js");
 appendScript("./asset/databases/select.js");
 
-appendScript("./asset/javascripts/data.js");
 appendScript("./asset/javascripts/scene.js");
+appendScript("./asset/javascripts/data.js");
 appendScript("./asset/javascripts/title.js");
 appendScript("./asset/javascripts/scenario.js");
 appendScript("./asset/javascripts/quiz.js");
