@@ -3,6 +3,7 @@
 class SceneScenario extends Scene {
     constructor() {
         console.log("[BEGIN] SceneScenario load...");
+        currentSceneName = "SCENARIO";
 
         super();  // 親クラスの読み込み
         this.initialize();  // 初期処理
@@ -18,7 +19,7 @@ class SceneScenario extends Scene {
         this.changeBackImage("../../assets/images/backdrop.jpg");
         this.setDivMainText();
         this.setDivPlayerData();
-        this.setButtonHome();
+        //this.setButtonHome();
 
         // 初期設定
         await this.loadScenarios();

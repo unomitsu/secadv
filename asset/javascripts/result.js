@@ -1,80 +1,56 @@
 
 // ===== シーン リザルト =====
+// 正答、誤答のアニメーションを表示する
+
 class SceneResult extends Scene {
-    constructor(ans) {
-	super();
+    constructor() {
+        console.log("[BEGIN] SceneResult load...");
+        currentSceneName = "RESULT";
 
-	console.log(quizData);
-	// 必要な変数
-	this.playerAnswer = ans;
+        super();    // 親クラスの読み込み
+        this.initialize();  // 初期処理
 
-	// アニメーション
-	// this.pAnimation = document.createElement('p');
-	
-	// 再挑戦orギブアップ
-	this.buttonLeft = document.createElement('button');
-	this.buttonRight = document.createElement('button');
-
-	// 各設定
-	this.setDivScene();
-	this.setDivPlayerData();
-	this.setDivMainText();
-	this.setButtonHome();
-
-	this.setButtonNext();
-	this.update();
+        console.log("[FINISH] SceneResult !");
     }
-    /* -- 処理内容 -- */
-    update() {
-	this.setMainText("あなたの回答は" + this.playerAnswer + "でした.");
-	
-	if (quizData["answer"] == this.playerAnswer) {
-	    // << anime
-	    this.setMainText("正答です.");
+    initialize() {
+        // 正答誤答フラグ
+        this.correctFlag = false;
 
-	    this.buttonLeft.textContent = "左に進む";
-	    this.buttonRight.textContent = "右に進む";
-	    this.setMainText("次に進むステージを選択してください.");
-	    // << 遷移処理
-	    // SceneStageがいるような気がする
-	    // SceneStageから、SceneQuizに遷移しよう
-	} else {
-	    // << anime
-	    this.setMainText("誤答です.");
-	    this.buttonLeft.textContent = "再挑戦";
-	    this.buttonRight.textContent = "ギブアップ";
-	    // << 遷移処理
-	    // ギブアップは、Sceneクラスで書く予定
-	    // 再挑戦は、インスタンスの引数の数で分ける
-	}
+        // 親クラス系の各初期設定
+        this.setDivScene();
+        this.setDivPlayerData();
+        this.setDivMainText();
+        //this.setButtonHome();
+
+        this.divScene.addEventListener("click", this.divScene_clickEvent, false);
+
+        // 各初期設定
+        this.setAnimation();
     }
-    /* -- miss 再挑戦orギブアップを選択するためのボタン -- */
 
-    /* --  左右のボタンの設定 -- */
-    setButtonNext() {
-	let span = gameWidth/25;
-	let bWidth = gameWidth/2 - span*2;
-	let bTop = gameHeight*3/4 - span - 100;
+    /* ----- 正答と誤答の表示 ----- */
+    setAnimation() {
+        // 解答の確認
+        this.correctFlag = quizData["choice"][0] == quizPlayerAnswer ? this.correctFlag = true : this.correctFlag = false;
 
-	this.buttonLeft.className = "Select Left";
-	this.buttonLeft.addEventListener(
-	    "click", this.setButtonRevenge_clickEvent, false
-	);	
-	this.divScene.appendChild(this.buttonLeft);
-
-	this.buttonRight.className = "Select Right";
-	this.buttonRight.addEventListener(
-	    "click", this.setButtonGiveUp_clickEvent, false
-	);
-	this.divScene.appendChild(this.buttonRight);
+        // テキストの設定とフラグの設定
+        if (this.correctFlag) {
+            this.setMainText(`正答です！あなたの回答は ${quizPlayerAnswer} でした。`);
+        }
+        else {
+            this.setMainText(`誤答です。正答は ${quizData["choice"][0]} 。あんたの回答は ${quizPlayerAnswer} でした。`);
+        }
     }
-    // -- 再挑戦ボタンのイベント
-    setButtonRevenge_clickEvent() {
-	quizData["text"] = "quizquiz"
-	currentScene = new SceneQuiz(quizData);
-    }
-    // -- ギブアップボタンのイベント
-    setButtonGiveUp_clickEvent() {
-	currentScene = new SceneTitle();
+
+    /* ----- 指定時間以降にクリックした際に、コンテニュー画面もしくはステージセレクト画面へ遷移する ----- */
+    divScene_clickEvent() {
+        // 正答の際は、ステージセレクト画面へ遷移する
+        if (currentScene.correctFlag) {
+            currentScene = new SceneSelect();
+        }
+        // 誤答の際は、コンテニュー画面へ遷移する
+        else {
+            currentScene = new SceneContinue();
+        }
     }
 }

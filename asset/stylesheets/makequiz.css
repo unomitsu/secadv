@@ -1,0 +1,56 @@
+﻿
+/* ===== シナリオ作成ページ テキストエリア ===== */
+
+textarea.makequiz {
+    position: absolute;
+    resize: none;
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-height) / 5);
+    left: calc(var(--adv-width) / 20);
+}
+
+.makequiz.problem {
+    top: calc(var(--adv-height) / 10);
+}
+
+/* textarea:top + textarea:height + input:span + input:height */
+.makequiz.explanation {
+    top: calc((var(--adv-height) / 10) + (var(--adv-height) / 5) + (7 * var(--adv-height) / 40) + (4 * var(--adv-height) / 25));
+}
+
+input.makequiz {
+    position: absolute;
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-height) / 25);
+    left: calc(var(--adv-width) / 20);
+}
+
+/* textarea:top + textarea:height + input:span + input:height */
+.makequiz.answer1 {
+    top: calc((var(--adv-height) / 10) + (var(--adv-height) / 5) + (2 * var(--adv-height) / 40));
+}
+.makequiz.answer2 {
+    top: calc((var(--adv-height) / 10) + (var(--adv-height) / 5) + (3 * var(--adv-height) / 40) + (var(--adv-height) / 25));
+}
+.makequiz.answer3 {
+    top: calc((var(--adv-height) / 10) + (var(--adv-height) / 5) + (4 * var(--adv-height) / 40) + (2 * var(--adv-height) / 25));
+}
+.makequiz.answer4 {
+    top: calc((var(--adv-height) / 10) + (var(--adv-height) / 5) + (5 * var(--adv-height) / 40) + (3 * var(--adv-height) / 25));
+}
+
+/* ----- button.css 内の ButtonL 継承 ----- */
+
+.buttonL.makequiz {
+    left: calc(var(--adv-width) * 2 / 3);
+}
+
+.makequiz.backAdmin {
+    top: calc(var(--adv-height) / 10);
+}
+
+.makequiz.addQuizToDB {
+    top: calc(var(--adv-height) / 5 + var(--adv-height) / 6);
+}
+
+

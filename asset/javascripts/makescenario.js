@@ -18,7 +18,7 @@ class SceneMakeScenario extends Scene {
         this.buttonBackAdmin = document.createElement('button');
 
         // シナリオの仮保持用にシナリオデータを初期化
-        scenarioData["main"] = [];
+        scenarioData = [];
 
         // 親クラス系の各初期設定
         this.setDivScene();

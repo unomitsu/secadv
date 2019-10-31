@@ -9,6 +9,7 @@ var player = {
     money: 200              // 所持金
 };
 
+
 /* ----- 問題データ ----- */
 var quizData = {
     id: 0,                             // ID
@@ -16,18 +17,15 @@ var quizData = {
     choice: ["c1", "c2", "c3", "c4"],  // 選択肢
     explanation: "c1"                  // 解説
 };
+var quizPlayerAnswer;
+
 
 /* ----- シナリオデータ ----- */
-var scenarioData = {
-    main: []
-}
+var scenarioData;
 
 /* ----- シーンデータ ----- */
-var sceneData = {
-    previous: null,
-    current: null
-}
 var currentScene;   // 現在のシーン
+var currentSceneName = "";   // 現在のシーン名
 
 /* back image */
 var backImagePath;  // 背景画像のパス

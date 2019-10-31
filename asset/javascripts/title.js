@@ -3,8 +3,10 @@
 class SceneTitle extends Scene {
     constructor() {
         console.log("[BEGIN] SceneTitle load...");
+        currentSceneName = "TITLE";
 
         super();  // 親クラスの読み込み
+
         this.initialize();  // 初期処理
 
         console.log("[FINISH] SceneTitle !");

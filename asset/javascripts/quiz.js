@@ -2,6 +2,9 @@
 /* ===== シーン クイズ ===== */
 class SceneQuiz extends Scene {
     constructor(qDoc) {
+        console.log("[BEGIN] SceneQuiz load...");
+        currentSceneName = "QUIZ";
+
         super();  // 親クラスの読み込み
         this.initialize();
 
@@ -9,7 +12,7 @@ class SceneQuiz extends Scene {
         // これによって、取得する問題を変更する、予定
     }
     // -- 初期化
-    initialize() {
+    async initialize() {
         // 問題の回答ボタン
         this.buttonQuiz = [
             document.createElement('button'),
@@ -29,7 +32,9 @@ class SceneQuiz extends Scene {
         // 初期設定
         this.setButtonQuiz();
         this.setButtonGiveUp();
-        this.setQuiz();
+        await this.setQuiz();
+
+        console.log("[FINISH] SceneQuiz !");
     }
 
     /* -- 出題内容の取得と設定 -- */
@@ -88,8 +93,8 @@ class SceneQuiz extends Scene {
     }
     // -- リザルトシーンへの遷移イベント
     buttonQuiz_clickEvent(qDoc) {
-        // コンストラクタの引数に、クリックしたボタンの id を渡す
-        currentScene = new SceneResult(this.id);
+        quizPlayerAnswer = this.textContent;
+        currentScene = new SceneResult();
     }
     // -- 回答ボタンのテキストを設定,  引数は、要素数4の配列
     setButtonQuizText(ansList) {
