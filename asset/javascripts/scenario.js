@@ -32,10 +32,7 @@ class SceneScenario extends Scene {
 
     // -- 最初のシナリオとクリックで進むイベントの追加
     setScenarioMove() {
-        // イベントの設定
-        this.divScene.addEventListener(
-            "click", this.scenario_clickEvent, false
-        );
+        this.divScene.addEventListener("click", this.scenario_clickEvent, false);
     }
 
     // -- シーン画面のイベント
@@ -47,7 +44,7 @@ class SceneScenario extends Scene {
             // テキスト表示エリアの初期化
             currentScene.clearMainText();
             // テキストの設定
-            currentScene.setMainText(currentScene.scenarios[currentScene.scenarioId]['scenario']);
+            currentScene.setMainText(currentScene.scenarios[currentScene.scenarioId]['text']);
         }
         // テキストがなければ, クイズシーンへ遷移
         else {
@@ -59,8 +56,26 @@ class SceneScenario extends Scene {
     async loadScenarios() {
         console.log("[BEGIN] Scenario load...");
 
-        // DBからシナリオデータの読み込み
-        const result = await dbSelectScenarioAll().then(res => {
+        // シナリオセットに対応するシナリオのIDを取得
+        const result = await dbSelectWhereAll("relation_scenarioset_scenario", `id_scenarioset = ${scenariosetID["id"]}`).then(res => {
+            scenariosID = res;
+        });
+        // 対応するシナリオの情報を取得
+        await dbSelectWhereAll("scenario, relation_scenarioset_scenario", `scenario.id = relation_scenarioset_scenario.id_scenario`).then(res => {
+            scenariosID = res;
+        });
+
+        // 使用するシナリオのIDを決定する
+        let sid = 10;
+        for (let s of scenariosID) {
+            if (s["situation"] == 1) {
+                sid = s["id"];
+                break;
+            }
+        }
+
+        // 最初のシナリオを読み込む
+        await dbSelectWhereAll("scenario_element", `id_scenario=${sid}`).then(res => {
             currentScene.scenarios = res;
         });
 
@@ -70,7 +85,7 @@ class SceneScenario extends Scene {
         }
         
         // 初めのテキストの設定
-        this.setMainText(currentScene.scenarios[0]['scenario']);
+        this.setMainText(currentScene.scenarios[0]['text']);
 
         console.log("[FINISH] Scenario -> ", currentScene.scenarios);
         return result;

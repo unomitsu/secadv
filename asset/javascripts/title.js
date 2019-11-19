@@ -53,7 +53,7 @@ class SceneTitle extends Scene {
     }
     // -- シナリオシーンへ遷移
     buttonStart_clickEvent() {
-        currentScene = new SceneScenario();
+        currentScene = new SceneScenarioSelect();
     }
 
     /* ----- 管理者用ページボタン ----- */

@@ -1,4 +1,6 @@
 
+var QUIZ_BUTTON_NUM = 4;
+
 /* ===== シーン クイズ ===== */
 class SceneQuiz extends Scene {
     constructor(qDoc) {
@@ -39,37 +41,57 @@ class SceneQuiz extends Scene {
 
     /* -- 出題内容の取得と設定 -- */
     async setQuiz() {
-        // DBからデータを取得
-        const result = await dbSelectQuizzesAll();
+        // シナリオの対応するクイズのIDが必要
+        let idid = scenariosID[0]["id"];
+
+        // クイズのデータ取得
+        const ccc = await dbSelectWhereAll('quiz', `id = ${idid}`);
+        console.log(ccc);
+        console.log(ccc[0]["id"]);
+
+        // クイズの選択肢のIDを取得
+        const aaa = await dbSelectWhereAll('relation_quiz_answer', `id_quiz = ${idid}`);
+
+        // 正答IDを1つ, 誤答IDを3つ取得
+        let quizID = aaa;
+        console.log(aaa);
+        // 選択肢のテキストを取得
+        const bbb = await dbSelectWhereAll('quiz_answer', `id = ${aaa[0]["id_answer"]} OR id = ${aaa[1]["id_answer"]} OR id = ${aaa[2]["id_answer"]} OR id = ${aaa[3]["id_answer"]}`);
+        console.log(bbb);
 
         // もしものデータがない場合の処理
-        if (result == null) {
+        if (aaa == null) {
             quizData = {
                 id: 0,
                 text: "問題分です。正解はどれだろう。",
                 choice: ["ans1", "ans2", "ans3", "ans4"],
-                answer: "ans1"
+                answer: "ans1",
+                explanation: "解説だよ"
             };
         }
         // DBから取得したデータを、グローバル変数に格納
         else {
-            quizData['id'] = result[0]['id'];
-            quizData['text'] = result[0]['problem'];
-            quizData['choice'][0] = result[0]['answer1'];
-            quizData['choice'][1] = result[0]['answer2'];
-            quizData['choice'][2] = result[0]['answer3'];
-            quizData['choice'][3] = result[0]['answer4'];
-            quizData['explanation'] = result[0]['explanation'];
+            console.log(quizData);
+            quizData['id'] = ccc[0]['id'];
+            quizData['problem'] = ccc[0]['problem'];
+            quizData['answer'][0] = bbb[0]['answer'];
+            quizData['answer'][1] = bbb[1]['answer'];
+            quizData['answer'][2] = bbb[2]['answer'];
+            quizData['answer'][3] = bbb[3]['answer'];
+            quizData['explanation'] = ccc[0]['explanation'];
+            console.log(quizData);
         }
 
+        console.log("WWW");
+
         // DBから取得したデータを設定
-        this.setMainText(quizData["text"]);
+        this.setMainText(quizData["problem"]);
         this.setButtonQuizText(quizData["choice"]);
     }
 
     /* -- 問題回答ボタン関連の設定 -- */
     setButtonQuiz() {
-        for (let i = 0; i < this.buttonQuiz.length; i++) {
+        for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
             this.buttonQuiz[i].id = i;
 
             // -- CSSクラスで配置
@@ -98,8 +120,8 @@ class SceneQuiz extends Scene {
     }
     // -- 回答ボタンのテキストを設定,  引数は、要素数4の配列
     setButtonQuizText(ansList) {
-        for (let i = 0; i < ansList.length; i++) {
-            this.buttonQuiz[i].textContent = ansList[i];
+        for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
+            this.buttonQuiz[i].textContent = quizData['answer'][i];
         }
     }
 

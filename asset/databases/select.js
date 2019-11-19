@@ -1,4 +1,50 @@
 
+/* ----- 指定したテーブルから全データを取得 ----- */
+function getTableDataAll(tablename) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+        
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all(`SELECT * FROM ${tablename}`, function (err, rows) {
+                // エラーが発生した場合、エラーを返す
+                if (err) { throw err; }
+
+                db.close();  // DBを閉じる
+                resolve(rows);  // Promiseで返すresolveを設定
+            });
+        });
+    });
+}
+async function dbSelectAll(tablename) {
+    const result = await getTableDataAll(tablename);
+    console.log(`<SELECT * FROM ${tablename}>`, result);
+    return result;
+}
+
+/* ----- 指定したテーブルから条件を満たす全データを取得 ----- */
+function getTableDataWhereAll(tablename, query) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+        
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all(`SELECT * FROM ${tablename} WHERE ${query}`, function (err, rows) {
+                // エラーが発生した場合、エラーを返す
+                if (err) { throw err; }
+
+                db.close();  // DBを閉じる
+                resolve(rows);  // Promiseで返すresolveを設定
+            });
+        });
+    });
+}
+async function dbSelectWhereAll(tablename, query) {
+    const result = await getTableDataWhereAll(tablename, query);
+    console.log(`<SELECT * FROM ${tablename} WHERE ${query}>`, result);
+    return result;
+}
+
 /* ----- quizzes table から全データを取得 ----- */ 
 function getQuizzes() {
     return new Promise(resolve => {
@@ -6,7 +52,7 @@ function getQuizzes() {
 
         // データベースから全クイズデータを取得
         db.serialize(() => {
-            db.all('SELECT * FROM quizzes', function (err, rows) {
+            db.all('SELECT * FROM quiz', function (err, rows) {
                 // エラーが発生した場合、エラーを返す
                 if (err) { throw err; }
 

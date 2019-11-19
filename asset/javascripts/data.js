@@ -9,19 +9,26 @@ var player = {
     money: 200              // 所持金
 };
 
+/* ----- シナリオデータ ----- */
+var scenariosetID;
+var scenariosID;
 
 /* ----- 問題データ ----- */
 var quizData = {
-    id: 0,                             // ID
-    text: "quiz.",                     // 問題文
-    choice: ["c1", "c2", "c3", "c4"],  // 選択肢
-    explanation: "c1"                  // 解説
+    id: 0,
+    problem: "problem",
+    answer: ["1", "2", "3", "4"],
+    explanation: "explanation"
 };
-var quizPlayerAnswer;
 
+/*= {
+    id: "id",
+    problem: "problem",
+    explanation: "explanation",
+    answer: ["1", "2", "3", "4"]
+};*/
 
-/* ----- シナリオデータ ----- */
-var scenarioData;
+var quizAnswer;
 
 /* ----- シーンデータ ----- */
 var currentScene;   // 現在のシーン

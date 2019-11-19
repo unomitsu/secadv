@@ -23,6 +23,9 @@
     <Content Include="asset\stylesheets\makequiz.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="asset\stylesheets\scenarioselect.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="etc\prepare_sqlite_vs.txt" />
     <Content Include="index.html" />
     <Content Include="package.json" />
@@ -74,6 +77,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="asset\javascripts\continue.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\javascripts\scenarioselect.js">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

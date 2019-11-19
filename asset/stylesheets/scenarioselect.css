@@ -1,0 +1,10 @@
+﻿h1.scenarioSelect {
+    position: absolute;
+    left: calc(var(--adv-width) / 4);
+}
+
+button.scenarioSelect {
+    position: absolute;
+    left: calc(var(--adv-width) / 6);
+    width: calc(var(--adv-width) * 2 / 3);
+}
