@@ -1,3 +1,28 @@
+
+/* ----- quiz にデータを挿入 ----- */
+
+function dbInsertQuiz(title, problem, explanation, type, level) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースにデータを挿入
+        db.serialize(() => {
+            db.run(`INSERT INTO quiz (title, problem, explanation, type, level) VALUES (${title}, ${problem}, ${explanation}, ${type}, ${level})`);
+        });
+
+        db.close();  // DBを閉じる
+        resolve("resolve");  // Promiseで返すresolveを設定
+    });
+}
+async function insertQuiz(title, problem, explanation, type, level) {
+    const result = await dbInsertQuiz(title, problem, explanation, type, level);
+    console.log(`INSERT INTO quiz (${title}, ${problem}, ${explanation}, ${type}, ${level})`);
+    return result;
+}
+
+
+
+
 function dbInsertQuiz() {
     var db = new sqlite3.Database(dbName);  // DBを開く
 
