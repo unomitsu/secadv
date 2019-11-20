@@ -93,8 +93,18 @@ class SceneMakeQuiz extends Scene {
         };
         console.log("挿入したいデータ ", aaabbbccc);
 
-        /* 選択肢の登録と、クイズとの関連の登録 */
-        // 選択肢の登録  ID, "resolve"
+        /* 問題の登録、問題のIDが返却される */
+        insertQuiz(
+            currentScene.inputTitle.value,
+            currentScene.textAreaQuiz.value,
+            currentScene.textAreaExplanation.value,
+            currentScene.selectType.value,
+            currentScene.selectLevel.value
+        ).then(res => {
+            console.log(res);
+        });
+
+        /* 選択肢の登録、選択肢のIDが返却される */
         insertQuizAnswer(currentScene.inputTitle.value).then(res => {
             console.log(res);
         });

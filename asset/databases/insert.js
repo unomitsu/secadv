@@ -1,4 +1,20 @@
 
+function dbSelectQuizMaxId() {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // IDが最大のものを返却する
+        db.serialize(() => {
+            db.get('SELECT max(id) FROM quiz',
+                (err, row) => {
+                    err ? resolve(err) : resolve(row);  // Promiseで返すresolveを設定
+                }
+            );
+        });
+
+        db.close();  // DBを閉じる
+    });
+}
 
 /* ----- quiz にデータを挿入 ----- */
 function dbInsertQuiz(title, problem, explanation, type, level) {
@@ -7,16 +23,37 @@ function dbInsertQuiz(title, problem, explanation, type, level) {
 
         // データベースにデータを挿入
         db.serialize(() => {
-            db.run(`INSERT INTO quiz (title, problem, explanation, type, level) VALUES ("${title}", "${problem}", "${explanation}", ${type}, ${level})`);
+            db.run('INSERT INTO quiz (title, problem, explanation, type, level) VALUES ($a, $b, $c, $d, $e)',
+                {
+                    $a: title,
+                    $b: problem,
+                    $c: explanation,
+                    $d: type,
+                    $e: level
+                },
+                (err) => {
+                    // Promiseで返すresolveを設定
+                    err ? resolve(err) : resolve("resolve");
+                });
         });
 
         db.close();  // DBを閉じる
-        resolve("resolve");  // Promiseで返すresolveを設定
     });
 }
 async function insertQuiz(title, problem, explanation, type, level) {
-    const result = await dbInsertQuiz(title, problem, explanation, type, level);
-    console.log(`INSERT INTO quiz (title, problem, explanation, type, level) VALUES ("${title}", "${problem}", "${explanation}", ${type}, ${level})`);
+    let result = "reject";     // 処理の結果
+    
+    // 引数データの挿入
+    await dbInsertQuiz(title, problem, explanation, type, level).then(res => {
+        (res == "resolve") ? console.log("挿入完了") : console.log("挿入失敗 - ERR -> ", res);
+    });
+
+    // 最後に追加した行のROWIDを用いて、挿入した引数データのIDを取得する
+    await dbSelectQuizMaxId().then(res => {
+        console.log("BBB ", res);
+        result = res["max(id)"];
+    });
+
     return result;
 }
 
@@ -41,7 +78,7 @@ async function insertQuizAnswer(answer) {
     // 引数データの挿入
     await dbInsertQuizAnswer(answer).then(res => {
         if (res == "resolve") { console.log("挿入完了"); }
-        else { console.log("挿入失敗 - 重複しました"); }
+        else { console.log("挿入失敗 - ERR -> ", res); }
     });
 
     // 引数データのIDを取得する
@@ -54,21 +91,6 @@ async function insertQuizAnswer(answer) {
 
 
 
-
-function dbInsertQuiz() {
-    var db = new sqlite3.Database(dbName);  // DBを開く
-
-    // データベースへ追加
-    db.serialize( () => {
-	db.run('INSERT INTO user (name, age) VALUES ($i, $j)',
-	       {
-		   $i: "Poo",
-		   $j: 987
-	       });
-    });		  
-
-    db.close();  // DBを閉じる
-}
 
 function dbInsertScenario(id, snum, scenario) {
     var db = new sqlite3.Database(dbName);  // DBを開く
