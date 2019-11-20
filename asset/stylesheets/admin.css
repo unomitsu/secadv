@@ -1,18 +1,30 @@
 
 /* 管理者用ページメインメニュー */
 
-.buttonL.adminMenu {
-    left: calc(var(--adv-width) / 2 - var(--adv-width) / 8);
+/*  buttonL  */
+/*  width   var(--adv-width) / 4    */
+/*  height  var(--adv-height) / 6   */
+
+/*  span    var(--adv-height) / 10  */
+/*  left.left   (width - 2*buttonL.width - span) / 2  */
+/*  right.left  left.left + buttonL.width + span                      */
+
+
+.buttonL.adminMenuLeft {
+    left: calc((var(--adv-width) - (2 * var(--adv-width) / 4) - var(--adv-height) / 10) / 2);
+}
+.buttonL.adminMenuRight {
+    left: calc((var(--adv-width) - (2 * var(--adv-width) / 4) - var(--adv-height) / 10) / 2 + (var(--adv-width) / 4) + (var(--adv-height) / 10));
 }
 
-.adminMenu.makeQuiz {
+.buttonL.makeQuiz {
     top: calc(var(--adv-height) / 4 - var(--adv-height) / 12);
 }
 
-.adminMenu.makeScenario {
+.buttonL.makeScenario {
     top: calc(var(--adv-height) / 2 - var(--adv-height) / 12);
 }
 
-.adminMenu.backTitle {
+.buttonL.backTitle {
     top: calc(var(--adv-height) * 3 / 4 - var(--adv-height) / 12);
 }

@@ -58,7 +58,7 @@ class SceneMakeQuiz extends Scene {
         this.buttonBackAdmin.className = "buttonL makequiz backAdmin";
 
         // テキスト、イベントの設定
-        this.buttonBackAdmin.textContent = "タイトルへ戻る";
+        this.buttonBackAdmin.textContent = "管理者ページへ戻る";
         this.buttonBackAdmin.addEventListener("click", this.buttonBack_clickEvent, false);
 
         // シーン画面へ追加
@@ -83,7 +83,16 @@ class SceneMakeQuiz extends Scene {
     }
     // -- データベースへ追加するイベント
     buttonAdd_clickEvent() {
-        dbInsert();
+        console.log("title : ", currentScene.inputTitle.value);
+        console.log("level : ", currentScene.selectLevel.value);
+        console.log("type  : ", currentScene.selectType.value);
+        console.log("problem : ", currentScene.textAreaQuiz.value);
+        console.log("answer1 : ", currentScene.inputAnswer1.value);
+        console.log("answer2 : ", currentScene.inputAnswer2.value);
+        console.log("answer3 : ", currentScene.inputAnswer3.value);
+        console.log("answer4 : ", currentScene.inputAnswer4.value);
+        console.log("explanation : ", currentScene.textAreaExplanation.value);
+
     }
 
     /* ----- タイトル入力欄 ----- */

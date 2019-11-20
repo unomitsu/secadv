@@ -7,18 +7,20 @@ class SceneMakeScenario extends Scene {
     }
     initialize() {
         // シナリオ入力欄
+        // 引数にIDがある場合は複数追加する
         this.textareaInputScenario = document.createElement('textarea');
-        // シナリオ出力欄
-        this.textareaOutputScenario = document.createElement('textarea');
-        // シナリオの仮追加ボタン
-        this.buttonAddTemporaryScenario = document.createElement('button');
+
+        // シナリオ入力欄の追加ボタン
+        this.buttonAddScenarioElement = document.createElement('button');
+
         // DBへのシナリオ追加ボタン
         this.buttonAddScenarioToDB = document.createElement('button');
+
         // 管理者用ページに戻るボタン
         this.buttonBackAdmin = document.createElement('button');
 
-        // シナリオの仮保持用にシナリオデータを初期化
-        scenarioData = [];
+        // シナリオの仮保持
+        this.temporaryScenarioData = [];
 
         // 親クラス系の各初期設定
         this.setDivScene();
@@ -26,8 +28,7 @@ class SceneMakeScenario extends Scene {
 
         // 各初期設定
         this.setTextareaInputScenario();
-        this.setTextareaOutputScenario()
-        this.setButtonAddTemporaryScenario();
+        this.setButtonAddScenarioElement();
         this.setButtonAddScenarioToDB();
         this.setButtonBackAdmin();
     }
@@ -43,55 +44,33 @@ class SceneMakeScenario extends Scene {
         // シーン画面へ追加
         this.divScene.appendChild(this.textareaInputScenario);
     }
-
-    /* ----- シナリオ出力欄 ----- */
-    setTextareaOutputScenario() {
-        // CSSクラスで配置
-        this.textareaOutputScenario.className = "makescenario output";
-        // 読み込み専用に設定
-        this.textareaOutputScenario.readOnly = true;
-        // 出力内容設定用のid設定
-        this.textareaOutputScenario.id = "outputScenario";
-        // シーン画面へ追加
-        this.divScene.appendChild(this.textareaOutputScenario);
-    }
-
+    
     /* ----- シナリオの仮追加ボタン ----- */
-    setButtonAddTemporaryScenario() {
+    setButtonAddScenarioElement() {
         // CSSクラスで配置
-        this.buttonAddTemporaryScenario.className
-            = "buttonL makescenario addTemporaryScenario";
+        this.buttonAddScenarioElement.className = "buttonL makescenario addTemporaryScenario";
+
         // テキスト、イベント設定
-        this.buttonAddTemporaryScenario.textContent = "仮追加する";
-        this.buttonAddTemporaryScenario.addEventListener(
-            'click', this.buttonAddTemporaryScenario_clickEvent, false
-        );
+        this.buttonAddScenarioElement.textContent = "要素を増やす";
+        this.buttonAddScenarioElement.addEventListener('click', this.buttonAddScenarioElement_clickEvent, false);
+
         // シーン画面へ追加
-        this.divScene.appendChild(this.buttonAddTemporaryScenario);
+        this.divScene.appendChild(this.buttonAddScenarioElement);
     }
+
     // -- シナリオの仮配列への挿入イベント
-    buttonAddTemporaryScenario_clickEvent() {
-        // idからシナリオ入力欄のDOMを取得
-        const input = document.getElementById('inputScenario');
-        // 配列へ仮挿入
-        scenarioData["main"].push(input.value);
-        // 出力欄へ追加
-        document.getElementById("outputScenario").value += input.value + "\n";
-        // 入力欄を初期化
-        input.value = ""
-        input.placeholder = "シナリオを入力してください。";
+    buttonAddScenarioElement_clickEvent() {
     }
 
     /* ----- DBへのシナリオ追加ボタン ----- */
     setButtonAddScenarioToDB() {
         // CSSクラスで配置
-        this.buttonAddScenarioToDB.className =
-            "buttonL makescenario addScenarioToDB";
+        this.buttonAddScenarioToDB.className = "buttonL makescenario addScenarioToDB";
+
         // テキスト、イベント設定
         this.buttonAddScenarioToDB.textContent = "シナリオ登録を完了";
-        this.buttonAddScenarioToDB.addEventListener(
-            'click', this.buttonAddScenarioToDB_clickEvent, false
-        );
+        this.buttonAddScenarioToDB.addEventListener('click', this.buttonAddScenarioToDB_clickEvent, false);
+
         // シーン画面へ追加
         this.divScene.appendChild(this.buttonAddScenarioToDB)
     }
@@ -103,13 +82,12 @@ class SceneMakeScenario extends Scene {
     /* ----- 管理者用ページに戻るボタン ------ */
     setButtonBackAdmin() {
         // CSSクラスで配置
-        this.buttonBackAdmin.className =
-            "buttonL makescenario backAdmin";
+        this.buttonBackAdmin.className = "buttonL makescenario backAdmin";
+
         // テキスト、イベント設定
         this.buttonBackAdmin.textContent = "管理者用ページに戻る";
-        this.buttonBackAdmin.addEventListener(
-            'click', this.buttonBackAdmin_clickEvent, false
-        );
+        this.buttonBackAdmin.addEventListener('click', this.buttonBackAdmin_clickEvent, false);
+
         // シーン画面へ追加
         this.divScene.appendChild(this.buttonBackAdmin);
     }
