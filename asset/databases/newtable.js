@@ -204,7 +204,8 @@ function checkQuizAnswer() {
         db.serialize(() => {
             let query = 'CREATE TABLE IF NOT EXISTS quiz_answer ('
                 + 'id INTEGER PRIMARY KEY AUTOINCREMENT, '
-                + 'answer TEXT NOT NULL'
+                + 'answer TEXT NOT NULL UNIQUE, '
+                + 'available INTEGER NOT NULL'
                 + ')';
 
             // TABLEの確認と、無い場合の新規作成
@@ -217,11 +218,11 @@ function checkQuizAnswer() {
 
                 // データが存在しない場合、初期のシナリオを挿入
                 else if (row == null) {
-                    const stmt = db.prepare('INSERT INTO quiz_answer (answer) VALUES (?)');
-                    stmt.run(["解答1"]);
-                    stmt.run(["解答2"]);
-                    stmt.run(["解答3"]);
-                    stmt.run(["解答4"]);
+                    const stmt = db.prepare('INSERT INTO quiz_answer (answer, available) VALUES (?, ?)');
+                    stmt.run(["解答1", 1]);
+                    stmt.run(["解答2", 1]);
+                    stmt.run(["解答3", 1]);
+                    stmt.run(["解答4", 1]);
                     stmt.finalize();
                     console.log("quiz_answer => new");
                 }
@@ -402,7 +403,8 @@ function checkQuizType() {
             // テーブルの確認と、無い場合の新規作成
             let tq = 'CREATE TABLE IF NOT EXISTS quiz_type ('
                 + 'id INTEGER PRIMARY KEY, '
-                + 'type TEXT NOT NULL'
+                + 'type TEXT NOT NULL, '
+                + 'available INTEGER NOT NULL'
                 + ')';
             db.run(tq);
 
@@ -413,11 +415,11 @@ function checkQuizType() {
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
-                    const stmt = db.prepare('INSERT INTO quiz_type (type) VALUES (?)');
-                    stmt.run(['CRYPTO']);
-                    stmt.run(['CALCULATION']);
-                    stmt.run(['KNOWLEDGE']);
-                    stmt.run(['WORK']);
+                    const stmt = db.prepare('INSERT INTO quiz_type (type, available) VALUES (?, ?)');
+                    stmt.run(['CRYPTO', 1]);
+                    stmt.run(['CALCULATION', 1]);
+                    stmt.run(['KNOWLEDGE', 1]);
+                    stmt.run(['WORK', 1]);
                     stmt.finalize();
                     console.log("quiz_type => new");
                 }
@@ -442,7 +444,8 @@ function checkSituationType() {
             // テーブルの確認と、無い場合の新規作成
             let tq = 'CREATE TABLE IF NOT EXISTS situation_type ('
                 + 'id INTEGER PRIMARY KEY, '
-                + 'type TEXT NOT NULL'
+                + 'type TEXT NOT NULL, '
+                + 'available INTEGER NOT NULL'
                 + ')';
             db.run(tq);
 
@@ -453,10 +456,10 @@ function checkSituationType() {
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
-                    const stmt = db.prepare('INSERT INTO situation_type (type) VALUES (?)');
-                    stmt.run(['放課後']);
-                    stmt.run(['昼休憩']);
-                    stmt.run(['大事件']);
+                    const stmt = db.prepare('INSERT INTO situation_type (type, available) VALUES (?, ?)');
+                    stmt.run(['放課後', 1]);
+                    stmt.run(['昼休憩', 1]);
+                    stmt.run(['大事件', 1]);
                     stmt.finalize();
                     console.log("situation_type => new");
                 }
@@ -481,7 +484,8 @@ function checkImageType() {
             // テーブルの確認と、無い場合の新規作成
             let tq = 'CREATE TABLE IF NOT EXISTS image_type ('
                 + 'id INTEGER PRIMARY KEY, '
-                + 'type TEXT NOT NULL'
+                + 'type TEXT NOT NULL, '
+                + 'available INTEGER NOT NULL'
                 + ')';
             db.run(tq);
 
@@ -492,8 +496,8 @@ function checkImageType() {
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
-                    const stmt = db.prepare('INSERT INTO image_type (type) VALUES (?)');
-                    stmt.run(['教室']);
+                    const stmt = db.prepare('INSERT INTO image_type (type, available) VALUES (?, ?)');
+                    stmt.run(['教室', 1]);
                     stmt.finalize();
                     console.log("image_type => new");
                 }

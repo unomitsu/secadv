@@ -42,14 +42,14 @@ class SceneMakeQuiz extends Scene {
         this.setDivScene();
 
         // 各初期設定
-        this.setButtonBackAdmin();
-        this.setInputTitle();
-        this.setSelectLevel();
-        this.setSelectType();
-        this.setTextAreaQuiz();
-        this.setInputAnswer();
-        this.setTextAreaExplanation();
-        this.setButtonAdd();
+        this.setButtonBackAdmin();      // 管理者用ページへ戻るボタン
+        this.setInputTitle();           // タイトル入力欄
+        this.setSelectLevel();          // レベル入力欄
+        this.setSelectType();           // 分類入力欄
+        this.setTextAreaQuiz();         // 問題文入力欄
+        this.setInputAnswer();          // 解答選択肢入力欄
+        this.setTextAreaExplanation();  // 解説文入力欄
+        this.setButtonAdd();            // 問題登録ボタン
     }
 
     /* ----- 管理者ページへ戻るボタン ----- */
@@ -83,16 +83,21 @@ class SceneMakeQuiz extends Scene {
     }
     // -- データベースへ追加するイベント
     buttonAdd_clickEvent() {
-        console.log("title : ", currentScene.inputTitle.value);
-        console.log("level : ", currentScene.selectLevel.value);
-        console.log("type  : ", currentScene.selectType.value);
-        console.log("problem : ", currentScene.textAreaQuiz.value);
-        console.log("answer1 : ", currentScene.inputAnswer1.value);
-        console.log("answer2 : ", currentScene.inputAnswer2.value);
-        console.log("answer3 : ", currentScene.inputAnswer3.value);
-        console.log("answer4 : ", currentScene.inputAnswer4.value);
-        console.log("explanation : ", currentScene.textAreaExplanation.value);
+        const aaabbbccc = {
+            title: currentScene.inputTitle.value,
+            level: currentScene.selectLevel.value,
+            type: currentScene.selectType.value,
+            problem: currentScene.textAreaQuiz.value,
+            answer: [currentScene.inputAnswer1.value, currentScene.inputAnswer2.value, currentScene.inputAnswer3.value, currentScene.inputAnswer4.value],
+            explanation: currentScene.textAreaExplanation.value
+        };
+        console.log("挿入したいデータ ", aaabbbccc);
 
+        /* 選択肢の登録と、クイズとの関連の登録 */
+        // 選択肢の登録  ID, "resolve"
+        insertQuizAnswer(currentScene.inputTitle.value).then(res => {
+            console.log(res);
+        });
     }
 
     /* ----- タイトル入力欄 ----- */
