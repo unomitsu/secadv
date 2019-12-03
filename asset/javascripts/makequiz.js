@@ -82,7 +82,10 @@ class SceneMakeQuiz extends Scene {
         this.divScene.appendChild(this.buttonAdd);
     }
     // -- データベースへ追加するイベント
-    buttonAdd_clickEvent() {
+    async buttonAdd_clickEvent() {
+        let quizId;
+        let selectId;
+
         const aaabbbccc = {
             title: currentScene.inputTitle.value,
             level: currentScene.selectLevel.value,
@@ -94,20 +97,48 @@ class SceneMakeQuiz extends Scene {
         console.log("挿入したいデータ ", aaabbbccc);
 
         /* 問題の登録、問題のIDが返却される */
-        insertQuiz(
+        await insertQuiz(
             currentScene.inputTitle.value,
             currentScene.textAreaQuiz.value,
             currentScene.textAreaExplanation.value,
             currentScene.selectType.value,
             currentScene.selectLevel.value
         ).then(res => {
-            console.log(res);
+            quizId = res;
+            console.log("quiz_ID", quizId);
+
+            getTableDataWhereAll("quiz", `id = ${quizId}`).then(res => {
+                console.log(res);
+            });
+
         });
 
         /* 選択肢の登録、選択肢のIDが返却される */
-        insertQuizAnswer(currentScene.inputTitle.value).then(res => {
-            console.log(res);
+        await insertQuizAnswer(currentScene.inputAnswer1.value).then(res => {
+            selectId = res;
+            console.log("quiz_answer1 ", selectId);
+
+            insertRelationQuizAnswer(quizId, selectId, 1);    // 関連テーブルへの登録
         });
+        await insertQuizAnswer(currentScene.inputAnswer2.value).then(res => {
+            selectId = res;
+            console.log("quiz_answer2 ", selectId);
+
+            insertRelationQuizAnswer(quizId, selectId, 0);    // 関連テーブルへの登録
+        });
+        await insertQuizAnswer(currentScene.inputAnswer3.value).then(res => {
+            selectId = res;
+            console.log("quiz_answer3 ", selectId);
+
+            insertRelationQuizAnswer(quizId, selectId, 0);    // 関連テーブルへの登録
+        });
+        await insertQuizAnswer(currentScene.inputAnswer4.value).then(res => {
+            selectId = res;
+            console.log("quiz_answer4 ", selectId);
+
+            insertRelationQuizAnswer(quizId, selectId, 0);    // 関連テーブルへの登録
+        });
+
     }
 
     /* ----- タイトル入力欄 ----- */

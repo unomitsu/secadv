@@ -1,4 +1,5 @@
 
+/* ----- 最大の quiz.id を返却する ----- */
 function dbSelectQuizMaxId() {
     return new Promise(resolve => {
         const db = new sqlite3.Database(dbName);  // DBを開く
@@ -45,12 +46,12 @@ async function insertQuiz(title, problem, explanation, type, level) {
     
     // 引数データの挿入
     await dbInsertQuiz(title, problem, explanation, type, level).then(res => {
-        (res == "resolve") ? console.log("挿入完了") : console.log("挿入失敗 - ERR -> ", res);
+        console.log(`INSERT INTO quiz (${title}, ${problem}, ${explanation}, ${type}, ${level}) __`);
+        (res == "resolve") ? console.log("挿入完了") : console.log("挿入失敗 - ERR -", res);
     });
 
     // 最後に追加した行のROWIDを用いて、挿入した引数データのIDを取得する
     await dbSelectQuizMaxId().then(res => {
-        console.log("BBB ", res);
         result = res["max(id)"];
     });
 
@@ -90,7 +91,37 @@ async function insertQuizAnswer(answer) {
 }
 
 
+/* relation_quiz_answer にデータを挿入 */
+function dbInsertRelationQuizAnswer(quizId, answerId, flag) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
 
+        // データベースにデータを挿入
+        db.serialize(() => {
+            db.run('INSERT INTO relation_quiz_answer (id_quiz, id_answer, flag) VALUES ($a, $b, $c)',
+                {
+                    $a: quizId,
+                    $b: answerId,
+                    $c: flag
+                },
+                (err) => {
+                    // Promiseで返すresolveを設定
+                    err ? resolve(err) : resolve("resolve");
+                });
+        });
+
+        db.close();  // DBを閉じる
+    });
+}
+/* 問題と選択肢の関連テーブルの登録 */
+async function insertRelationQuizAnswer(quizId, answerId, flag) {
+    // 引数データの挿入
+    const result = await dbInsertRelationQuizAnswer(quizId, answerId, flag).then(res => {
+        console.log(`INSERT INTO relation_quiz_answer (${quizId}, ${answerId}, ${flag} __`);
+        (res == "resolve") ? console.log("挿入完了") : console.log("挿入失敗 - ERR -", res);
+    });
+    return result;
+}
 
 function dbInsertScenario(id, snum, scenario) {
     var db = new sqlite3.Database(dbName);  // DBを開く
