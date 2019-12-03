@@ -1,23 +1,5 @@
 
-/* ----- 最大の quiz.id を返却する ----- */
-function dbSelectQuizMaxId() {
-    return new Promise(resolve => {
-        const db = new sqlite3.Database(dbName);  // DBを開く
-
-        // IDが最大のものを返却する
-        db.serialize(() => {
-            db.get('SELECT max(id) FROM quiz',
-                (err, row) => {
-                    err ? resolve(err) : resolve(row);  // Promiseで返すresolveを設定
-                }
-            );
-        });
-
-        db.close();  // DBを閉じる
-    });
-}
-
-/* ----- quiz にデータを挿入 ----- */
+/* ===== quiz にデータを挿入 ===== */
 function dbInsertQuiz(title, problem, explanation, type, level) {
     return new Promise(resolve => {
         const db = new sqlite3.Database(dbName);  // DBを開く
@@ -41,6 +23,26 @@ function dbInsertQuiz(title, problem, explanation, type, level) {
         db.close();  // DBを閉じる
     });
 }
+
+// 最大の quiz.id を返却する
+function dbSelectQuizMaxId() {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // IDが最大のものを返却する
+        db.serialize(() => {
+            db.get('SELECT max(id) FROM quiz',
+                (err, row) => {
+                    err ? resolve(err) : resolve(row);  // Promiseで返すresolveを設定
+                }
+            );
+        });
+
+        db.close();  // DBを閉じる
+    });
+}
+
+// quiz にデータを挿入し、quiz の id を返す
 async function insertQuiz(title, problem, explanation, type, level) {
     let result = "reject";     // 処理の結果
     
@@ -50,7 +52,7 @@ async function insertQuiz(title, problem, explanation, type, level) {
         (res == "resolve") ? console.log("挿入完了") : console.log("挿入失敗 - ERR -", res);
     });
 
-    // 最後に追加した行のROWIDを用いて、挿入した引数データのIDを取得する
+    // IDが最大であるものを検索することで、挿入した引数データのIDを取得する
     await dbSelectQuizMaxId().then(res => {
         result = res["max(id)"];
     });
@@ -58,7 +60,8 @@ async function insertQuiz(title, problem, explanation, type, level) {
     return result;
 }
 
-/* ----- quiz_answer にデータを挿入 ----- */
+
+/* ===== quiz_answer にデータを挿入 ===== */
 function dbInsertQuizAnswer(answer) {
     return new Promise(resolve => {
         const db = new sqlite3.Database(dbName);  // DBを開く
@@ -73,6 +76,8 @@ function dbInsertQuizAnswer(answer) {
         db.close();  // DBを閉じる
     });
 }
+
+// 可能であれば quiz_answer にデータを挿入し、その id を返す
 async function insertQuizAnswer(answer) {
     let result = "reject";     // 処理の結果
 
@@ -91,7 +96,7 @@ async function insertQuizAnswer(answer) {
 }
 
 
-/* relation_quiz_answer にデータを挿入 */
+/* ===== relation_quiz_answer にデータを挿入 ===== */
 function dbInsertRelationQuizAnswer(quizId, answerId, flag) {
     return new Promise(resolve => {
         const db = new sqlite3.Database(dbName);  // DBを開く
@@ -113,7 +118,8 @@ function dbInsertRelationQuizAnswer(quizId, answerId, flag) {
         db.close();  // DBを閉じる
     });
 }
-/* 問題と選択肢の関連テーブルの登録 */
+
+// 問題と選択肢の関連テーブルの登録をする
 async function insertRelationQuizAnswer(quizId, answerId, flag) {
     // 引数データの挿入
     const result = await dbInsertRelationQuizAnswer(quizId, answerId, flag).then(res => {
@@ -123,11 +129,105 @@ async function insertRelationQuizAnswer(quizId, answerId, flag) {
     return result;
 }
 
+
+/* ===== scenario にデータを挿入 ===== */
+function dbInsertScenario(title, level, situation, image) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースにデータを挿入
+        db.serialize(() => {
+            db.run('INSERT INTO scenario (title, level, situation, image) VALUES ($a, $b, $c, $d)',
+                {
+                    $a: title,
+                    $b: level,
+                    $c: situation,
+                    $d: image
+                },
+                (err) => {
+                    // Promiseで返すresolveを設定
+                    err ? resolve(err) : resolve("resolve");
+                });
+        });
+
+        db.close();  // DBを閉じる
+    });
+}
+
+// 最大の scenario.id を返却する
+function dbSelectScenarioMaxId() {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // IDが最大のものを返却する
+        db.serialize(() => {
+            db.get('SELECT max(id) FROM scenario',
+                (err, row) => {
+                    err ? resolve(err) : resolve(row);  // Promiseで返すresolveを設定
+                }
+            );
+        });
+
+        db.close();  // DBを閉じる
+    });
+}
+
+// scenario にデータを挿入し、scenario の id を返す
+async function insertScenario(title, level, situation, image) {
+    let result = "reject";  // 結果変数
+
+    // 引数データの挿入
+    await dbInsertScenario(title, level, situation, image).then((res) => {
+        console.log(`INSERT INTO scenario (${title}, ${level}, ${situation}, ${image}) -> `);
+        (res == "resolve") ? console.log("挿入完了") : console.log("挿入失敗 - ERR -", res);
+    });
+    // IDが最大であるものを検索することで、挿入した引数データのIDを取得する
+    await dbSelectScenarioMaxId().then((res) => {
+        result = res;
+    });
+
+    return result;
+}
+
+/* ----- scenario_element にデータを挿入 ----- */
+function dbInsertScenarioElement(scenarioId, text, sorder) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースにデータを挿入
+        db.serialize(() => {
+            db.run('INSERT INTO scenario_element (id_scenario, text, sorder) VALUES ($a, $b, $c)',
+                {
+                    $a: scenarioId,
+                    $b: text,
+                    $c: sorder
+                },
+                (err) => {
+                    // Promiseで返すresolveを設定
+                    err ? resolve(err) : resolve("resolve");
+                });
+        });
+
+        db.close();  // DBを閉じる
+    });
+}
+async function insertScenarioElement(scenarioId, text, sorder) {
+    // 引数データの挿入
+    const result = await dbInsertScenarioElement(scenarioId, text, sorder).then(res => {
+        console.log(`'INSERT INTO scenario_element (${scenarioId}, ${text}, ${sorder}) -> `);
+        if (res == "resolve") { console.log("挿入完了"); }
+        else { console.log("挿入失敗 - ERR -> ", res); }
+    });
+    return result;
+}
+
+
+/*
 function dbInsertScenario(id, snum, scenario) {
     var db = new sqlite3.Database(dbName);  // DBを開く
 
     db.serialize( () => {
-	db.run('INSERT INTO scenarios (id, snum, scenario) VALUES ($a, $b, $c)',
+	db.run('INSERT INTO scenario (id, snum, scenario) VALUES ($a, $b, $c)',
 	       {
 		   $a: id,
 		   $b: snum,
@@ -137,6 +237,7 @@ function dbInsertScenario(id, snum, scenario) {
 
     db.close();  // DBを閉じる
 }
+*/
 
 /*
 var sqlite = require('sqlite3').verbose();
