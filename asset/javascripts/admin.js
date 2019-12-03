@@ -14,6 +14,9 @@ class SceneAdmin extends Scene {
         this.buttonMakeScenario = document.createElement('button');
         this.buttonUpdateScenario = document.createElement('button');
 
+        // シナリオセット作成ボタン
+        this.buttonMakeScenarioSet = document.createElement('button');
+
         // タイトルへ戻るボタン
         this.buttonBackTitle = document.createElement('button');
 
@@ -27,13 +30,14 @@ class SceneAdmin extends Scene {
         this.setButtonUpdateQuiz();       // 問題更新ボタン
         this.setButtonMakeScenario();     // シナリオ作成ボタン
         this.setButtonUpdateScenario();   // シナリオ更新ボタン
+        this.setButtonMakeScenarioSet();  // シナリオセット作成ボタン
         this.setButtonBackTitle();        // タイトルへ戻るボタン
     }
 
     /* ----- 問題作成ボタン -----*/
     setButtonMakeQuiz() {
         // CSSクラスで配置
-        this.buttonMakeQuiz.className = "buttonL adminMenuLeft makeQuiz";
+        this.buttonMakeQuiz.className = "buttonL adminMenuLeft adminMenuUp";
 
         // テキスト、イベント設定
         this.buttonMakeQuiz.textContent = "問題作成";
@@ -49,7 +53,7 @@ class SceneAdmin extends Scene {
     /* ----- 問題更新ボタン -----*/
     setButtonUpdateQuiz() {
         // CSSクラスで配置
-        this.buttonUpdateQuiz.className = "buttonL adminMenuRight makeQuiz";
+        this.buttonUpdateQuiz.className = "buttonL adminMenuCenter adminMenuUp";
 
         // テキスト、イベント設定
         this.buttonUpdateQuiz.textContent = "問題更新";
@@ -64,7 +68,7 @@ class SceneAdmin extends Scene {
     /* ----- シナリオ作成ボタン ----- */
     setButtonMakeScenario() {
         //　CSSクラスで配置
-        this.buttonMakeScenario.className = "buttonL adminMenuLeft makeScenario";
+        this.buttonMakeScenario.className = "buttonL adminMenuLeft adminMenuMiddle";
 
         // テキスト、イベントの設定
         this.buttonMakeScenario.textContent = "シナリオ作成";
@@ -80,7 +84,7 @@ class SceneAdmin extends Scene {
     /* ----- シナリオ更新ボタン ----- */
     setButtonUpdateScenario() {
         // CSSクラスで配置設定
-        this.buttonUpdateScenario.className = "buttonL adminMenuRight makeScenario";
+        this.buttonUpdateScenario.className = "buttonL adminMenuCenter adminMenuMiddle";
 
         // テキスト、イベントの設定
         this.buttonUpdateScenario.textContent = "シナリオ更新";
@@ -93,10 +97,26 @@ class SceneAdmin extends Scene {
         currentScene = new SceneUpdateScenario();
     }
 
+    /* ----- シナリオセット作成ボタン ----- */
+    setButtonMakeScenarioSet() {
+        // CSSクラスで配置設定
+        this.buttonMakeScenarioSet.className = "buttonL adminMenuLeft adminMenuDown";
+
+        // テキスト、イベントの設定
+        this.buttonMakeScenarioSet.textContent = "シナリオセット作成";
+        this.buttonMakeScenarioSet.addEventListener('click', this.buttonMakeScenarioSet_clickEvent, false);
+
+        // シーン画面へ追加
+        this.divScene.appendChild(this.buttonMakeScenarioSet);
+    }
+    buttonMakeScenarioSet_clickEvent() {
+
+    }
+
     /* ----- タイトルへ戻るボタン ----- */
     setButtonBackTitle() {
         // CSSクラスで配置
-        this.buttonBackTitle.className = "buttonL adminMenuLeft backTitle";
+        this.buttonBackTitle.className = "buttonL adminMenuRight adminMenuDown";
 
         // テキスト、イベントの設定
         this.buttonBackTitle.textContent = "タイトルへ戻る";
