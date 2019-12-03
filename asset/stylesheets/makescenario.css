@@ -1,12 +1,21 @@
 
 /* シナリオ作成ページ テキストエリア */
 
-textarea.makescenario {
+div.makescenario {
     position: absolute;
+    overflow: scroll;
+
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-height) * 4 / 5);
+
+    top: calc(var(--adv-height) / 10);
+    left: calc(var(--adv-width) / 20);
+}
+
+textarea.makescenario {
     resize: none;
     width: calc(var(--adv-width) / 2);
-
-    left: calc(var(--adv-width) / 10);
+    height: calc(var(--adv-height) / 12);
 }
 
 .makescenario.input {

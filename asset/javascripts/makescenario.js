@@ -8,7 +8,8 @@ class SceneMakeScenario extends Scene {
     initialize() {
         // シナリオ入力欄
         // 引数にIDがある場合は複数追加する
-        this.textareaInputScenario = document.createElement('textarea');
+        this.divInputScenario = document.createElement('div');
+        this.textareaInputScenario = [document.createElement('textarea')];
 
         // シナリオ入力欄の追加ボタン
         this.buttonAddScenarioElement = document.createElement('button');
@@ -35,17 +36,24 @@ class SceneMakeScenario extends Scene {
 
     /* ----- シナリオ入力欄 ----- */
     setTextareaInputScenario() {
-        // CSSクラスで位置
-        this.textareaInputScenario.className = "makescenario input";
-        // 入力のヒント
-        this.textareaInputScenario.placeholder = "シナリオを入力してください.";
-        // 入力内容取得用のid設定
-        this.textareaInputScenario.id = "inputScenario";
+        // divの設定
+        // CSSクラスで配置
+        this.divInputScenario.className = "makescenario";
+
         // シーン画面へ追加
-        this.divScene.appendChild(this.textareaInputScenario);
+        this.divScene.appendChild(this.divInputScenario);
+
+        // CSSクラスで位置
+        this.textareaInputScenario[0].className = "makescenario";
+        // 入力のヒント
+        this.textareaInputScenario[0].placeholder = "シナリオを入力してください.";
+        // 入力内容取得用のid設定
+        this.textareaInputScenario[0].id = "inputScenario";
+        // シーン画面へ追加
+        this.divInputScenario.appendChild(this.textareaInputScenario[0]);
     }
     
-    /* ----- シナリオの仮追加ボタン ----- */
+    /* ----- シナリオ入力欄の追加ボタン ----- */
     setButtonAddScenarioElement() {
         // CSSクラスで配置
         this.buttonAddScenarioElement.className = "buttonL makescenario addTemporaryScenario";
@@ -58,8 +66,28 @@ class SceneMakeScenario extends Scene {
         this.divScene.appendChild(this.buttonAddScenarioElement);
     }
 
-    // -- シナリオの仮配列への挿入イベント
+    // -- シナリオ入力欄の追加イベント
     buttonAddScenarioElement_clickEvent() {
+        console.log(currentScene.textareaInputScenario[0].style.bottom);
+
+        // 挿入するテキストエリアの作成
+        var textarea = document.createElement('textarea');
+
+        // CSSクラスで設定
+        textarea.className = "makescenario";
+        
+        // 入力のヒント
+        textarea.placeholder = "シナリオを入力してください.";
+
+        // 入力内容取得用のid設定
+        textarea.id = "inputScenario";
+
+        // ゲーム画面へ追加
+        currentScene.divInputScenario.appendChild(textarea);
+
+        // シナリオ入力欄配列への追加
+        currentScene.textareaInputScenario.push(textarea);
+        currentScene.textareaInputScenarioNum += 1;
     }
 
     /* ----- DBへのシナリオ追加ボタン ----- */
