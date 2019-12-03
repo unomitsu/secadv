@@ -87,3 +87,24 @@ class Scene {
     }
 }
 
+
+    // ポップアップウィンドウの作成
+function makePopUp(text) {
+    let divPopWindow = document.createElement('div');      // ポップアップのウィンドウ
+    let buttonPopWindow = document.createElement('button');      // ポップアップの閉じるボタン
+
+    // CSSクラスで配置設定
+    divPopWindow.className = "popUp";
+    buttonPopWindow.className = "popUp";
+
+    // テキストとイベントの設定
+    divPopWindow.textContent = text;
+    buttonPopWindow = "閉じる";
+    buttonPopWindow.addEventListener('click', () => {
+        console.log("ボタンがクリックされました");
+    }, false);
+
+    // 画面の要素へ追加
+    divPopWindow.appendChild(buttonPopWindow);
+    currentScene.divScene.appendChild(divPopWindow);
+}

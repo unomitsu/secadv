@@ -86,7 +86,7 @@ class SceneMakeQuiz extends Scene {
         let quizId;
         let selectId;
 
-        const aaabbbccc = {
+        const insertData = {
             title: currentScene.inputTitle.value,
             level: currentScene.selectLevel.value,
             type: currentScene.selectType.value,
@@ -94,7 +94,32 @@ class SceneMakeQuiz extends Scene {
             answer: [currentScene.inputAnswer1.value, currentScene.inputAnswer2.value, currentScene.inputAnswer3.value, currentScene.inputAnswer4.value],
             explanation: currentScene.textAreaExplanation.value
         };
-        console.log("挿入したいデータ ", aaabbbccc);
+        console.log("挿入したいデータ ", insertData);
+        
+        /* 入力データの確認 */
+        // タイトルが空欄でないか
+        if (insertData.title == "") {
+            console.log("NOT! title");
+        }
+
+        // 問題文が空欄でないか
+        if (insertData.problem == "") { console.log("NOT! problem");}
+        
+        // 選択肢が空欄でないか
+        if (insertData.inputAnswer1 == null || insertData.inputAnswer2 == null
+            || insertData.inputAnswer3 == null || insertData.inputAnswer4 == null
+        ) {
+            console.log("NOT! answer");
+        }
+
+        // 選択肢が重複していないか
+        if (insertData.inputAnswer1 == insertData.inputAnswer2 || insertData.inputAnswer1 == insertData.inputAnswer3
+            || insertData.inputAnswer1 == insertData.inputAnswer4 || insertData.inputAnswer2 == insertData.inputAnswer3
+            || insertData.inputAnswer2 == insertData.inputAnswer4 || insertData.inputAnswer3 == insertData.inputAnswer4
+        ) {
+            console.log("NOT! answer double");
+        }
+
 
         /* 問題の登録、問題のIDが返却される */
         await insertQuiz(

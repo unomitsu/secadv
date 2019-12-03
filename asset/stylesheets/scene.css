@@ -47,3 +47,21 @@ button.ButtonHome {
     width: calc(var(--adv-width) / 10);
     height: calc(var(--adv-width) / 10);
 }
+
+/* ----- ポップアップウィンドウ ----- */
+div.popUp {
+    position: absolute;
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-width) / 4);
+    left: calc(var(--adv-width) / 4);
+    top: calc(var(--adv-height) / 8);
+}
+
+button.popUp {
+    position: absolute;
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-width) / 4);
+    left: calc(var(--adv-width) / 4);
+    top: calc(var(--adv-height) / 8);
+}
+
