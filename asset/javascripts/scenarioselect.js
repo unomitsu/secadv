@@ -26,7 +26,7 @@ class SceneScenarioSelect extends Scene {
     async getScenarioSet() {
         console.log("[BEGIN] ScenarioSet load...");
 
-        // DBからシナリオデータの読み込み
+        // DBからシナリオセットデータの読み込み
         const result = await dbSelectAll("scenarioset").then(res => {
             currentScene.scenarioSet = res;
         });
@@ -79,6 +79,7 @@ class SceneScenarioSelect extends Scene {
     buttonScenarioSet_clickEvent() {
         // シナリオデータの格納
         scenariosetID = currentScene.scenarioSet[this.id];
+        console.log("scenario_set -> ", scenariosetID);
         
         currentScene = new SceneScenario();
     }

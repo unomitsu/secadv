@@ -42,25 +42,16 @@ class SceneQuiz extends Scene {
     /* -- 出題内容の取得と設定 -- */
     async setQuiz() {
         // シナリオの対応するクイズのIDが必要
-        let idid = scenariosID[0]["id"];
+        let qid = scenariosID[0]["id"];
 
         // クイズのデータ取得
-        const ccc = await dbSelectWhereAll('quiz', `id = ${idid}`);
-        console.log(ccc);
-        console.log(ccc[0]["id"]);
+        const quiz = await dbSelectWhereAll('quiz', `id = ${qid}`);
 
-        // クイズの選択肢のIDを取得
-        const aaa = await dbSelectWhereAll('relation_quiz_answer', `id_quiz = ${idid}`);
-
-        // 正答IDを1つ, 誤答IDを3つ取得
-        let quizID = aaa;
-        console.log(aaa);
-        // 選択肢のテキストを取得
-        const bbb = await dbSelectWhereAll('quiz_answer', `id = ${aaa[0]["id_answer"]} OR id = ${aaa[1]["id_answer"]} OR id = ${aaa[2]["id_answer"]} OR id = ${aaa[3]["id_answer"]}`);
-        console.log(bbb);
-
+        // クイズの選択肢を取得
+        const choices = await dbSelectWhereAll('quiz_answer, relation_quiz_answer', `relation_quiz_answer.id_quiz = ${qid} AND quiz_answer.id = relation_quiz_answer.id_answer`);
+        
         // もしものデータがない場合の処理
-        if (aaa == null) {
+        if (quiz == null) {
             quizData = {
                 id: 0,
                 text: "問題分です。正解はどれだろう。",
@@ -71,20 +62,30 @@ class SceneQuiz extends Scene {
         }
         // DBから取得したデータを、グローバル変数に格納
         else {
-            console.log(quizData);
-            quizData['id'] = ccc[0]['id'];
-            quizData['problem'] = ccc[0]['problem'];
-            quizData['answer'][0] = bbb[0]['answer'];
-            quizData['answer'][1] = bbb[1]['answer'];
-            quizData['answer'][2] = bbb[2]['answer'];
-            quizData['answer'][3] = bbb[3]['answer'];
-            quizData['explanation'] = ccc[0]['explanation'];
-            console.log(quizData);
+            // 問題データの格納
+            quizData['id'] = quiz[0]['id'];
+            quizData['problem'] = quiz[0]['problem'];
+            quizData['explanation'] = quiz[0]['explanation'];
+
+            let n = 1;  // 格納済みの誤答の選択肢の個数
+
+            // 選択肢の格納
+            for (let c of choices) {
+                // 正答の選択肢
+                if (c['flag'] == 1) {
+                    quizData['answer'][0] = c['answer'];
+                }
+                // 誤答の選択肢
+                else {
+                    if (n > 3) { break; }
+                    quizData['answer'][n] = c['answer'];
+                    n += 1;
+                }
+            }
         }
+        console.log("quizData -> ", quizData);
 
-        console.log("WWW");
-
-        // DBから取得したデータを設定
+        // 取得したデータを設定
         this.setMainText(quizData["problem"]);
         this.setButtonQuizText(quizData["choice"]);
     }
@@ -115,7 +116,7 @@ class SceneQuiz extends Scene {
     }
     // -- リザルトシーンへの遷移イベント
     buttonQuiz_clickEvent(qDoc) {
-        quizPlayerAnswer = this.textContent;
+        playerAnswer = this.textContent;
         currentScene = new SceneResult();
     }
     // -- 回答ボタンのテキストを設定,  引数は、要素数4の配列

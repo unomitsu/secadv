@@ -56,10 +56,6 @@ class SceneScenario extends Scene {
     async loadScenarios() {
         console.log("[BEGIN] Scenario load...");
 
-        // シナリオセットに対応するシナリオのIDを取得
-        const result = await dbSelectWhereAll("relation_scenarioset_scenario", `id_scenarioset = ${scenariosetID["id"]}`).then(res => {
-            scenariosID = res;
-        });
         // 対応するシナリオの情報を取得
         await dbSelectWhereAll("scenario, relation_scenarioset_scenario", `scenario.id = relation_scenarioset_scenario.id_scenario`).then(res => {
             scenariosID = res;
@@ -88,6 +84,7 @@ class SceneScenario extends Scene {
         this.setMainText(currentScene.scenarios[0]['text']);
 
         console.log("[FINISH] Scenario -> ", currentScene.scenarios);
-        return result;
+
+        return "resolve";
     }
 }
