@@ -1,15 +1,15 @@
 
 class SceneSelect extends Scene {
-    constructor(answer) {
+    constructor() {
         console.log("[BEGIN] SceneSelect load...");
         currentSceneName = "Select";
 
         super();    // 親クラスの読み込み
-        this.initialize(answer);  // 初期処理
+        this.initialize();  // 初期処理
 
         console.log("[FINISH] SceneSelect !");
     }
-    initialize(answer) {
+    initialize() {
         // ボタン要素の宣言
         this.buttonLeft = document.createElement('button');
         this.buttonRight = document.createElement('button');

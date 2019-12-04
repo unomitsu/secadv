@@ -4,19 +4,16 @@
 // 正答と選択した解答、解説を表示する
 
 class SceneContinue extends Scene {
-    constructor(answer) {
+    constructor() {
         console.log("[BEGIN] SceneContinue load...");
         currentSceneName = "Continue";
 
         super();    // 親クラスの読み込み
-        this.initialize(answer);  // 初期処理
+        this.initialize();  // 初期処理
 
         console.log("[FINISH] SceneContinue !");
     }
-    initialize(answer) {
-        // プレイヤーが選択した解答
-        this.playerAnswer = answer;
-
+    initialize() {
         // 再挑戦ボタン、ギブアップボタン
         this.buttonContinue = document.createElement('button');
         this.buttonGiveup = document.createElement('button');
@@ -36,7 +33,7 @@ class SceneContinue extends Scene {
 
     /* ----- テキストを設定する ----- */
     setResultText() {
-        this.setMainText(`正答は ${quizData["choice"][0]} です。あなたの回答は ${quizPlayerAnswer} でした.`);
+        this.setMainText(`正答は ${quizData["answer"][0]} です。あなたの回答は ${playerAnswer} でした.`);
         this.setMainText(quizData["explanation"]);
     }
 
