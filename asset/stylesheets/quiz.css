@@ -35,3 +35,11 @@ button.quizGiveup {
     top: calc((var(--adv-height) * 3 / 4) - (var(--adv-height) / 9));
 }
 
+/* リザルト */
+img.animation {
+    position: absolute;
+    width: calc(var(--adv-height) / 2);
+    height: 0px;
+    top: calc(var(--adv-height) / 2);
+    left: calc((var(--adv-width) / 2) - (var(--adv-height) / 4));
+}
