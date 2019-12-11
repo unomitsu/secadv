@@ -10,12 +10,8 @@ var player = {
 };
 
 /* ----- シナリオデータ ----- */
-var scenarioID;     // 現在のシナリオのID
-var scenarioFlag = {    // シナリオを読んだかどうか
-    begin: true,
-    other: [],
-    end: true,
-};
+var scenarioID;             // 現在のシナリオのID
+
 var scenariosetID;  // シナリオセットのID
 var scenariosID;    // シナリオのID配列
 

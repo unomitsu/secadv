@@ -11,32 +11,116 @@ class SceneSelect extends Scene {
     }
     initialize() {
         // ボタン要素の宣言
-        this.buttonLeft = document.createElement('button');
-        this.buttonRight = document.createElement('button');
+        this.button1 = document.createElement('button');
+        this.button2 = document.createElement('button');
 
+        // 次のシナリオの情報
+        this.nextScenarioID1;
+        this.nextScenarioID2;
+        this.nextScenarioNum;
+
+        // 親クラスの初期設定
         this.setDivScene();
         this.setDivPlayerData();
         this.setDivMainText();
-        
+
+        // 初期設定
+        this.getNextScenarios();
         this.setButtonSelect();
     }
     /* セレクトボタンの設定 */
     setButtonSelect() {
-        this.buttonLeft.className = "Select Left";
-        this.buttonLeft.textContent = "左へ進む";
-        this.buttonLeft.addEventListener(
-            "click", this.buttonLeft_clickEvent, false
-        );
+        if (this.nextScenarioNum == 2) {
+            // CSSクラスで配置設定
+            this.button1.className = "Select Left";
+            this.button2.className = "Select Right";
 
-        this.buttonRight.className = "Select Right";
-        this.buttonRight.textContent = "右へ進む";
-        this.buttonRight.addEventListener(
-            "click", this.buttonRight_clickEvent, false
-        );
+            // シナリオIDをidとして設定
+            this.button1.id = this.nextScenarioID1;
+            this.button1.id = this.nextScenarioID2;
 
-        this.divScene.appendChild(this.buttonLeft);
-        this.divScene.appendChild(this.buttonRight);
+            // テキストの設定
+            this.button1.textContent = "左へ進む";
+            this.button2.textContent = "右へ進む";
+
+            // クリックイベントの設定
+            this.button1.addEventListener("click", this.button_clickEvent, false);
+            this.button2.addEventListener("click", this.button_clickEvent, false);
+
+            // ゲーム画面への追加
+            this.divScene.appendChild(this.button1);
+            this.divScene.appendChild(this.button2);
+        }
+        else {
+            // CSSクラスで配置設定
+            this.button1.className = "Select Left";
+
+            // シナリオIDをidとして設定
+            this.button1.id = this.nextScenarioID1;
+
+            // テキストの設定
+            this.button1.textContent = "左へ進む";
+
+            // クリックイベントの設定
+            this.button1.addEventListener("click", this.button_clickEvent, false);
+
+            // ゲーム画面への追加
+            this.divScene.appendChild(this.button1);
+        }
     }
+    button_clickEvent() {
+        scenarioID = this.id;   // 次のシナリオIDの格納
+        currentScene = new SceneScenario();
+    }
+
+    /* ----- 次のシナリオの情報を取得 ----- */
+    getNextScenarios() {
+        // 次のシナリオのIDを取得する
+        /* たぶんこんな感じになる、配列で[scenarioID, next1, next2]にすると思う
+        await dbSelectWhereAll("scenario, relation_next_scenario", `scenario.id = relation_next_scenario.id_scenario`).then(res => {
+            scenariosID = res;
+        });
+        */
+        this.nextScenarioID1 = 1;  // とりあえず設定
+        this.nextScenarioID2 = 2;  // とりあえず設定
+
+        // 読み終わっていないかの確認
+        let flag1 = false;
+        let flag2 = false;
+        for (let s of scenariosID) {
+            console.log("IDID : ", s["id"]);
+            if (s["id"] == this.nextScenarioID1) { flag1 = true; }
+            if (s["id"] == this.nextScenarioID2) { flag2 = true; }
+        }
+        // 読み終わっている場合は、まだ読んでないシナリオがないか探す。ない場合は選択肢は一つになる。
+        for (let s of scenariosID) {
+            if (!flag1) {
+                this.nextScenarioID1 = s["id"];
+                flag1 = true;
+            }
+            else if (!flag2) {
+                this.nextScenarioID2 = s["id"];
+                flag2 = true;
+            }
+            else { break; }
+        }
+
+        // 次のシナリオの数を格納する
+        if (flag1 && flag2) {
+            this.nextScenarioNum = 2;
+        }
+        else if (flag1 || flag2) {
+            // 1の方に入れる
+            if (flag2) { this.nextScenarioID1 = this.nextScenarioID2; }
+
+            this.nextScenarioNum = 1;
+        }
+        // シナリオがない場合は終了に遷移する
+        else {
+            console.log("FINISH");
+        }
+    }
+
     // 左ボタン クリックイベント
     buttonLeft_clickEvent() {
         currentScene = new SceneQuiz();

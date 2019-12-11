@@ -54,14 +54,24 @@ class SceneScenario extends Scene {
     async loadScenarios() {
         console.log("[BEGIN] Scenario load...");
 
+        console.log("NOW_SCENARIOS => ", scenariosID);
+
         // 現在のシナリオを読み込む
         await dbSelectWhereAll("scenario_element", `id_scenario=${scenarioID}`).then(res => {
             currentScene.scenarios = res;
         });
 
-        // もしデータがなければ
+        // データがない場合
         if (currentScene.scenarios.length <= 0) {
             currentScene.scenarios = ["シナリオがありません。"];
+        }
+
+        // 読み込んだデータを削除する
+        for (let i = 0; i < scenariosID.length; i++) {
+            if (scenariosID[i]["id"] == scenarioID) {
+                scenariosID.splice(i, 1);
+                break;
+            }
         }
         
         // 初めのテキストの設定

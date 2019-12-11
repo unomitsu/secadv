@@ -41,7 +41,7 @@ class SceneQuiz extends Scene {
     /* -- 出題内容の取得と設定 -- */
     async setQuiz() {
         // シナリオの対応するクイズのIDが必要
-        let qid = scenariosID[0]["id"];
+        let qid = scenarioID;
 
         // クイズのデータ取得
         const quiz = await dbSelectWhereAll('quiz', `id = ${qid}`);

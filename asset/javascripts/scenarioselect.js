@@ -93,9 +93,10 @@ class SceneScenarioSelect extends Scene {
                 break;
             }
         }
-        scenarioID = sid;
+        scenarioID = sid;           // 現在のシナリオIDを格納する
 
-        // シナリオデータの並び替え
+        // シナリオデータの並び替えをするかも？しなさそう
+        console.log("log ", scenariosID);
 
         currentScene = new SceneScenario();
     }
