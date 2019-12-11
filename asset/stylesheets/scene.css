@@ -11,13 +11,25 @@ div.SceneBody {
 /* ----- プレイヤーデータ ----- */
 div.playerData {
     position: absolute;
-    text-align: right;
-    padding: 10px;
     background: gray;
-    color: white;
+    box-shadow: 0px 6px 10px -6px gray;
 
     width: var(--adv-width);
-    height: calc(var(--adv-height) / 50);
+    height: calc(var(--adv-height) / 20);
+}
+
+div.playerDataElement {
+    position: absolute;
+}
+
+.playerDataElement.name {
+    left: 0px;
+}
+.playerDataElement.score {
+    left: calc(var(--adv-width) / 3);
+}
+.playerDataElement.money {
+    left: calc(var(--adv-width) * 2/ 3);
 }
 
 /* ----- メインテキスト ----- */
@@ -25,7 +37,7 @@ div.MainText {
     background: white;
     position: absolute;
     padding: 4px;
-    border: 6px groove;
+    box-shadow: 0 0 10px gray;
 
     top: calc(var(--adv-height) * 3 / 4);
     left: calc(var(--adv-width) / 50);

@@ -11,9 +11,9 @@ class Scene {
 
         // チーム情報を表示する区画
         this.divPlayerData = document.createElement('div');     // 枠
-        this.divPlayerDataName = document.createElement('p');   // チーム名表示
-        this.divPlayerDataScore = document.createElement('p');  // スコア表示
-        this.divPlayerDataMoeny = document.createElement('p');  // 所持金表示
+        this.divPlayerDataName = document.createElement('div');   // チーム名表示
+        this.divPlayerDataScore = document.createElement('div');  // スコア表示
+        this.divPlayerDataMoeny = document.createElement('div');  // 所持金表示
 
         // テキストを表示する区画
         this.divMainText = document.createElement('div');
@@ -33,19 +33,19 @@ class Scene {
     setDivPlayerData() {
         // CSSクラスで配置
         this.divPlayerData.className = "playerData";
-        this.divPlayerDataName = "";
-        this.divPlayerDataScore = "";
-        this.divPlayerDataMoeny = "";
+        this.divPlayerDataName.className = "playerDataElement name";
+        this.divPlayerDataScore.className = "playerDataElement score";
+        this.divPlayerDataMoeny.className = "playerDataElement money";
 
         // テキストの追加
-        this.divPlayerDataName = "名前 : " + player["name"];
-        this.divPlayerDataScore = "得点 : " + player["score"];
-        this.divPlayerDataMoeny = "所持金 : " + player["money"];
+        this.divPlayerDataName.textContent = "名前 : " + player["name"];
+        this.divPlayerDataScore.textContent = "得点 : " + String(player["score"]);
+        this.divPlayerDataMoeny.textContent = "所持金 : " + String(player["money"]);
 
         // 親要素への追加
-        this.divPlayerData.append(this.divPlayerDataName);
-        this.divPlayerData.append(this.divPlayerDataScore);
-        this.divPlayerData.append(this.divPlayerDataMoeny);
+        this.divPlayerData.appendChild(this.divPlayerDataName);
+        this.divPlayerData.appendChild(this.divPlayerDataScore);
+        this.divPlayerData.appendChild(this.divPlayerDataMoeny);
 
         // ゲーム画面への追加
         this.divScene.appendChild(this.divPlayerData);
