@@ -14,14 +14,15 @@ class SceneTitle extends Scene {
     initialize() {
         // タイトル文字列
         this.h1Title = document.createElement('h1');
+
         // ゲーム開始ボタン
         this.buttonStart = document.createElement('button');
+
         // 管理者用ページボタン
         this.buttonAdmin = document.createElement('button');
 
         // 親クラス系の初期処理
         this.setDivScene();
-        this.changeBackImage("./asset/images/backdrop.jpg");
 
         // 初期処理
         this.setH1Title();

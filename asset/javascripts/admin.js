@@ -23,7 +23,6 @@ class SceneAdmin extends Scene {
 
         // 親クラス系の処理
         this.setDivScene();
-        this.changeBackImage("../../assets/image/backdrop.jpg");
 
         // 各種設定
         this.setButtonMakeQuiz();         // 問題作成ボタン

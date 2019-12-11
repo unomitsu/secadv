@@ -1,5 +1,13 @@
+
+// secadv‚ÌƒQ[ƒ€‰æ–Ê‚Ì˜g
 var advFrame = document.getElementById('adv');
 
+// sdvFrame ‚ğ‰Šú‰»A‰æ–Ê‚ğ‚Ü‚Á‚³‚ç‚É‚·‚é
+function clearSceneAll() {
+    advFrame.innerHTML = "";
+}
+
+// javascript ‚ğHTML‚É’Ç‰Á
 function appendScript(url) {
     var jsf = document.createElement('script');
     jsf.src = url;
@@ -7,7 +15,6 @@ function appendScript(url) {
 }
 
 // import javascript
-// tmp -- appendScript("./asset/javascripts/.js");
 appendScript("./asset/databases/newtable.js");
 appendScript("./asset/databases/startup.js");
 appendScript("./asset/databases/insert.js");

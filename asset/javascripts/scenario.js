@@ -16,10 +16,8 @@ class SceneScenario extends Scene {
 
         // 親クラスの初期設定
         this.setDivScene();
-        this.changeBackImage("../../assets/images/backdrop.jpg");
         this.setDivMainText();
         this.setDivPlayerData();
-        //this.setButtonHome();
 
         // 初期設定
         await this.loadScenarios();

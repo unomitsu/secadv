@@ -12,7 +12,6 @@ class SceneScenarioSelect extends Scene {
 
         // 親クラスの初期設定
         this.setDivScene();
-        this.changeBackImage("../../assets/images/backdrop.jpg");
 
         // 初期設定
         await this.getScenarioSet();

@@ -29,7 +29,6 @@ class SceneQuiz extends Scene {
         this.setDivScene();
         this.setDivPlayerData();
         this.setDivMainText();
-        this.changeBackImage("./asset/images/backdrop.jpg");
 
         // 初期設定
         this.setButtonQuiz();

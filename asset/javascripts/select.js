@@ -17,9 +17,7 @@ class SceneSelect extends Scene {
         this.setDivScene();
         this.setDivPlayerData();
         this.setDivMainText();
-        //this.setButtonHome();
-
-        //this.setBackImage("");
+        
         this.setButtonSelect();
     }
     /* セレクトボタンの設定 */

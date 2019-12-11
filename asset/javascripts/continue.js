@@ -20,9 +20,7 @@ class SceneContinue extends Scene {
 
         // 親クラス系の各初期設定
         this.setDivScene();
-        this.changeBackImage("./asset/images/backdrop.jpg");
         this.setDivPlayerData();
-        //this.setButtonHome();
         this.setDivMainText();
 
         // 各初期設定
