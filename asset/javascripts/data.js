@@ -10,13 +10,14 @@ var player = {
 };
 
 /* ----- シナリオデータ ----- */
+var scenarioID;     // 現在のシナリオのID
 var scenarioFlag = {    // シナリオを読んだかどうか
     begin: true,
     other: [],
     end: true,
 };
 var scenariosetID;  // シナリオセットのID
-var scenariosID;    // シナリオのID
+var scenariosID;    // シナリオのID配列
 
 /* ----- 問題データ ----- */
 var quizData = {
@@ -25,7 +26,6 @@ var quizData = {
     answer: ["1", "2", "3", "4"],
     explanation: "explanation"
 };
-
 var playerAnswer;
 
 /* ----- シーンデータ ----- */

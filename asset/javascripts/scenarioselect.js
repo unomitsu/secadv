@@ -76,11 +76,28 @@ class SceneScenarioSelect extends Scene {
     }
 
     // シナリオシーンへの遷移イベント
-    buttonScenarioSet_clickEvent() {
-        // シナリオデータの格納
+    async buttonScenarioSet_clickEvent() {
+        // シナリオセットIDの格納
         scenariosetID = currentScene.scenarioSet[this.id];
         console.log("scenario_set -> ", scenariosetID);
-        
+
+        // 対応するシナリオの情報を取得
+        await dbSelectWhereAll("scenario, relation_scenarioset_scenario", `scenario.id = relation_scenarioset_scenario.id_scenario`).then(res => {
+            scenariosID = res;
+        });
+
+        // 使用するシナリオのIDを決定する
+        let sid = 10;
+        for (let s of scenariosID) {
+            if (s["situation"] == 1) {
+                sid = s["id"];
+                break;
+            }
+        }
+        scenarioID = sid;
+
+        // シナリオデータの並び替え
+
         currentScene = new SceneScenario();
     }
 }

@@ -35,7 +35,7 @@ class SceneScenario extends Scene {
         this.divScene.addEventListener("click", this.scenario_clickEvent, false);
     }
 
-    // -- シーン画面のイベント
+    // -- マウスクリックでテキストを進めるイベント
     scenario_clickEvent() {
         currentScene.scenarioId += 1;  // 現在のシナリオ位置を進める
         
@@ -56,22 +56,8 @@ class SceneScenario extends Scene {
     async loadScenarios() {
         console.log("[BEGIN] Scenario load...");
 
-        // 対応するシナリオの情報を取得
-        await dbSelectWhereAll("scenario, relation_scenarioset_scenario", `scenario.id = relation_scenarioset_scenario.id_scenario`).then(res => {
-            scenariosID = res;
-        });
-
-        // 使用するシナリオのIDを決定する
-        let sid = 10;
-        for (let s of scenariosID) {
-            if (s["situation"] == 1) {
-                sid = s["id"];
-                break;
-            }
-        }
-
-        // 最初のシナリオを読み込む
-        await dbSelectWhereAll("scenario_element", `id_scenario=${sid}`).then(res => {
+        // 現在のシナリオを読み込む
+        await dbSelectWhereAll("scenario_element", `id_scenario=${scenarioID}`).then(res => {
             currentScene.scenarios = res;
         });
 
