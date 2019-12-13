@@ -124,12 +124,13 @@ function checkScenario() {
 
                 // データが存在しない場合、初期のシナリオを挿入
                 else if (row == null) {
-                    const stmt2 = db.prepare('INSERT INTO scenario (title, level, situation, image) VALUES (?, ?, ?, ?)');
-                    stmt2.run(['サンプルシナリオ1', 1, 1, 1]);
-                    stmt2.run(['お腹すいた', 1, 2, 1]);
-                    stmt2.run(['迷走', 1, 3, 1]);
-                    stmt2.run(['情報環境実験２', 1, 3, 1]);
-                    stmt2.run(['ポケットモンスターOP', 1, 3, 1]);
+                    const stmt2 = db.prepare('INSERT INTO scenario (id, title, level, situation, image) VALUES (?, ?, ?, ?, ?)');
+                    stmt2.run([1, 'サンプルシナリオ1', 1, 1, 1]);
+                    stmt2.run([2, 'お腹すいた', 1, 2, 1]);
+                    stmt2.run([3, '迷走', 1, 3, 1]);
+                    stmt2.run([4, '情報環境実験２', 1, 3, 1]);
+                    stmt2.run([5, 'ポケットモンスターOP', 1, 3, 1]);
+                    stmt2.run([6, '終わり', 1, 3, 1]);
                     stmt2.finalize();
                     console.log("scenario => new");
                 }
@@ -194,6 +195,9 @@ function checkScenarioElement() {
                     stmt2.run([5, 'ほえるーはねるーそらをとぶー、トライアタック、メガトンパンチ！', 1]);
                     stmt2.run([5, 'うたうーねむるーサイコキネシスー、ロケットずつき、10まんボルト！', 2]);
                     stmt2.run([5, '勝っても負けてもおまつりさわぎ、バトルしようぜ、ポケモンバトル！', 3]);
+                    stmt2.run([6, 'これでシナリオは終わりです。', 0]);
+                    stmt2.run([6, 'この後は、無限にクイズを解き続けることになります。', 1]);
+                    stmt2.run([6, 'やめる場合は、ウィンドウを閉じてください', 2]);
                     stmt2.finalize();
                     console.log("scenario_element => new");
                 }

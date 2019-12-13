@@ -1,6 +1,7 @@
 /* ----- ウィンドウサイズ ----- */
 var gameWidth = 800;
 var gameHeight = 600;
+var g_gameState = 0;
 
 /* ----- プレイヤーデータ ----- */
 var player = {

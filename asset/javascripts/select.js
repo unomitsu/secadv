@@ -25,8 +25,13 @@ class SceneSelect extends Scene {
         this.setDivMainText();
 
         // 初期設定
-        this.getNextScenarios();
-        this.setButtonSelect();
+        if (g_gameState == 0) {
+            this.getNextScenarios();
+            this.setButtonSelect();
+        }
+        else {
+            currentScene = new SceneQuiz();
+        }
     }
     /* セレクトボタンの設定 */
     setButtonSelect() {
@@ -51,7 +56,7 @@ class SceneSelect extends Scene {
             this.divScene.appendChild(this.button1);
             this.divScene.appendChild(this.button2);
         }
-        else {
+        else if (this.nextScenarioNum == 1) {
             // CSSクラスで配置設定
             this.button1.className = "Select Left";
 
@@ -67,9 +72,16 @@ class SceneSelect extends Scene {
             // ゲーム画面への追加
             this.divScene.appendChild(this.button1);
         }
+        else {
+            g_gameState = 1;
+            scenarioID = 6;
+            setTimeout(() => {
+                currentScene = new SceneScenario();
+            }, 200);
+        }
     }
     button_clickEvent() {
-        scenarioID = this.id;   // 次のシナリオIDの格納
+        scenarioID = Number(this.id);   // 次のシナリオIDの格納
         currentScene = new SceneScenario();
     }
 
@@ -115,9 +127,8 @@ class SceneSelect extends Scene {
 
             this.nextScenarioNum = 1;
         }
-        // シナリオがない場合は終了に遷移する
         else {
-            console.log("FINISH");
+            this.nextScenarioNum = 0;
         }
     }
 }

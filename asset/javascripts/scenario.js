@@ -13,6 +13,7 @@ class SceneScenario extends Scene {
         this.scenarios = "";
         // シナリオ添字
         this.scenarioId = 0;
+        console.log("SCENARIO_", this.scenarioId);
 
         // 親クラスの初期設定
         this.setDivScene();
@@ -35,8 +36,10 @@ class SceneScenario extends Scene {
 
     // -- マウスクリックでテキストを進めるイベント
     scenario_clickEvent() {
+        console.log(typeof currentScene.scenarioId);
         currentScene.scenarioId += 1;  // 現在のシナリオ位置を進める
-        
+
+        console.log(typeof currentScene.scenarioId, " ?= ", typeof currentScene.scenarios.length);
         // テキストがあれば、テキストの表示を更新
         if (currentScene.scenarioId < currentScene.scenarios.length) {
             // テキスト表示エリアの初期化
@@ -62,8 +65,8 @@ class SceneScenario extends Scene {
         });
 
         // データがない場合
-        if (currentScene.scenarios.length <= 0) {
-            currentScene.scenarios = ["シナリオがありません。"];
+        if (this.scenarios.length <= 0) {
+            this.scenarios = ["シナリオがありません。"];
         }
 
         // 読み込んだデータを削除する
@@ -73,6 +76,11 @@ class SceneScenario extends Scene {
                 break;
             }
         }
+
+        console.log(currentScene.scenarios);
+        console.log(this.scenarioId, " ?= ", this.scenarios.length);
+        this.scenarioId = 0;
+        console.log(currentScene.scenarioId, " ?= ", currentScene.scenarios.length);
         
         // 初めのテキストの設定
         this.setMainText(currentScene.scenarios[0]['text']);
