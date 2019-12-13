@@ -36,8 +36,11 @@ function checkQuiz() {
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
                     const stmt = db.prepare('INSERT INTO quiz (title, problem, explanation, type, level) VALUES (?, ?, ?, ?, ?)');
-                    stmt.run(['サンプルシナリオ', 'これは問題文です。', 'これは解説文です。', 3, 1]);
-                    stmt.finalize();
+                    stmt.run(['サンプルクイズ', 'これは問題文です。', 'これは解説文です。', 3, 1]);
+                    stmt.run(['今日のご飯', '今日のご飯はどれでしょう。', 'もう一人はカップ焼きそばでした', 3, 1]);
+                    stmt.run(['我、天才', '我、すごい', '我、我、我、、、', 3, 1]);
+                    stmt.run(['情報環境実験２の内容', '情報環境実験２において、初めに着手するものは何？', '全体を通してLegoをします。\n並行して、まずWinT、次にWinGをします。', 3, 1]);
+                    stmt.run(['ポケットモンスターのOP', 'この歌はなんでしょう。', '「ライバル！」は２番目のOPです。', 3, 1]);stmt.finalize();
                     console.log("quiz => new");
                 }
                 // データが存在する場合、コンソールに出力
@@ -123,8 +126,10 @@ function checkScenario() {
                 else if (row == null) {
                     const stmt2 = db.prepare('INSERT INTO scenario (title, level, situation, image) VALUES (?, ?, ?, ?)');
                     stmt2.run(['サンプルシナリオ1', 1, 1, 1]);
-                    stmt2.run(['サンプルシナリオ2', 1, 2, 1]);
-                    stmt2.run(['サンプルシナリオ3', 1, 3, 1]);
+                    stmt2.run(['お腹すいた', 1, 2, 1]);
+                    stmt2.run(['迷走', 1, 3, 1]);
+                    stmt2.run(['情報環境実験２', 1, 3, 1]);
+                    stmt2.run(['ポケットモンスターOP', 1, 3, 1]);
                     stmt2.finalize();
                     console.log("scenario => new");
                 }
@@ -181,6 +186,14 @@ function checkScenarioElement() {
                     stmt2.run([3, 'お皿割れた。', 0]);
                     stmt2.run([3, 'LEGOが暴走して合体変形したよ', 1]);
                     stmt2.run([3, '我、我、我、、、', 2]);
+                    stmt2.run([4, 'エレベーターに乗って1号館9階に移動した。\n${l_nono}「我、我、我、、、」', 0]);
+                    stmt2.run([4, '${l_nono}「じゃあ情報環境実験２のLegoの説明を始めます。」', 1]);
+                    stmt2.run([4, '${l_nono}「じゃあ情報環境実験２のLegoの説明を始めます。始めます。」', 2]);
+                    stmt2.run([4, '${l_nono}「じゃあ情報環境実験２のLegoの説明を始めます。始めます。始めます。」', 3]);
+                    stmt2.run([5, 'バトルしようぜ！', 0]);
+                    stmt2.run([5, 'ほえるーはねるーそらをとぶー、トライアタック、メガトンパンチ！', 1]);
+                    stmt2.run([5, 'うたうーねむるーサイコキネシスー、ロケットずつき、10まんボルト！', 2]);
+                    stmt2.run([5, '勝っても負けてもおまつりさわぎ、バトルしようぜ、ポケモンバトル！', 3]);
                     stmt2.finalize();
                     console.log("scenario_element => new");
                 }
@@ -223,6 +236,22 @@ function checkQuizAnswer() {
                     stmt.run(["解答2", 1]);
                     stmt.run(["解答3", 1]);
                     stmt.run(["解答4", 1]);
+                    stmt.run(["ハンバーガー", 1]);
+                    stmt.run(["ポテト", 1]);
+                    stmt.run(["ナゲット", 1]);
+                    stmt.run(["コーラ", 1]);
+                    stmt.run(["我", 1]);
+                    stmt.run(["我々", 1]);
+                    stmt.run(["我、天才", 1]);
+                    stmt.run(["天才ですからー？", 1]);
+                    stmt.run(["Lego", 1]);
+                    stmt.run(["WinT", 1]);
+                    stmt.run(["WinG", 1]);
+                    stmt.run(["BeeCon", 1]);
+                    stmt.run(["めざせポケモンマスター", 1]);
+                    stmt.run(["1・2・3", 1]);
+                    stmt.run(["ライバル!", 1]);
+                    stmt.run(["チャレンジャー!!", 1]);
                     stmt.finalize();
                     console.log("quiz_answer => new");
                 }
@@ -274,6 +303,8 @@ function checkRelationScenariosetScenario() {
                     stmt.run([1, 1]);
                     stmt.run([1, 2]);
                     stmt.run([1, 3]);
+                    stmt.run([1, 4]);
+                    stmt.run([1, 5]);
                     stmt.finalize();
                     console.log("relation_scenarioset_scenario => new");
                 }
@@ -322,8 +353,10 @@ function checkRelationScenarioQuiz() {
                 else if (row == null) {
                     const stmt = db.prepare('INSERT INTO relation_scenario_quiz (id_scenario, id_quiz) VALUES (?, ?)');
                     stmt.run([1, 1]);
-                    stmt.run([2, 1]);
-                    stmt.run([3, 1]);
+                    stmt.run([2, 2]);
+                    stmt.run([3, 3]);
+                    stmt.run([4, 4]);
+                    stmt.run([5, 5]);
                     stmt.finalize();
                     console.log("relation_scenario_quiz => new");
                 }
@@ -376,6 +409,22 @@ function checkRelationQuizAnswer() {
                     stmt.run([1, 2, 0]);
                     stmt.run([1, 3, 0]);
                     stmt.run([1, 4, 0]);
+                    stmt.run([2, 5, 1]);
+                    stmt.run([2, 6, 0]);
+                    stmt.run([2, 7, 0]);
+                    stmt.run([2, 8, 0]);
+                    stmt.run([3, 9, 0]);
+                    stmt.run([3, 10, 0]);
+                    stmt.run([3, 11, 1]);
+                    stmt.run([3, 12, 0]);
+                    stmt.run([4, 13, 1]);
+                    stmt.run([4, 14, 0]);
+                    stmt.run([4, 15, 0]);
+                    stmt.run([4, 16, 0]);
+                    stmt.run([5, 17, 0]);
+                    stmt.run([5, 18, 0]);
+                    stmt.run([5, 19, 1]);
+                    stmt.run([5, 20, 0]);
                     stmt.finalize();
                     console.log("relation_quiz_answer => new");
                 }

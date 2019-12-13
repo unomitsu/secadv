@@ -37,7 +37,7 @@ class SceneSelect extends Scene {
 
             // シナリオIDをidとして設定
             this.button1.id = this.nextScenarioID1;
-            this.button1.id = this.nextScenarioID2;
+            this.button2.id = this.nextScenarioID2;
 
             // テキストの設定
             this.button1.textContent = "左へ進む";
@@ -119,14 +119,5 @@ class SceneSelect extends Scene {
         else {
             console.log("FINISH");
         }
-    }
-
-    // 左ボタン クリックイベント
-    buttonLeft_clickEvent() {
-        currentScene = new SceneQuiz();
-    }
-    // 右ボタン クリックイベント
-    buttonRight_clickEvent() {
-        currentScene = new SceneQuiz();
     }
 }
