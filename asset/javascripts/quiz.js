@@ -33,7 +33,9 @@ class SceneQuiz extends Scene {
         // 初期設定
         this.setButtonQuiz();
         this.setButtonGiveUp();
-        await this.setQuiz();
+        await this.setQuiz();       // 問題のデータを取得
+        this.setMainText(quizData["problem"]);          // 取得した問題文を問題テキストに設定
+        this.setButtonQuizText(quizData["choice"]);     // 取得した選択肢をボタンに設定
 
         console.log("[FINISH] SceneQuiz !");
     }
@@ -71,15 +73,13 @@ class SceneQuiz extends Scene {
             for (let i = 0; i < choices.length; i++) {
                 //入れ替え先を決定する
                 let num = Math.floor(Math.random() * choices.length);
-
-                console.log(i, " --> ", num);
+                
                 // 現在の添字と入れ替え先が同じでなければ入れ替える
                 if (i != num) {
                     let tmp = choices[num];
                     choices[num] = choices[i];
                     choices[i] = tmp;
                 }
-                    console.log(choices);
             }
 
             /*
@@ -90,19 +90,13 @@ class SceneQuiz extends Scene {
             // 選択肢配列の並び替え
             for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
                 // 正答の選択肢の場合、正答 id を格納
-                if (choices[i]['flag'] == 1) {
-                    quizData['answer'] = i;
-                }
+                if (choices[i]['flag'] == 1) { quizData['answer'] = i;}
 
                 // 選択肢の格納
                 quizData['choice'][i] = choices[i]['answer'];
             }
         }
         console.log("quizData -> ", quizData);
-
-        // 取得したデータを設定
-        this.setMainText(quizData["problem"]);
-        this.setButtonQuizText(quizData["choice"]);
     }
 
     /* -- 問題回答ボタン関連の設定 -- */

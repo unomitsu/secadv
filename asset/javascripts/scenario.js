@@ -1,4 +1,7 @@
 
+// ローカライズのためのグローバル変数。l_ を付ける
+var l_nono = "wakatakeru";
+
 /* ===== シーン シナリオ ===== */
 class SceneScenario extends Scene {
     constructor() {

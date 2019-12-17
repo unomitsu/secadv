@@ -65,7 +65,7 @@ class Scene {
         // 仮DOMの作成
         let pstr = document.createElement('p');
         pstr.className = "MainText";
-        pstr.textContent = str;
+        pstr.textContent = replaceSecadv(str);
         this.divMainText.appendChild(pstr);
     }
     // -- テキスト区画の文字列の削除
@@ -94,4 +94,26 @@ function makePopUp(text) {
     // 画面の要素へ追加
     divPopWindow.appendChild(buttonPopWindow);
     currentScene.divScene.appendChild(divPopWindow);
+}
+
+function replaceSecadv(str) {
+    let result = str;
+    let teacher = "wakatakeru";
+
+    // 文字列中に、置換する文字列がないか検索
+    let matchstr = str.match(/@.*@/);
+
+    // なければそのまま返す
+    if (matchstr == null) {
+        return result;
+    }
+
+    // あれば対応する検索結果ごとに置換
+    switch (matchstr["0"]) {
+        case '@teacher@':
+            result = str.replace(/@.*@/, teacher);
+            break;
+    }
+
+    return result;
 }

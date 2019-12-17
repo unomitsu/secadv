@@ -100,7 +100,6 @@ class SceneSelect extends Scene {
         let flag1 = false;
         let flag2 = false;
         for (let s of scenariosID) {
-            console.log("IDID : ", s["id"]);
             if (s["id"] == this.nextScenarioID1) { flag1 = true; }
             if (s["id"] == this.nextScenarioID2) { flag2 = true; }
         }
