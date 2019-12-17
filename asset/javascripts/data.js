@@ -20,7 +20,8 @@ var scenariosID;    // シナリオのID配列
 var quizData = {
     id: 0,
     problem: "problem",
-    answer: ["1", "2", "3", "4"],
+    choice: ["1", "2", "3", "4"],
+    answer: 0,
     explanation: "explanation"
 };
 var playerAnswer;

@@ -54,10 +54,10 @@ class SceneQuiz extends Scene {
         if (quiz == null) {
             quizData = {
                 id: 0,
-                text: "問題分です。正解はどれだろう。",
-                choice: ["ans1", "ans2", "ans3", "ans4"],
-                answer: "ans1",
-                explanation: "解説だよ"
+                text: "問題文の取得に失敗しました。",
+                choice: ["誤答", "正答", "誤答", "誤答"],
+                answer: 1,
+                explanation: "エラーが発生しました。"
             };
         }
         // DBから取得したデータを、グローバル変数に格納
@@ -67,20 +67,35 @@ class SceneQuiz extends Scene {
             quizData['problem'] = quiz[0]['problem'];
             quizData['explanation'] = quiz[0]['explanation'];
 
-            let n = 1;  // 格納済みの誤答の選択肢の個数
+            // 選択肢配列の並び替え
+            for (let i = 0; i < choices.length; i++) {
+                //入れ替え先を決定する
+                let num = Math.floor(Math.random() * choices.length);
 
-            // 選択肢の格納
-            for (let c of choices) {
-                // 正答の選択肢
-                if (c['flag'] == 1) {
-                    quizData['answer'][0] = c['answer'];
+                console.log(i, " --> ", num);
+                // 現在の添字と入れ替え先が同じでなければ入れ替える
+                if (i != num) {
+                    let tmp = choices[num];
+                    choices[num] = choices[i];
+                    choices[i] = tmp;
                 }
-                // 誤答の選択肢
-                else {
-                    if (n > 3) { break; }
-                    quizData['answer'][n] = c['answer'];
-                    n += 1;
+                    console.log(choices);
+            }
+
+            /*
+             *  頭から4つとるとしたら、正答が頭の方にないとだめ
+             *  な処理がいるかもしれない
+            */
+            
+            // 選択肢配列の並び替え
+            for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
+                // 正答の選択肢の場合、正答 id を格納
+                if (choices[i]['flag'] == 1) {
+                    quizData['answer'] = i;
                 }
+
+                // 選択肢の格納
+                quizData['choice'][i] = choices[i]['answer'];
             }
         }
         console.log("quizData -> ", quizData);
@@ -107,6 +122,9 @@ class SceneQuiz extends Scene {
             if (i % 2 == 0) { this.buttonQuiz[i].className += " leftSide"; }
             else { this.buttonQuiz[i].className += " rightSide"; }
 
+            // -- 正誤判定に使うための id の設定
+            this.buttonQuiz[i].id = i;
+
             // -- マウスクリックイベントの設定
             this.buttonQuiz[i].addEventListener("click", this.buttonQuiz_clickEvent, false);
 
@@ -116,13 +134,13 @@ class SceneQuiz extends Scene {
     }
     // -- リザルトシーンへの遷移イベント
     buttonQuiz_clickEvent(qDoc) {
-        playerAnswer = this.textContent;
+        playerAnswer = this.id;
         currentScene = new SceneResult();
     }
     // -- 回答ボタンのテキストを設定,  引数は、要素数4の配列
     setButtonQuizText(ansList) {
         for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
-            this.buttonQuiz[i].textContent = quizData['answer'][i];
+            this.buttonQuiz[i].textContent = quizData['choice'][i];
         }
     }
 

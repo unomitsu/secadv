@@ -35,7 +35,7 @@ class SceneResult extends Scene {
     /* ----- 解答の確認とプレイヤー情報の更新 ----- */
     checkAnswer() {
         // 解答を確認し、フラグの設定
-        this.correctFlag = quizData["answer"][0] == playerAnswer ? this.correctFlag = true : this.correctFlag = false;
+        this.correctFlag = quizData["answer"] == playerAnswer ? this.correctFlag = true : this.correctFlag = false;
 
         // アイテムの付与もいる
         // 正答の場合、得点と所持金の加算
