@@ -49,7 +49,10 @@ async function dbStartup() {
     // シナリオとクイズ
     const resultRelationScenarioQuiz = await checkRelationScenarioQuiz();
     console.log("table.relation_scenario_quiz check ->", resultRelationScenarioQuiz);
-    
+
+    // 次のシナリオ
+    console.log("table.relation_quiz_answer check ->", await checkRelationNextScenario());
+
     // クイズと解答選択肢の関連テーブル
     const resultRelationQuiztAnswer = await checkRelationQuizAnswer();
     console.log("table.relation_quiz_answer check ->", resultRelationQuiztAnswer);
