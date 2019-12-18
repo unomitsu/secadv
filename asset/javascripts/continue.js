@@ -49,7 +49,7 @@ class SceneContinue extends Scene {
     }
     // -- クイズシーンへの遷移イベント
     buttonContinue_clickEvent() {
-        currentScene = new SceneQuiz();
+        currentScene = new SceneQuiz(false);
     }
 
     /* ----- ギブアップボタン ----- */

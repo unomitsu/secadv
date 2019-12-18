@@ -21,8 +21,12 @@ class Scene {
 
     /* ----- シーン画面 ----- */
     setDivScene() {
-        this.divScene.className = "SceneBody";
-        advFrame.appendChild(this.divScene);
+        let divSceneBack = document.createElement('div');
+        divSceneBack.className = "scene back";
+        advFrame.appendChild(divSceneBack);
+
+        this.divScene.className = "scene main";
+        divSceneBack.appendChild(this.divScene);
     }
     // -- 背景画像を変更
     changeBackground(path) {
@@ -72,6 +76,28 @@ class Scene {
     clearMainText() {
         this.divMainText.innerHTML = "";
     }
+
+    /* フェードイン
+     * fc : 処理終了後に実行する関数
+    */
+    fadein(fc) {
+        let opacity = 0;
+
+        // 処理終了後に実行する関数が正しくなければ、何もしない関数に置き換える
+        if (!fc || typeof fc !== 'function') { fc = function () { } }
+
+        // 一定時間ごとに透過度を加算していく
+        let id = setInterval(() => {
+            this.divScene.style.opacity = opacity;
+            opacity += 0.05;
+
+            if (opacity >= 1) {
+                this.divScene.style.opacity = 1;
+                fc();
+                clearInterval(id);
+            }
+        }, 100);
+    }
 }
 
 
@@ -96,6 +122,7 @@ function makePopUp(text) {
     currentScene.divScene.appendChild(divPopWindow);
 }
 
+// ローカライズ置き換え
 function replaceSecadv(str) {
     let result = str;
     let teacher = "wakatakeru";

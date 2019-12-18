@@ -3,18 +3,23 @@ var QUIZ_BUTTON_NUM = 4;
 
 /* ===== シーン クイズ ===== */
 class SceneQuiz extends Scene {
-    constructor(qDoc) {
+    /*
+     * flag : 問題を読込かどうか
+     * 
+    */ 
+    constructor(flag) {
         console.log("[BEGIN] SceneQuiz load...");
         currentSceneName = "QUIZ";
 
         super();  // 親クラスの読み込み
-        this.initialize();
+        this.initialize(flag);
 
         // qDocのように、コンストラクタの変数にするものは、クイズのジャンル等に関するもの
         // これによって、取得する問題を変更する、予定
     }
+
     // -- 初期化
-    async initialize() {
+    async initialize(flag) {
         // 問題の回答ボタン
         this.buttonQuiz = [
             document.createElement('button'),
@@ -33,7 +38,11 @@ class SceneQuiz extends Scene {
         // 初期設定
         this.setButtonQuiz();
         this.setButtonGiveUp();
-        await this.setQuiz();       // 問題のデータを取得
+
+        if (flag) {
+            await this.setQuiz();       // 問題のデータを取得
+        }
+
         this.setMainText(quizData["problem"]);          // 取得した問題文を問題テキストに設定
         this.setButtonQuizText(quizData["choice"]);     // 取得した選択肢をボタンに設定
 

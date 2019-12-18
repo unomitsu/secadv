@@ -1,11 +1,16 @@
 /* ----- シーン画面 ----- */
-div.SceneBody {
+div.scene {
     position: relative;
-    background-size: cover;
-    background-image: var(--adv-backimage);
-
     width: var(--adv-width);
     height: var(--adv-height);
+}
+
+.scene.main {
+    background-size: cover;
+    background-image: var(--adv-backimage);
+}
+.scene.back {
+    background: black;
 }
 
 /* ----- プレイヤーデータ ----- */
@@ -23,13 +28,13 @@ div.playerDataElement {
 }
 
 .playerDataElement.name {
-    left: 0px;
+    left: calc(var(--adv-width) / 4);
 }
 .playerDataElement.score {
-    left: calc(var(--adv-width) / 3);
+    left: calc(var(--adv-width) / 2);
 }
 .playerDataElement.money {
-    left: calc(var(--adv-width) * 2/ 3);
+    left: calc(var(--adv-width) * 3 / 4);
 }
 
 /* ----- メインテキスト ----- */
@@ -75,5 +80,14 @@ button.popUp {
     height: calc(var(--adv-width) / 4);
     left: calc(var(--adv-width) / 4);
     top: calc(var(--adv-height) / 8);
+}
+
+/* ----- フェードアウト ----- */
+div.fadeout {
+    position: relative;
+    background: black;
+    width: var(--adv-width);
+    height: var(--adv-height);
+    opacity: 0.5;
 }
 

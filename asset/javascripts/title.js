@@ -28,6 +28,7 @@ class SceneTitle extends Scene {
         this.setH1Title();
         this.setButtonStart();
         this.setButtonAdmin();
+
     }
 
     /* ----- タイトル 文字列 ----- */
@@ -54,6 +55,10 @@ class SceneTitle extends Scene {
     }
     // -- シナリオシーンへ遷移
     buttonStart_clickEvent() {
+        // 各種データを初期化
+        g_gameState = 0;
+
+        // シナリオシーンへ遷移
         currentScene = new SceneScenarioSelect();
     }
 

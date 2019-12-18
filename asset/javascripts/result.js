@@ -96,7 +96,7 @@ class SceneResult extends Scene {
         }, 500);
     }
 
-    // 正答はコンテニュー画面、誤答はステージセレクト画面へ遷移する
+    // 正答はステージセレクト画面、誤答はコンテニュー画面へ遷移する
     divScene_clickEvent() {
         currentScene = currentScene.correctFlag ? new SceneSelect() : new SceneContinue();
     }

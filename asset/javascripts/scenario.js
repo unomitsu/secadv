@@ -20,12 +20,19 @@ class SceneScenario extends Scene {
 
         // 親クラスの初期設定
         this.setDivScene();
-        this.setDivMainText();
-        this.setDivPlayerData();
 
         // 初期設定
         await this.loadScenarios();
-        this.setScenarioMove();
+
+        // フェードイン後に設定するもの
+        this.fadein(() => {
+            // 親クラスの初期設定
+            this.setDivMainText();
+            this.setDivPlayerData();
+
+            // 初期設定
+            this.setScenarioMove();
+        });
 
         console.log("[FINISH] SceneScenario !");
     }
@@ -34,6 +41,12 @@ class SceneScenario extends Scene {
 
     // -- 最初のシナリオとクリックで進むイベントの追加
     setScenarioMove() {
+        this.scenarioId = 0;
+
+        // 初めのテキストの設定
+        this.setMainText(currentScene.scenarios[0]['text']);
+
+        // テキストを進めるイベントを設定
         this.divScene.addEventListener("click", this.scenario_clickEvent, false);
     }
 
@@ -52,7 +65,7 @@ class SceneScenario extends Scene {
         }
         // テキストがなければ, クイズシーンへ遷移
         else {
-            currentScene = new SceneQuiz();
+            currentScene = new SceneQuiz(true);
         }
     }
 
@@ -79,17 +92,8 @@ class SceneScenario extends Scene {
                 break;
             }
         }
-
-        console.log(currentScene.scenarios);
-        console.log(this.scenarioId, " ?= ", this.scenarios.length);
-        this.scenarioId = 0;
-        console.log(currentScene.scenarioId, " ?= ", currentScene.scenarios.length);
         
-        // 初めのテキストの設定
-        this.setMainText(currentScene.scenarios[0]['text']);
-
         console.log("[FINISH] Scenario -> ", currentScene.scenarios);
-
         return "resolve";
     }
 }

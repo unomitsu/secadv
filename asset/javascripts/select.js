@@ -28,7 +28,7 @@ class SceneSelect extends Scene {
             this.setButtonSelect();
         }
         else {
-            currentScene = new SceneQuiz();
+            currentScene = new SceneQuiz(true);
         }
 
         console.log("[FINISH] SceneSelect !");
