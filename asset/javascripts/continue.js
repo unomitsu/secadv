@@ -31,7 +31,7 @@ class SceneContinue extends Scene {
 
     /* ----- テキストを設定する ----- */
     setResultText() {
-        this.setMainText(`正答は ${quizData["answer"]} です。あなたの回答は ${playerAnswer} でした.`);
+        this.setMainText(`残念！ ${playerAnswer} は不正解です.`);
         this.setMainText(quizData["explanation"]);
     }
 

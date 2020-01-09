@@ -37,7 +37,7 @@ class SceneQuiz extends Scene {
 
         // 初期設定
         this.setButtonQuiz();
-        this.setButtonGiveUp();
+        //this.setButtonGiveUp();
 
         if (flag) {
             await this.setQuiz();       // 問題のデータを取得
@@ -52,7 +52,7 @@ class SceneQuiz extends Scene {
     /* -- 出題内容の取得と設定 -- */
     async setQuiz() {
         // シナリオの対応するクイズのIDが必要
-        let qid = g_gameState == 0 ? scenarioID : Math.floor(1 + Math.random() * 5);
+        let qid = g_gameState == 0 ? (await dbSelectWhereAll('relation_scenario_quiz', `relation_scenario_quiz.id_scenario = ${scenarioID}`))[0]["id_quiz"] : Math.floor(1 + Math.random() * 5);
         console.log("QUIZ_ID => ", qid);
 
         // クイズのデータ取得

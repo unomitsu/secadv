@@ -85,6 +85,7 @@ class SceneScenario extends Scene {
             this.scenarios = ["シナリオがありません。"];
         }
 
+        console.log("NOW_SCENARIOS => ", scenariosID);
         // 読み込んだデータを削除する
         for (let i = 0; i < scenariosID.length; i++) {
             if (scenariosID[i]["id"] == scenarioID) {

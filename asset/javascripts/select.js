@@ -21,6 +21,8 @@ class SceneSelect extends Scene {
         this.setDivScene();
         this.setDivPlayerData();
         this.setDivMainText();
+        
+        this.setMainText("どちらに進みますか");
 
         // 初期設定
         if (g_gameState == 0) {

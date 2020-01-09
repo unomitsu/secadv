@@ -20,8 +20,7 @@ async function dbStartup() {
 
     /* ----- 実体テーブルの確認 ----- */
     // クイズテーブル
-    const resultQuiz = await checkQuiz();
-    console.log("table.quiz check ->", resultQuiz);
+    console.log("quiz check", await checkQuiz());
 
     // シナリオセットテーブル
     const resultScenarioSet = await checkScenarioSet();

@@ -1,5 +1,7 @@
 /* ===== シーン 共通部分 ===== */
 
+var sceneBack = "classroom";
+
 class Scene {
     constructor() {
         // 画面の初期化
@@ -7,7 +9,6 @@ class Scene {
 
         // シーン全体の区画
         this.divScene = document.createElement('div');                  // 枠
-        this.divSceneBackground = "../.././asset/images/backdrop.jpg";  // 背景画像のパス
 
         // チーム情報を表示する区画
         this.divPlayerData = document.createElement('div');     // 枠
@@ -27,10 +28,19 @@ class Scene {
 
         this.divScene.className = "scene main";
         divSceneBack.appendChild(this.divScene);
+
+        this.drawBackground(sceneBack);
     }
     // -- 背景画像を変更
-    changeBackground(path) {
-        this.divSceneBackground = path;
+    drawBackground(path) {
+        switch (path) {
+            case "classroom":
+                this.divScene.style.backgroundImage = "url(./asset/images/classroom.jpg)";
+                break;
+            default:
+                this.divScene.style.backgroundImage = "url(./asset/images/backdrop.jpg)";
+                break;
+        }
     }
 
     /* ----- プレイヤー情報区画 ----- */
@@ -123,6 +133,10 @@ function makePopUp(text) {
 }
 
 // ローカライズ置き換え
+/*
+ * whileとかみたい 全部見るようにする
+ * 環境変数は大文字なので、大文字の方が分かりやすい
+*/ 
 function replaceSecadv(str) {
     let result = str;
     let teacher = "wakatakeru";

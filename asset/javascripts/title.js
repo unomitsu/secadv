@@ -28,7 +28,6 @@ class SceneTitle extends Scene {
         this.setH1Title();
         this.setButtonStart();
         this.setButtonAdmin();
-
     }
 
     /* ----- タイトル 文字列 ----- */

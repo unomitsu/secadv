@@ -90,10 +90,16 @@ class SceneResult extends Scene {
 
     /* ----- コンテニュー、ステージセレクト画面への移行イベントの設定 ----- */
     setMoveEvent() {
-        // 一定時間待機し、その後イベントを設定する
+        // 一定時間待機する
+        // 待機後、プレイヤー情報と解説を表示、イベントを設定する
+        setTimeout(function () {
+            currentScene.setDivPlayerData();
+            currentScene.setDivMainText();
+            currentScene.setMainText(quizData["explanation"]);
+        }, 500);
         setTimeout(function () {
             currentScene.divScene.addEventListener("click", currentScene.divScene_clickEvent, false);
-        }, 500);
+        }, 1000);
     }
 
     // 正答はステージセレクト画面、誤答はコンテニュー画面へ遷移する

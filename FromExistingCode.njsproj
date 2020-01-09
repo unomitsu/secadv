@@ -73,6 +73,24 @@
     <Folder Include="obj\Debug" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="asset\databases\db_answer.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\db_quiz.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\dbr_quiz_answer.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\db_scenario.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\db_scenarioset.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\db_scenario_element.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="asset\databases\newtable.js">
       <SubType>Code</SubType>
     </Compile>
