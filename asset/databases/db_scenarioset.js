@@ -6,20 +6,24 @@ function checkScenarioSet() {
         let db = new sqlite3.Database(dbName);  // DBを開く
 
         db.serialize(() => {
+            // 外部制約キーの有効化
+            setForeignKey(db);
+
             // テーブルがなければ新規に作成する
             db.run(
                 'CREATE TABLE IF NOT EXISTS scenarioset ('
                 + 'id INTEGER PRIMARY KEY AUTOINCREMENT, '
                 + 'title TEXT NOT NULL, '
                 + 'level INTEGER, '
-                + 'start INTEGER NOT NULL'
+                + 'start INTEGER, '
+                + 'FOREIGN KEY (start) REFERENCES scenario(id)'
                 + ')'
             );
 
             // テーブルにデータがなければ新規に作成する
             db.get('SELECT * FROM scenarioset', function (err, row) {
                 // エラーが発生した場合、エラーを返す
-                if (err) { throw err; }
+                if (err) { resolve(err); }
 
                 // データが無ければ作成する
                 else if (row == null) {
@@ -28,14 +32,13 @@ function checkScenarioSet() {
                     stmt.run(['サンプルシナリオ1', 1, 1]);
                     stmt.finalize();
 
-                    console.log("scenarioset => new");
+                    resolve("new");     // Promiseで返すresolveを設定
                 }
                 else {
-                    console.log("scenarioset => ", row);
+                    resolve(row);     // Promiseで返すresolveを設定
                 }
 
                 db.close();             // DBを閉じる
-                resolve("resolve");     // Promiseで返すresolveを設定
             });
         });
     });

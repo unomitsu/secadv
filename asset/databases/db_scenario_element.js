@@ -8,13 +8,7 @@ function checkScenarioElement() {
 
         db.serialize(() => {
             // 外部制約キーの有効化
-            db.get('PRAGMA foreign_keys', function (err, row) {
-                // エラーが発生した場合、エラーを返す
-                if (err) { throw err; }
-
-                // foreign_keysが無効の場合、有効にする
-                if (row["foreign_keys"] == 0) { db.run('PRAGMA foreign_keys = 1'); }
-            });
+            setForeignKey(db);
 
             // テーブルが無ければ新規に作成する  FOREIGN KEY (situation) REFERENCES list(title)
             db.run(
@@ -31,7 +25,7 @@ function checkScenarioElement() {
             // テーブル内にデータがなければ新規に作成する
             db.get('SELECT * FROM scenario_element', function (err, row) {
                 // エラーが発生した場合、エラーを返す
-                if (err) { throw err; }
+                if (err) { resolve(err); }
 
                 // データが無ければ作成する
                 else if (row == null) {
@@ -90,14 +84,12 @@ function checkScenarioElement() {
 
                     stmt.finalize();
 
-                    console.log("scenario_element => new");
+                    resolve("new");     // Promiseで返すresolveを設定
                 }
                 else {
-                    console.log("scenario_element => ", row);
+                    resolve(row);     // Promiseで返すresolveを設定
                 }
-
                 db.close();             // DBを閉じる
-                resolve("resolve");     // Promiseで返すresolveを設定
             });
         });
     });

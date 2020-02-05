@@ -6,72 +6,45 @@ async function dbStartup() {
     /* ----- 外部制約テーブルの確認 ----- */
 
     // クイズ分類テーブル
-    console.log("table.quiz_type check ->", await checkQuizType());
-
-    console.log("-> ");
-
-    // 状況分類テーブル
-    console.log("table.situation_type check ->", await checkSituationType());
-
-    console.log("-> ");
-
+    console.log(" [F]quiz_type check ->", await checkQuizType());
+    
     // 画像分類テーブル
-    console.log("table.image_type check ->", await checkImageType());
-
-    console.log("-> ");
+    console.log(" [F]image_type check ->", await checkImageType());
 
 
     /* ----- 実体テーブルの確認 ----- */
     // クイズテーブル
-    console.log("quiz check", await checkQuiz());
-
-    console.log("-> ");
-
-    // シナリオセットテーブル
-    console.log("table.scenario_set check ->", await checkScenarioSet());
-
-    console.log("-> ");
-
+    console.log(" [ ]quiz check", await checkQuiz());
+    
     // シナリオテーブル
-    console.log("table.scenario check ->", await checkScenario());
-
-    console.log("-> ");
-
+    console.log(" [ ]scenario check ->", await checkScenario());
+    
+    // シナリオセットテーブル
+    console.log(" [ ]scenario_set check ->", await checkScenarioSet());
+    
     // シナリオ要素テーブル
-    console.log("table.scenario_element check ->", await checkScenarioElement());
-
-    console.log("-> ");
-
+    console.log(" [ ]scenario_element check ->", await checkScenarioElement());
+    
     // 選択肢テーブル
-    console.log("table.quiz_answer ->", await checkQuizAnswer());
-
-    console.log("-> ");
+    console.log(" [ ]quiz_answer ->", await checkQuizAnswer());
 
 
     /* ----- 関連テーブルの確認 ----- */
-
     // シナリオセット シナリオ
-    console.log("table.relation_scenarioset_scenario check ->", await checkRelationScenariosetScenario());
-
-    console.log("-> ");
-
+    console.log(" [R]_scenarioset_scenario check ->", await checkRelationScenariosetScenario());
+    
     // シナリオとクイズ
-    console.log("table.relation_scenario_quiz check ->", await checkRelationScenarioQuiz());
-
-    console.log("-> ");
-
+    console.log(" [R]_scenario_quiz check ->", await checkRelationScenarioQuiz());
+    
     // 次のシナリオ
-    console.log("table.relation_quiz_answer check ->", await checkRelationNextScenario());
-
-    console.log("-> ");
+    console.log(" [R]_next_scenario1 check ->", await checkRelationNextScenario());
 
     // クイズと解答選択肢の関連テーブル
-    console.log("table.relation_quiz_answer check ->", await checkRelationQuizAnswer());
+    console.log(" [R]_quiz_answer check ->", await checkRelationQuizAnswer());
 
-    console.log("-> ");
 
     /* ----- シナリオと問題の作成 ----- */
-
+    
 
 
     console.log("[FINISH] TABLE CHECK !");

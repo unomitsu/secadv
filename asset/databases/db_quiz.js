@@ -16,7 +16,7 @@ async function checkQuiz() {
                 + 'title TEXT NOT NULL, '
                 + 'problem TEXT NOT NULL, '
                 + 'explanation TEXT, '
-                + 'type INTEGER NOT NULL, '
+                + 'type INTEGER, '
                 + 'level INTEGER, '
                 + 'FOREIGN KEY (type) REFERENCES quiz_type(id)'
                 + ')'
@@ -24,11 +24,8 @@ async function checkQuiz() {
 
             // テーブルにデータがなければ新規に作成する
             db.get('SELECT * FROM quiz', (err, row) => {
-                // エラーが起きたらエラーを返す ?
-                if (err) {
-                    resolve(err);
-                    return;
-                }
+                // エラーが起きたらエラーを返す
+                if (err) { resolve(err); }
 
                 // データが無ければ作成する
                 else if (row == null) {
@@ -81,14 +78,13 @@ async function checkQuiz() {
 
                     stmt.finalize();
 
-                    console.log('quiz CREATE');
+                    resolve("new");   // Promiseで返すresolveを設定
                 }
                 else {
-                    console.log('quiz ', row);
+                    resolve(row);   // Promiseで返すresolveを設定
                 }
 
                 db.close();         // DBを閉じる
-                resolve("resolve");   // Promiseで返すresolveを設定
             });
         });
     });

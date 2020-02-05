@@ -18,7 +18,7 @@ function checkImageType() {
             // テーブル内のデータの確認と、無い場合の新規作成
             db.get('SELECT * FROM image_type', function (err, row) {
                 // エラーが発生した場合、エラーを返す
-                if (err) { throw err; }
+                if (err) { resolve(err); }
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
@@ -34,10 +34,13 @@ function checkImageType() {
                     stmt.run(['香川大学', './asset/images/kagawauniv.jpg', 1]);
 
                     stmt.finalize();
-                }
 
-                db.close();       // DBを閉じる
-                resolve(row);     // Promiseで返すresolveを設定
+                    resolve("new");     // Promiseで返すresolveを設定
+                }
+                else {
+                    resolve(row);       // Promiseで返すresolveを設定
+                }
+                db.close();             // DBを閉じる
             });
         });
     });

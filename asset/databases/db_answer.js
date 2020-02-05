@@ -86,7 +86,7 @@ function checkQuizAnswer() {
             // テーブル内にデータが無ければ新規に作成する
             db.get('SELECT * FROM quiz_answer', function (err, row) {
                 // エラーが発生した場合、エラーを返す
-                if (err) { throw err; }
+                if (err) { resolve(err); }
 
                 // データが無ければ作成する
                 else if (row == null) {
@@ -166,14 +166,13 @@ function checkQuizAnswer() {
 
                     stmt.finalize();
 
-                    console.log("quiz_answer => new");
+                    resolve("new");     // Promiseで返すresolveを設定
                 }
                 else {
-                    console.log("quiz_answer => ", row);
+                    resolve(row);     // Promiseで返すresolveを設定
                 }
 
                 db.close();             // DBを閉じる
-                resolve("resolve");     // Promiseで返すresolveを設定
             });
         });
     });

@@ -76,6 +76,18 @@
     <Compile Include="asset\databases\dbf_image.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="asset\databases\dbf_quiz.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\dbr_next_scenario.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\dbr_scenarioset_scenario.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="asset\databases\dbr_scenario_quiz.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="asset\databases\db_answer.js">
       <SubType>Code</SubType>
     </Compile>

@@ -1,7 +1,5 @@
 /* ===== シーン 共通部分 ===== */
 
-var sceneBack = "classroom";
-
 class Scene {
     constructor() {
         // 画面の初期化
@@ -29,17 +27,15 @@ class Scene {
         this.divScene.className = "scene main";
         divSceneBack.appendChild(this.divScene);
 
-        this.drawBackground(sceneBack);
+        this.drawBackground(null);
     }
     // -- 背景画像を変更
     drawBackground(path) {
-        switch (path) {
-            case "classroom":
-                this.divScene.style.backgroundImage = "url(./asset/images/classroom.jpg)";
-                break;
-            default:
-                this.divScene.style.backgroundImage = "url(./asset/images/backdrop.jpg)";
-                break;
+        if (path == null) {
+            this.divScene.style.backgroundImage = "url(./asset/images/title.jpg)";
+        }
+        else {
+            this.divScene.style.backgroundImage = "url(" + path + ")";
         }
     }
 
