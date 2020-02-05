@@ -1,4 +1,33 @@
 ﻿
+/* ========== select ========== */
+
+// 指定した シナリオid の全要素を返す
+function dbSelectQuiz(id) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all('SELECT * FROM quiz WHERE id = $a',
+                {
+                    $a: id
+                },
+                (err, rows) => {
+                    if (err) { resolve(err); }
+                    else { resolve(rows); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectQuiz(id) {
+    const result = await dbSelectQuiz(id);
+    console.log(`<SELECT * FROM quiz WHERE id = ${id}>`, result);
+    return result;
+}
+
+
 /* ========== create ========== */
 
 async function checkQuiz() {

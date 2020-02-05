@@ -1,5 +1,36 @@
 ﻿
-// シナリオとクイズ
+/* ========== select ========== */
+
+// 指定した シナリオid の全要素を返す
+function dbSelectRelationScenarioQuiz(sid) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all('SELECT * FROM relation_scenario_quiz WHERE id_scenario = $a',
+                {
+                    $a: sid
+                },
+                (err, rows) => {
+                    if (err) { resolve(err); }
+                    else { resolve(rows); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectRelationScenarioQuiz(sid) {
+    const result = await dbSelectRelationScenarioQuiz(sid);
+    console.log(`<SELECT * FROM relation_scenario_quiz WHERE id_scenario = ${sid}>`, result);
+    return result;
+}
+
+
+
+/* ========== create =========== */
+
 function checkRelationScenarioQuiz() {
     return new Promise(resolve => {
         let db = new sqlite3.Database(dbName);  // DBを開く

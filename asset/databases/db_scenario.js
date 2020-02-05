@@ -1,4 +1,33 @@
 ﻿
+/* ========== select ========== */
+
+// 指定した id の全要素を返す
+function dbSelectScenario(sid) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all('SELECT * FROM scenario WHERE id = $a',
+                {
+                    $a: sid
+                },
+                (err, rows) => {
+                    if (err) { resolve(err); }
+                    else { resolve(rows); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectScenario(sid) {
+    const result = await dbSelectScenario(sid);
+    console.log(`<SELECT * FROM scenario WHERE id = ${sid}>`, result);
+    return result;
+}
+
+
 /* ========== create ========== */
 
 /* ----- シナリオテーブル scenarios ----- */

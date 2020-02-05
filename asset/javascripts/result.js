@@ -4,13 +4,10 @@
 
 class SceneResult extends Scene {
     constructor() {
-        console.log("[BEGIN] SceneResult load...");
-        currentSceneName = "RESULT";
+        console.log(">>> SCENE RESULT");
 
         super();            // 親クラスの読み込み
         this.initialize();  // 初期処理
-
-        console.log("[FINISH] SceneResult !");
     }
     initialize() {
         // 正答誤答フラグ
@@ -27,24 +24,21 @@ class SceneResult extends Scene {
         this.setDivPlayerData();
         
         // 各初期設定
-        this.checkAnswer();
+        this.checkAnswer();     // 解答の確認とプレイヤー情報の更新
         this.setAnimation();
         this.setMoveEvent();
     }
 
     /* ----- 解答の確認とプレイヤー情報の更新 ----- */
     checkAnswer() {
-        // 解答を確認し、フラグの設定
-        this.correctFlag = quizData["answer"] == playerAnswer ? this.correctFlag = true : this.correctFlag = false;
-
-        // アイテムの付与もいる
-        // 正答の場合、得点と所持金の加算
-        if (this.correctFlag) {
+        // 答え合わせ、フラグの設定、スコアと所持金の更新
+        if (g_quiz["answer"][g_playerAnswer] == 1) {
+            this.correctFlag = true
             player["score"] += 1000;
             player["money"] += 1000;
         }
-        // 誤答の場合、得点の減算
         else {
+            this.correctFlag = false;
             player["score"] -= 10;
         }
     }
@@ -95,8 +89,7 @@ class SceneResult extends Scene {
         setTimeout(function () {
             currentScene.setDivPlayerData();
             currentScene.setDivMainText();
-            console.log(quizData);
-            currentScene.setMainText("[" + quizData["choice"][playerAnswer] + "]\n" + quizData["description"][playerAnswer]);
+            currentScene.setMainText("[" + g_quiz["choice"][g_playerAnswer] + "]\n" + g_quiz["description"][g_playerAnswer]);
         }, 500);
         setTimeout(function () {
             currentScene.divScene.addEventListener("click", currentScene.divScene_clickEvent, false);

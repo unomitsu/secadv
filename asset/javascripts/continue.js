@@ -5,18 +5,13 @@
 
 class SceneContinue extends Scene {
     constructor() {
-        console.log("[BEGIN] SceneContinue load...");
-        currentSceneName = "Continue";
+        console.log(">>> SCENE CONTINUE");
 
         super();    // 親クラスの読み込み
         this.initialize();  // 初期処理
-
-        console.log("[FINISH] SceneContinue !");
     }
     initialize() {
         // 再挑戦ボタン、ギブアップボタン
-        this.buttonContinue = document.createElement('button');
-        this.buttonGiveup = document.createElement('button');
 
         // 親クラス系の各初期設定
         this.setDivScene();
@@ -31,21 +26,22 @@ class SceneContinue extends Scene {
 
     /* ----- テキストを設定する ----- */
     setResultText() {
-        this.setMainText(`残念！ ${playerAnswer} は不正解です.`);
-        this.setMainText("[Hint]\n" + quizData["explanation"]);
+        this.setMainText("[Hint]\n" + g_quiz["explanation"]);
     }
 
     /* ----- コンテニューボタン ----- */
     setButtonContinue() {
+        let button = document.createElement('button');
+
         // CSSクラスで配置設定
-        this.buttonContinue.className = "Select Left";
+        button.className = "Select Left";
 
         // テキスト、イベントの設定
-        this.buttonContinue.textContent = "コンテニュー";
-        this.buttonContinue.addEventListener("click", this.buttonContinue_clickEvent, false);
+        button.textContent = "コンテニュー";
+        button.addEventListener("click", this.buttonContinue_clickEvent, false);
 
         // シーン画面へ追加
-        this.divScene.appendChild(this.buttonContinue);
+        this.divScene.appendChild(button);
     }
     // -- クイズシーンへの遷移イベント
     buttonContinue_clickEvent() {
@@ -54,15 +50,17 @@ class SceneContinue extends Scene {
 
     /* ----- ギブアップボタン ----- */
     setButtonGiveup() {
+        let button = document.createElement('button');
+
         // CSSクラスで配置設定
-        this.buttonGiveup.className = "Select Right";
+        button.className = "Select Right";
 
         // テキスト、イベントの設定
-        this.buttonGiveup.textContent = "ギブアップ";
-        this.buttonGiveup.addEventListener("click", this.buttonGiveup_clickEvent, false);
+        button.textContent = "ギブアップ";
+        button.addEventListener("click", this.buttonGiveup_clickEvent, false);
 
         // シーン画面へ追加
-        this.divScene.appendChild(this.buttonGiveup);
+        this.divScene.appendChild(button);
     }
     // -- タイトルシーンへの遷移イベント
     buttonGiveup_clickEvent() {

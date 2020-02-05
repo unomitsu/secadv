@@ -5,40 +5,17 @@ var QUIZ_BUTTON_NUM = 4;
 class SceneQuiz extends Scene {
     /*
      * flag : 問題を読込かどうか
-     * 
     */ 
     constructor(flag) {
-        console.log("[BEGIN] SceneQuiz load...");
-        currentSceneName = "QUIZ";
+        console.log(">>> SCENE QUIZ");
 
         super();  // 親クラスの読み込み
         this.initialize(flag);
-
-        // qDocのように、コンストラクタの変数にするものは、クイズのジャンル等に関するもの
-        // これによって、取得する問題を変更する、予定
     }
-
-    // -- 初期化
     async initialize(flag) {
-        // 問題の回答ボタン
-        this.buttonQuiz = [
-            document.createElement('button'),
-            document.createElement('button'),
-            document.createElement('button'),
-            document.createElement('button')
-        ];
-        // ギブアップボタン
-        this.buttonGiveUp = document.createElement('button');
-
-        // クイズアニメーションのカウンター
-        this.quizAnimationCounter = 0;
-
         // 親クラスの初期設定
         this.setDivScene();
         this.setDivPlayerData();
-
-        // 初期設定
-        //this.setButtonGiveUp();
 
        // 問題のデータを取得
         if (flag) {
@@ -50,53 +27,56 @@ class SceneQuiz extends Scene {
 
         // 一定時間後に、問題を設定
         setTimeout(function () {
-            // テキスト入力欄セット
-            currentScene.setDivMainText();
-            // 解答ボタンセット
-            currentScene.setButtonQuiz();
+            currentScene.setDivMainText();                      // テキスト入力欄セット
+            currentScene.setMainText(g_quiz["problem"]);        // 取得した問題文を問題テキストに設定
 
-            currentScene.setMainText(quizData["problem"]);       // 取得した問題文を問題テキストに設定
-            currentScene.setButtonQuizText(quizData["choice"]);  // 取得した選択肢をボタンに設定
+            currentScene.setButtonQuiz();                       // 解答ボタンセット
         }, 500);
-
-        console.log("[FINISH] SceneQuiz !");
     }
 
     /* -- 出題内容の取得と設定 -- */
     async setQuiz() {
-        // シナリオの対応するクイズのIDが必要
-        let qid = g_gameState == 0 ? (await dbSelectWhereAll('relation_scenario_quiz', `relation_scenario_quiz.id_scenario = ${scenarioID}`))[0]["id_quiz"] : Math.floor(1 + Math.random() * 5);
-        console.log("QUIZ_ID => ", qid);
+        let qid, quiz, choices;
+
+        // シナリオの対応するクイズのIDが必要、クリア後の場合はランダムにIDを設定する
+        if (g_gameState == 0) {
+            await selectRelationScenarioQuiz(g_scenario).then(res => {
+                // 対応するデータがある場合
+                if (res.length > 0) {
+                    qid = res["0"]["id_quiz"];
+                }
+                // ない場合はランダム
+                else {
+                    qid = Math.floor(1 + Math.random() * 5);
+                }
+            });
+        }
+        else {
+            qid = Math.floor(1 + Math.random() * 5);
+        }
 
         // クイズのデータ取得
-        const quiz = await dbSelectWhereAll('quiz', `id = ${qid}`);
+        await selectQuiz(qid).then(res => {
+            quiz = res;
+        });
 
         // クイズの選択肢を取得
-        const choices = await dbSelectWhereAll('quiz_answer, relation_quiz_answer', `relation_quiz_answer.id_quiz = ${qid} AND quiz_answer.id = relation_quiz_answer.id_answer`);
+        await selectQuizAnswer(qid).then(res => {
+            choices = res;
+        });
         
-        // もしものデータがない場合の処理
-        if (quiz == null) {
-            quizData = {
-                id: 0,
-                text: "問題文の取得に失敗しました。",
-                choice: ["誤答", "正答", "誤答", "誤答"],
-                choice: ["誤答です", "正答です", "誤答です", "誤答です"],
-                answer: 1,
-                explanation: "エラーが発生しました。"
-            };
-        }
         // DBから取得したデータを、グローバル変数に格納
-        else {
+        try {
             // 問題データの格納
-            quizData['id'] = quiz[0]['id'];
-            quizData['problem'] = quiz[0]['problem'];
-            quizData['explanation'] = quiz[0]['explanation'];
+            g_quiz['id'] = quiz[0]['id'];
+            g_quiz['problem'] = quiz[0]['problem'];
+            g_quiz['explanation'] = quiz[0]['explanation'];
 
             // 選択肢配列の並び替え
             for (let i = 0; i < choices.length; i++) {
                 //入れ替え先を決定する
                 let num = Math.floor(Math.random() * choices.length);
-                
+
                 // 現在の添字と入れ替え先が同じでなければ入れ替える
                 if (i != num) {
                     let tmp = choices[num];
@@ -104,63 +84,74 @@ class SceneQuiz extends Scene {
                     choices[i] = tmp;
                 }
             }
-
-            /*
-             *  頭から4つとるとしたら、正答が頭の方にないとだめ
-             *  な処理がいるかもしれない
-            */
-            
-            // 選択肢配列の並び替え
+            // 選択肢の格納
             for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
-                // 正答の選択肢の場合、正答 id を格納
-                if (choices[i]['flag'] == 1) { quizData['answer'] = i;}
-
-                // 選択肢の格納
-                quizData['choice'][i] = choices[i]['answer'];
-                quizData['description'][i] = choices[i]['description'];
+                g_quiz['choice'][i] = choices[i]['answer'];
+                g_quiz['description'][i] = choices[i]['description'];
+                g_quiz['answer'][i] = choices[i]['flag'];
             }
         }
-        console.log("quizData -> ", quizData);
+        catch {
+            g_quiz = {
+                id: 0,
+                text: "問題文の取得に失敗しました。",
+                choice: ["誤答", "正答", "誤答", "誤答"],
+                description: ["誤答です", "正答です", "誤答です", "誤答です"],
+                answer: [0, 1, 0, 0],
+                explanation: "エラーが発生しました。"
+            };
+        }
+        console.log("id_quiz : ", g_quiz["id"]);
     }
 
     /* -- 問題回答ボタン関連の設定 -- */
     setButtonQuiz() {
         for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
-            this.buttonQuiz[i].id = i;
+            let button = document.createElement('button');
+
+            // -- 正誤判定関連
+            button.id = i;                              // id設定
+            button.textContent = g_quiz['choice'][i];   // テキスト設定
 
             // -- CSSクラスで配置
             // 大きさと配置方法
-            this.buttonQuiz[i].className = "quizAnswer";
+            button.className = "quizAnswer";
 
             // 縦方向の配置
-            if (i < 2) { this.buttonQuiz[i].className += " topSide"; }
-            else { this.buttonQuiz[i].className += " bottomSide"; }
+            if (i < 2) { button.className += " topSide"; }
+            else { button.className += " bottomSide"; }
 
             //横方向の配置
-            if (i % 2 == 0) { this.buttonQuiz[i].className += " leftSide"; }
-            else { this.buttonQuiz[i].className += " rightSide"; }
-
-            // -- 正誤判定に使うための id の設定
-            this.buttonQuiz[i].id = i;
+            if (i % 2 == 0) { button.className += " leftSide"; }
+            else { button.className += " rightSide"; }
 
             // -- マウスクリックイベントの設定
-            this.buttonQuiz[i].addEventListener("click", this.buttonQuiz_clickEvent, false);
+            button.addEventListener("click", this.buttonQuiz_clickEvent, false);
 
             // 親要素に追加
-            this.divScene.appendChild(this.buttonQuiz[i]);
+            this.divScene.appendChild(button);
         }
     }
     // -- リザルトシーンへの遷移イベント
-    buttonQuiz_clickEvent(qDoc) {
-        playerAnswer = this.id;
+    buttonQuiz_clickEvent() {
+        g_playerAnswer = this.id;
         currentScene = new SceneResult();
     }
-    // -- 回答ボタンのテキストを設定,  引数は、要素数4の配列
-    setButtonQuizText(ansList) {
-        for (let i = 0; i < QUIZ_BUTTON_NUM; i++) {
-            this.buttonQuiz[i].textContent = quizData['choice'][i];
-        }
+
+    /* ----- クイズに入ったことを知らせる ----- */
+    setQuizAnimation() {
+        let pQuiz = document.createElement('p');
+
+        // テキストの設定
+        pQuiz.textContent = "クイズ！";
+
+        // CSSクラスによる配置設定
+        pQuiz.className = "quizAnimation";
+
+        // ゲーム画面への追加
+        this.divScene.appendChild(pQuiz);
     }
+
 
     /* ----- ギブアップボタン ----- */
     setButtonGiveUp() {
@@ -179,18 +170,5 @@ class SceneQuiz extends Scene {
         currentScene = new SceneTitle();
     }
 
-    /* ----- クイズに入ったことを知らせる ----- */
-    setQuizAnimation() {
-        let pQuiz = document.createElement('p');
-
-        // テキストの設定
-        pQuiz.textContent = "クイズ！";
-
-        // CSSクラスによる配置設定
-        pQuiz.className = "quizAnimation";
-
-        // ゲーム画面への追加
-        this.divScene.appendChild(pQuiz);
-    }
 }
 

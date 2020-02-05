@@ -33,7 +33,39 @@ async function insertRelationQuizAnswer(quizId, answerId, flag) {
     });
 }
 
-// クイズと解答選択肢
+
+/* ========== select ========== */
+
+// 指定した シナリオid の全要素を返す
+function dbSelectQuizAnswer(qid) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all('SELECT answer, description, available, flag FROM quiz_answer, relation_quiz_answer WHERE relation_quiz_answer.id_quiz = $a AND quiz_answer.id = relation_quiz_answer.id_answer',
+                {
+                    $a: qid
+                },
+                (err, rows) => {
+                    if (err) { resolve(err); }
+                    else { resolve(rows); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectQuizAnswer(qid) {
+    const result = await dbSelectQuizAnswer(qid);
+    console.log(`<SELECT answer, description, available, flag FROM quiz_answer, relation_quiz_answer`
+                + `WHERE relation_quiz_answer.id_quiz = ${qid} AND quiz_answer.id = relation_quiz_answer.id_answer>`, result);
+    return result;
+}
+
+
+/* ========== create ========== */
+
 function checkRelationQuizAnswer() {
     return new Promise(resolve => {
         let db = new sqlite3.Database(dbName);  // DBを開く

@@ -1,4 +1,32 @@
 ﻿
+/* ========== select ========== */
+
+// 指定した id の全要素を返す
+function dbSelectNextScenario(sid) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all('SELECT * FROM relation_next_scenario WHERE id_current = $a',
+                {
+                    $a: sid
+                },
+                (err, rows) => {
+                    if (err) { resolve(err); }
+                    else { resolve(rows); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectNextScenario(sid) {
+    const result = await dbSelectNextScenario(sid);
+    console.log(`<SELECT * FROM relation_next_scenario WHERE id_current = ${sid}>`, result);
+    return result;
+}
+
 // 次のシナリオ
 function checkRelationNextScenario() {
     return new Promise(resolve => {

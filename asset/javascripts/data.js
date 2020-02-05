@@ -15,15 +15,15 @@ var g_scenarioset;      // シナリオセットのID
 var g_scenario;         // 現在のシナリオのID
 
 /* ----- 問題データ ----- */
-var quizData = {
+var g_quiz = {
     id: 0,
     problem: "problem",
     choice: ["1", "2", "3", "4"],
     description: ["d1", "d2", "d3", "d4"],
-    answer: 0,
+    answer: [1, 0, 0, 0],
     explanation: "explanation"
 };
-var playerAnswer;
+var g_playerAnswer;
 
 /* ----- シーンデータ ----- */
 var currentScene;   // 現在のシーン

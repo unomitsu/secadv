@@ -2,17 +2,13 @@
 
 class SceneTitle extends Scene {
     constructor() {
-        console.log("[BEGIN] SceneTitle load...");
-        currentSceneName = "TITLE";
+        console.log(">>> SCENE TITLE");
 
         super();  // 親クラスの読み込み
-
         this.initialize();  // 初期処理
 
         //makeScenario("UP", 1, 1, 1, ["aaa", "bbbb", "cccc"]);
         //makeQuiz("quizだ", 1, 1, "問題だ", [["解答1だ", "解説1だ"], ["解答2だ", "解説2だ"], ["解答3だ", "解説3だ"], ["解答4だ", "解説4だ"]], "ヒントだ");
-
-        console.log("[FINISH] SceneTitle !");
     }
     initialize() {
         // タイトル文字列

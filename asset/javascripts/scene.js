@@ -76,7 +76,6 @@ class Scene {
 
         // 改行(\n)で配列に分割する
         let val = str.split('\n');
-        console.log("INDEX : ", val);
 
         // シナリオ表示欄への追加
         for (let v of val) {
