@@ -43,3 +43,12 @@ img.animation {
     top: calc(var(--adv-height) / 2);
     left: calc((var(--adv-width) / 2) - (var(--adv-height) / 4));
 }
+
+/* クイズ画面遷移後の"クイズ！" */
+p.quizAnimation {
+    position: absolute;
+    font-size: calc(var(--adv-height) / 8);
+    color: white;
+
+    left: calc(var(--adv-height) / 20);
+}

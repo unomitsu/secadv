@@ -30,21 +30,34 @@ class SceneQuiz extends Scene {
         // ギブアップボタン
         this.buttonGiveUp = document.createElement('button');
 
+        // クイズアニメーションのカウンター
+        this.quizAnimationCounter = 0;
+
         // 親クラスの初期設定
         this.setDivScene();
         this.setDivPlayerData();
-        this.setDivMainText();
 
         // 初期設定
-        this.setButtonQuiz();
         //this.setButtonGiveUp();
 
+       // 問題のデータを取得
         if (flag) {
-            await this.setQuiz();       // 問題のデータを取得
+            await this.setQuiz();
         }
 
-        this.setMainText(quizData["problem"]);          // 取得した問題文を問題テキストに設定
-        this.setButtonQuizText(quizData["choice"]);     // 取得した選択肢をボタンに設定
+        // クイズ！のセット
+        this.setQuizAnimation();
+
+        // 一定時間後に、問題を設定
+        setTimeout(function () {
+            // テキスト入力欄セット
+            currentScene.setDivMainText();
+            // 解答ボタンセット
+            currentScene.setButtonQuiz();
+
+            currentScene.setMainText(quizData["problem"]);       // 取得した問題文を問題テキストに設定
+            currentScene.setButtonQuizText(quizData["choice"]);  // 取得した選択肢をボタンに設定
+        }, 500);
 
         console.log("[FINISH] SceneQuiz !");
     }
@@ -67,6 +80,7 @@ class SceneQuiz extends Scene {
                 id: 0,
                 text: "問題文の取得に失敗しました。",
                 choice: ["誤答", "正答", "誤答", "誤答"],
+                choice: ["誤答です", "正答です", "誤答です", "誤答です"],
                 answer: 1,
                 explanation: "エラーが発生しました。"
             };
@@ -103,6 +117,7 @@ class SceneQuiz extends Scene {
 
                 // 選択肢の格納
                 quizData['choice'][i] = choices[i]['answer'];
+                quizData['description'][i] = choices[i]['description'];
             }
         }
         console.log("quizData -> ", quizData);
@@ -162,6 +177,20 @@ class SceneQuiz extends Scene {
     // -- タイトルシーンへの遷移イベント
     buttonGiveUp_clickEvent() {
         currentScene = new SceneTitle();
+    }
+
+    /* ----- クイズに入ったことを知らせる ----- */
+    setQuizAnimation() {
+        let pQuiz = document.createElement('p');
+
+        // テキストの設定
+        pQuiz.textContent = "クイズ！";
+
+        // CSSクラスによる配置設定
+        pQuiz.className = "quizAnimation";
+
+        // ゲーム画面への追加
+        this.divScene.appendChild(pQuiz);
     }
 }
 

@@ -73,6 +73,9 @@
     <Folder Include="obj\Debug" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="asset\databases\dbf_image.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="asset\databases\db_answer.js">
       <SubType>Code</SubType>
     </Compile>

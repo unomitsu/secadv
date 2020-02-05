@@ -76,11 +76,24 @@ class Scene {
     }
     // -- テキスト区画への文字列の描画
     setMainText(str) {
-        // 仮DOMの作成
-        let pstr = document.createElement('p');
-        pstr.className = "MainText";
-        pstr.textContent = replaceSecadv(str);
-        this.divMainText.appendChild(pstr);
+        if (str == null || str == "") { return; }
+
+        // 改行(\n)で配列に分割する
+        let val = str.split('\n');
+        console.log("INDEX : ", val);
+
+        // シナリオ表示欄への追加
+        for (let v of val) {
+            // DOMの作成
+            let pstr = document.createElement('p');
+            pstr.className = "MainText";
+
+            // ローカライズ処理
+            pstr.textContent = replaceSecadv(v);
+
+            // ゲーム画面へ追加
+            this.divMainText.appendChild(pstr);
+        }
     }
     // -- テキスト区画の文字列の削除
     clearMainText() {
@@ -136,7 +149,11 @@ function makePopUp(text) {
 /*
  * whileとかみたい 全部見るようにする
  * 環境変数は大文字なので、大文字の方が分かりやすい
-*/ 
+*/
+
+var teacher = "wakatakeru";
+var school_name = "香川高校";
+
 function replaceSecadv(str) {
     let result = str;
     let teacher = "wakatakeru";
@@ -153,6 +170,12 @@ function replaceSecadv(str) {
     switch (matchstr["0"]) {
         case '@teacher@':
             result = str.replace(/@.*@/, teacher);
+            break;
+        case '@school_name@':
+            result = str.replace(/@.*@/, school_name);
+            break;
+        case '@team_name@':
+            result = str.replace(/@.*@/, player["name"]);
             break;
     }
 

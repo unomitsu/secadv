@@ -32,7 +32,7 @@ class SceneContinue extends Scene {
     /* ----- テキストを設定する ----- */
     setResultText() {
         this.setMainText(`残念！ ${playerAnswer} は不正解です.`);
-        this.setMainText(quizData["explanation"]);
+        this.setMainText("[Hint]\n" + quizData["explanation"]);
     }
 
     /* ----- コンテニューボタン ----- */

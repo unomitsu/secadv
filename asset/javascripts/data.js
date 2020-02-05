@@ -21,6 +21,7 @@ var quizData = {
     id: 0,
     problem: "problem",
     choice: ["1", "2", "3", "4"],
+    description: ["d1", "d2", "d3", "d4"],
     answer: 0,
     explanation: "explanation"
 };

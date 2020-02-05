@@ -95,7 +95,8 @@ class SceneResult extends Scene {
         setTimeout(function () {
             currentScene.setDivPlayerData();
             currentScene.setDivMainText();
-            currentScene.setMainText(quizData["explanation"]);
+            console.log(quizData);
+            currentScene.setMainText("[" + quizData["choice"][playerAnswer] + "]\n" + quizData["description"][playerAnswer]);
         }, 500);
         setTimeout(function () {
             currentScene.divScene.addEventListener("click", currentScene.divScene_clickEvent, false);
@@ -104,6 +105,11 @@ class SceneResult extends Scene {
 
     // 正答はステージセレクト画面、誤答はコンテニュー画面へ遷移する
     divScene_clickEvent() {
-        currentScene = currentScene.correctFlag ? new SceneSelect() : new SceneContinue();
+        // クリア後はクイズを繰り返す
+        if (g_gameState == 1) { currentScene = new SceneQuiz(true); }
+
+        else {
+            currentScene = currentScene.correctFlag ? new SceneSelect() : new SceneContinue();
+        }
     }
 }

@@ -60,6 +60,7 @@ class SceneScenario extends Scene {
         if (currentScene.scenarioId < currentScene.scenarios.length) {
             // テキスト表示エリアの初期化
             currentScene.clearMainText();
+
             // テキストの設定
             currentScene.setMainText(currentScene.scenarios[currentScene.scenarioId]['text']);
         }

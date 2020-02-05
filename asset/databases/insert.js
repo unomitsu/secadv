@@ -92,6 +92,68 @@ async function insertScenarioElement(scenarioId, text, sorder) {
     return result;
 }
 
+// -- DBへのシナリオ追加
+async function makeScenario(title, level, type, image, elem) {
+    /* 入力データの確認 */
+    // タイトルが空欄でないか
+    // テキストが空欄でないか？
+
+    let scenarioId; // シナリオID保持用
+
+    // シナリオタイトルの挿入、シナリオのIDが返される
+    await insertScenario(title, level, type, image).then((res) => {
+        scenarioId = res["max(id)"];
+    });
+
+    // 挿入の確認
+    getTableDataWhereAll("scenario", `id = ${scenarioId}`).then(res => {
+        console.log(res);
+    });
+
+    // シナリオ要素の挿入
+    console.log(elem.length);
+
+    // シナリオ追加、INSERTを仮保持配列分ループ
+    for (let i = 0; i < elem.length; i++) {
+        await insertScenarioElement(scenarioId, elem[i], i);
+    }
+
+}
+
+
+// -- データベースへ追加するイベント
+async function makeQuiz(title, level, type, problem, answer, explanation) {
+    let quizId;
+    let selectId;
+    
+    console.log("挿入したいデータ ", title, level, type, problem, answer, explanation);
+
+    /* 入力データの確認 */
+
+    /* 問題の登録、問題のIDが返却される */
+    await insertQuiz(title, problem, explanation, level, type).then(res => {
+        quizId = res;
+        console.log("quiz_ID", quizId);
+
+        getTableDataWhereAll("quiz", `id = ${quizId}`).then(res => {
+            console.log(res);
+        });
+
+    });
+
+    /* 選択肢の登録、選択肢のIDが返却される */
+    for (let a of answer) {
+        console.log(a[0], a[1]);
+        
+        await insertQuizAnswer(a[0], a[1]).then(res => {
+            selectId = res;
+            console.log("quiz_answer ", selectId);
+
+            insertRelationQuizAnswer(quizId, selectId, 1);    // 関連テーブルへの登録
+        });
+    }
+
+}
 
 /*
 function dbInsertScenario(id, snum, scenario) {

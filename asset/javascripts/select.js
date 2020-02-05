@@ -13,8 +13,7 @@ class SceneSelect extends Scene {
         this.button2 = document.createElement('button');
 
         // 次のシナリオの情報
-        this.nextScenarioID1;
-        this.nextScenarioID2;
+        this.nextScenarioID;
         this.nextScenarioNum;
 
         // 親クラスの初期設定
@@ -38,15 +37,15 @@ class SceneSelect extends Scene {
     /* セレクトボタンの設定 */
     async setButtonSelect() {
         if (this.nextScenarioNum == 2) {
-            await this.makeButtonSelect("Left", this.nextScenarioID1);
-            await this.makeButtonSelect("Right", this.nextScenarioID2);
+            await this.makeButtonSelect("Left", this.nextScenarioID['0']['id_next1']);
+            await this.makeButtonSelect("Right", this.nextScenarioID['0']['id_next2']);
         }
         else if (this.nextScenarioNum == 1) {
-            await this.makeButtonSelect("Center", this.nextScenarioID1);
+            await this.makeButtonSelect("Center", this.nextScenarioID['0']['id_next1']);
         }
         else {
             g_gameState = 1;
-            scenarioID = 6;
+            scenarioID = 0;
             setTimeout(() => {
                 currentScene = new SceneScenario();
             }, 200);
@@ -66,7 +65,7 @@ class SceneSelect extends Scene {
 
         // 対応するシナリオの情報を取得し、ボタンのテキストを設定する
         await dbSelectWhereAll('scenario, image_type', `scenario.id = ${sid}`).then(res => {
-            button.textContent = String(sid) + res[0]['type'];
+            button.textContent = res[0]['title'];
         });
 
         // クリックイベントの設定
@@ -83,42 +82,27 @@ class SceneSelect extends Scene {
     async getNextScenarios() {
         // 次のシナリオのIDを取得する
         await dbSelectWhereAll('relation_next_scenario', `id_current = ${scenarioID}`).then(res => {
-            currentScene.nextScenarioID1 = res['id_next1'];
-            currentScene.nextScenarioID2 = res['id_next2'];
+            currentScene.nextScenarioID = res;
         });
         
-        // 読み終わっていないかの確認
-        let flag1 = false;
-        let flag2 = false;
-        for (let s of scenariosID) {
-            if (s["id"] == this.nextScenarioID1) { flag1 = true; }
-            if (s["id"] == this.nextScenarioID2) { flag2 = true; }
-        }
-        // 読み終わっている場合は、まだ読んでないシナリオがないか探す。ない場合は選択肢は一つになる。
-        for (let s of scenariosID) {
-            if (!flag1) {
-                this.nextScenarioID1 = s["id"];
-                flag1 = true;
-            }
-            else if (!flag2) {
-                this.nextScenarioID2 = s["id"];
-                flag2 = true;
-            }
-            else { break; }
+        // 次のシナリオがない場合、終了する
+        if (this.nextScenarioID.length <= 0) {
+            this.nextScenarioNum = 0;
+            return;
         }
 
+        let flag1 = (this.nextScenarioID['0']['id_next1'] != null);
+        let flag2 = (this.nextScenarioID['0']['id_next2'] != null);
+        
         // 次のシナリオの数を格納する
         if (flag1 && flag2) {
             this.nextScenarioNum = 2;
         }
         else if (flag1 || flag2) {
             // 1の方に入れる
-            if (flag2) { this.nextScenarioID1 = this.nextScenarioID2; }
+            if (flag2) { this.nextScenarioID['0']['id_next1'] = this.nextScenarioID['0']['id_next2']; }
 
             this.nextScenarioNum = 1;
-        }
-        else {
-            this.nextScenarioNum = 0;
         }
     }
 }

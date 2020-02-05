@@ -6,55 +6,73 @@ async function dbStartup() {
     /* ----- 外部制約テーブルの確認 ----- */
 
     // クイズ分類テーブル
-    const resultQuizType = await checkQuizType();
-    console.log("table.quiz_type check ->", resultQuizType);
+    console.log("table.quiz_type check ->", await checkQuizType());
+
+    console.log("-> ");
 
     // 状況分類テーブル
-    const resultSituationType = await checkSituationType();
-    console.log("table.situation_type check ->", resultSituationType);
+    console.log("table.situation_type check ->", await checkSituationType());
+
+    console.log("-> ");
 
     // 画像分類テーブル
-    const resultImageType = await checkImageType();
-    console.log("table.image_type check ->", resultImageType);
+    console.log("table.image_type check ->", await checkImageType());
+
+    console.log("-> ");
 
 
     /* ----- 実体テーブルの確認 ----- */
     // クイズテーブル
     console.log("quiz check", await checkQuiz());
 
+    console.log("-> ");
+
     // シナリオセットテーブル
-    const resultScenarioSet = await checkScenarioSet();
-    console.log("table.scenario_set check ->", resultScenarioSet);
+    console.log("table.scenario_set check ->", await checkScenarioSet());
+
+    console.log("-> ");
 
     // シナリオテーブル
-    const resultScenario = await checkScenario();
-    console.log("table.scenario check ->", resultScenario);
+    console.log("table.scenario check ->", await checkScenario());
+
+    console.log("-> ");
 
     // シナリオ要素テーブル
-    const resultScenarioElement = await checkScenarioElement();
-    console.log("table.scenario_element check ->", resultScenarioElement);
+    console.log("table.scenario_element check ->", await checkScenarioElement());
+
+    console.log("-> ");
 
     // 選択肢テーブル
-    const resultQuizAnswer = await checkQuizAnswer();
-    console.log("table.quiz_answer ->", resultQuizAnswer);
+    console.log("table.quiz_answer ->", await checkQuizAnswer());
+
+    console.log("-> ");
 
 
     /* ----- 関連テーブルの確認 ----- */
 
     // シナリオセット シナリオ
-    const resultRelationScenariosetScenario = await checkRelationScenariosetScenario();
-    console.log("table.relation_scenarioset_scenario check ->", resultRelationScenariosetScenario);
+    console.log("table.relation_scenarioset_scenario check ->", await checkRelationScenariosetScenario());
+
+    console.log("-> ");
 
     // シナリオとクイズ
-    const resultRelationScenarioQuiz = await checkRelationScenarioQuiz();
-    console.log("table.relation_scenario_quiz check ->", resultRelationScenarioQuiz);
+    console.log("table.relation_scenario_quiz check ->", await checkRelationScenarioQuiz());
+
+    console.log("-> ");
 
     // 次のシナリオ
     console.log("table.relation_quiz_answer check ->", await checkRelationNextScenario());
 
+    console.log("-> ");
+
     // クイズと解答選択肢の関連テーブル
-    const resultRelationQuiztAnswer = await checkRelationQuizAnswer();
-    console.log("table.relation_quiz_answer check ->", resultRelationQuiztAnswer);
+    console.log("table.relation_quiz_answer check ->", await checkRelationQuizAnswer());
+
+    console.log("-> ");
+
+    /* ----- シナリオと問題の作成 ----- */
+
+
 
     console.log("[FINISH] TABLE CHECK !");
 }
