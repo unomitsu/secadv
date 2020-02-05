@@ -27,10 +27,11 @@ class Scene {
         this.divScene.className = "scene main";
         divSceneBack.appendChild(this.divScene);
 
-        this.drawBackground(null);
+        this.drawBackground(g_backImagePath);
     }
     // -- 背景画像を変更
     drawBackground(path) {
+        console.log(path);
         if (path == null) {
             this.divScene.style.backgroundImage = "url(./asset/images/title.jpg)";
         }

@@ -1,4 +1,32 @@
 ﻿
+/* ========== select ========== */
+
+// 指定した id の全要素を返す
+function dbSelectImagePath(sid) {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.all('SELECT * FROM scenario, image_type WHERE scenario.id = $a AND scenario.image = image_type.id',
+                {
+                    $a: sid
+                },
+                (err, rows) => {
+                    if (err) { resolve(err); }
+                    else { resolve(rows); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectImagePath(sid) {
+    const result = await dbSelectImagePath(sid);
+    console.log(`<SELECT * FROM scenario, image_type WHERE scenario.id = ${sid} AND scenario.image = image_type.id>`, result);
+    return result;
+}
+
 /* ----- 画像テーブル image_type ----- */
 function checkImageType() {
     return new Promise(resolve => {

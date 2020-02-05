@@ -73,7 +73,9 @@ class SceneScenarioSelect extends Scene {
         g_scenarioset = currentScene.scenarioSet[this.id];
 
         // 始めのシナリオIDを格納
-        g_scenario = g_scenarioset['start'];
+        await selectScenario(g_scenarioset['start']).then(res => {
+            g_scenario = res['id'];
+        });
 
         console.log("scenarioset : ", g_scenarioset);
 

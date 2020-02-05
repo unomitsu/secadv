@@ -27,14 +27,9 @@ var g_playerAnswer;
 
 /* ----- シーンデータ ----- */
 var currentScene;   // 現在のシーン
-var currentSceneName = "";   // 現在のシーン名
 
 /* back image */
-var backImagePath;  // 背景画像のパス
-
-function setBackImagePath(path) {
-    BackImagePath = path;
-}
+var g_backImagePath;  // 背景画像のパス
 
 /* ----- database ----- */
 var sqlite3 = require('sqlite3');

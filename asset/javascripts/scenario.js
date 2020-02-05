@@ -12,11 +12,12 @@ class SceneScenario extends Scene {
         this.scenarios = "";        // シナリオ要素配列
         this.scenarioId = 0;        // シナリオ要素の添字
 
-        // 親クラスの初期設定
-        this.setDivScene();
-
+        
         // 初期設定
         await this.loadScenarios();     // シナリオの読み込み
+
+        // 親クラスの初期設定
+        this.setDivScene();
 
         // フェードイン後に設定するもの
         this.fadein(() => {
@@ -60,6 +61,7 @@ class SceneScenario extends Scene {
 
     /* ----- シナリオの読み込み ----- */
     async loadScenarios() {
+        console.log(g_scenario);
         // 現在のシナリオを読み込む
         await selectScenarioElement(g_scenario).then(res => {
             currentScene.scenarios = res;
@@ -73,5 +75,10 @@ class SceneScenario extends Scene {
                 sorder: 0
             }];
         }
+
+        // 背景の設定
+        await selectImagePath(g_scenario).then(res => {
+            g_backImagePath = res['0']['path'];
+        });
     }
 }

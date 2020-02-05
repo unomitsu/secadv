@@ -36,30 +36,31 @@ class SceneQuiz extends Scene {
 
     /* -- 出題内容の取得と設定 -- */
     async setQuiz() {
-        let qid, quiz, choices;
+        let qid, quiz, choices, flag = false;
 
         // シナリオの対応するクイズのIDが必要、クリア後の場合はランダムにIDを設定する
         if (g_gameState == 0) {
             await selectRelationScenarioQuiz(g_scenario).then(res => {
                 // 対応するデータがある場合
                 if (res.length > 0) {
-                    qid = res["0"]["id_quiz"];
-                }
-                // ない場合はランダム
-                else {
-                    qid = Math.floor(1 + Math.random() * 5);
+                    qid = res['0']["id_quiz"];
+                    flag = true;
                 }
             });
         }
-        else {
-            qid = Math.floor(1 + Math.random() * 5);
-        }
 
         // クイズのデータ取得
-        await selectQuiz(qid).then(res => {
-            quiz = res;
-        });
-
+        if (flag) {
+            await selectQuiz(qid).then(res => {
+                quiz = res;
+            });
+        }
+        else {
+            await selectRandomQuiz().then(res => {
+                qid = res['id'];
+                quiz = res;
+            });
+        }
         // クイズの選択肢を取得
         await selectQuizAnswer(qid).then(res => {
             choices = res;
@@ -68,9 +69,9 @@ class SceneQuiz extends Scene {
         // DBから取得したデータを、グローバル変数に格納
         try {
             // 問題データの格納
-            g_quiz['id'] = quiz[0]['id'];
-            g_quiz['problem'] = quiz[0]['problem'];
-            g_quiz['explanation'] = quiz[0]['explanation'];
+            g_quiz['id'] = quiz['id'];
+            g_quiz['problem'] = quiz['problem'];
+            g_quiz['explanation'] = quiz['explanation'];
 
             // 選択肢配列の並び替え
             for (let i = 0; i < choices.length; i++) {
@@ -101,6 +102,7 @@ class SceneQuiz extends Scene {
                 explanation: "エラーが発生しました。"
             };
         }
+        
         console.log("id_quiz : ", g_quiz["id"]);
     }
 

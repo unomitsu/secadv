@@ -1,14 +1,14 @@
 ﻿
 /* ========== select ========== */
 
-// 指定した シナリオid の全要素を返す
+// 指定した クイズid の要素を返す
 function dbSelectQuiz(id) {
     return new Promise(resolve => {
         const db = new sqlite3.Database(dbName);  // DBを開く
 
         // データベースから全データを取得
         db.serialize(() => {
-            db.all('SELECT * FROM quiz WHERE id = $a',
+            db.get('SELECT * FROM quiz WHERE id = $a',
                 {
                     $a: id
                 },
@@ -24,6 +24,29 @@ function dbSelectQuiz(id) {
 async function selectQuiz(id) {
     const result = await dbSelectQuiz(id);
     console.log(`<SELECT * FROM quiz WHERE id = ${id}>`, result);
+    return result;
+}
+
+// ランダムな クイズid の要素を返す
+function dbSelectRandomQuiz() {
+    return new Promise(resolve => {
+        const db = new sqlite3.Database(dbName);  // DBを開く
+
+        // データベースから全データを取得
+        db.serialize(() => {
+            db.get('SELECT * FROM quiz ORDER BY RANDOM() LIMIT 1',
+                (err, row) => {
+                    if (err) { resolve(err); }
+                    else { resolve(row); }
+
+                    db.close();  // DBを閉じる
+                });
+        });
+    });
+}
+async function selectRandomQuiz() {
+    const result = await dbSelectRandomQuiz();
+    console.log(`<SELECT * FROM quiz ORDER BY RANDOM() LIMIT 1>`, result);
     return result;
 }
 

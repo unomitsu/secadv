@@ -59,7 +59,7 @@ class SceneSelect extends Scene {
 
         // 対応するシナリオの情報を取得し、ボタンのテキストを設定する
         await selectScenario(sid).then(res => {
-            button.textContent = res[0]['title'];
+            button.textContent = res['title'];
         });
 
         // クリックイベントの設定
