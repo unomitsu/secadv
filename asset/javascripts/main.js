@@ -1,6 +1,6 @@
 async function secadvMain() {
     // データベースの準備をする
-    const res = await dbStartup();
+    await dbStartup();
 
     // タイトルから始める
     currentScene = new SceneTitle();

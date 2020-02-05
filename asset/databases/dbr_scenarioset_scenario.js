@@ -1,5 +1,7 @@
 ﻿
-// シナリオセットとシナリオ
+
+/* ========== create ========== */
+
 function checkRelationScenariosetScenario() {
     return new Promise(resolve => {
         let db = new sqlite3.Database(dbName);  // DBを開く

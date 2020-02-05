@@ -21,13 +21,12 @@ function checkQuizType() {
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
-                    const stmt = db.prepare('INSERT INTO quiz_type (type, available) VALUES (?, ?)');
-
-                    stmt.run(['CRYPTO', 1]);
-                    stmt.run(['CALCULATION', 1]);
-                    stmt.run(['KNOWLEDGE', 1]);
-                    stmt.run(['WORK', 1]);
-                    stmt.finalize();
+                    db.run('INSERT INTO quiz_type (type, available) VALUES '
+                        + '("CRYPTO", 1), '
+                        + '("CALCULATION", 1), '
+                        + '("KNOWLEDGE", 1), '
+                        + '("WORK", 1)'
+                    );
 
                     resolve("new");     // Promiseで返すresolveを設定
                 }
@@ -39,3 +38,13 @@ function checkQuizType() {
         });
     });
 }
+
+                    /*
+                    const stmt = db.prepare('INSERT INTO quiz_type (type, available) VALUES (?, ?)');
+
+                    stmt.run(['CRYPTO', 1]);
+                    stmt.run(['CALCULATION', 1]);
+                    stmt.run(['KNOWLEDGE', 1]);
+                    stmt.run(['WORK', 1]);
+                    stmt.finalize();
+                    */

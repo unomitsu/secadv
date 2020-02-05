@@ -22,6 +22,29 @@ function checkImageType() {
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
+                    db.run('INSERT INTO image_type (type, path, available) VALUES '
+                        + '("タイトル", "./asset/images/title.jpg", 1), '
+                        + '("教室", "./asset/images/classroom.jpg", 1), '
+                        + '("喜田研究室", "./asset/images/kidalabo.JPG", 1), '
+                        + '("最所研究室", "./asset/images/saisyolabo.JPG", 1), '
+                        + '("米谷研究室", "./asset/images/kometanilabo.JPG", 1), '
+                        + '("富永研究室", "./asset/images/tomilabo.JPG", 1), '
+                        + '("安藤研究室", "./asset/images/andolabo.JPG", 1), '
+                        + '("香川大学", "./asset/images/kagawauniv.jpg", 1)'
+                    );
+
+                    resolve("new");     // Promiseで返すresolveを設定
+                }
+                else {
+                    resolve(row);       // Promiseで返すresolveを設定
+                }
+                db.close();             // DBを閉じる
+            });
+        });
+    });
+}
+
+                    /*
                     const stmt = db.prepare('INSERT INTO image_type (type, path, available) VALUES (?, ?, ?)');
 
                     stmt.run(['タイトル', './asset/images/title.jpg', 1]);
@@ -34,14 +57,4 @@ function checkImageType() {
                     stmt.run(['香川大学', './asset/images/kagawauniv.jpg', 1]);
 
                     stmt.finalize();
-
-                    resolve("new");     // Promiseで返すresolveを設定
-                }
-                else {
-                    resolve(row);       // Promiseで返すresolveを設定
-                }
-                db.close();             // DBを閉じる
-            });
-        });
-    });
-}
+                    */

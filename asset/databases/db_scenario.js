@@ -28,6 +28,37 @@ function checkScenario() {
 
                 // データが無ければ作成する
                 else if (row == null) {
+                    db.run(
+                        'INSERT INTO scenario (id, title, level, image) VALUES '
+                        + '(0, "終わり", 1, 1), '
+                        + '(1, "申し込み", 1, 1), '
+                        + '(2, "受付", 1, 1), '
+                        + '(3, "喜田研", 1, 1), '
+                        + '(4, "最所研", 1, 1), '
+                        + '(5, "米谷研", 1, 1), '
+                        + '(6, "富永研", 1, 1), '
+                        + '(7, "富永研2", 3, 1), '
+                        + '(8, "富永研3", 1, 1), '
+                        + '(9, "富永研4", 1, 1), '
+                        + '(10, "安藤研", 1, 1), '
+                        + '(11, "OC終了", 1, 1), '
+                        + '(15, "ポケットモンスターOP", 3, 1), '
+                        + '(16, "お腹すいた", 1, 2)'
+                    );
+
+                    resolve("new");     // Promiseで返すresolveを設定
+                }
+                else {
+                    resolve(row);     // Promiseで返すresolveを設定
+                }
+
+                db.close();             // DBを閉じる
+            });
+        });
+    });
+}
+
+                    /*
                     const stmt2 = db.prepare('INSERT INTO scenario (id, title, level, image) VALUES (?, ?, ?, ?)');
 
                     stmt2.run([0, '終わり', 1, 1]);
@@ -45,15 +76,4 @@ function checkScenario() {
                     stmt2.run([15, 'ポケットモンスターOP', 3, 1]);
                     stmt2.run([16, 'お腹すいた', 1, 2]);
                     stmt2.finalize();
-
-                    resolve("new");     // Promiseで返すresolveを設定
-                }
-                else {
-                    resolve(row);     // Promiseで返すresolveを設定
-                }
-
-                db.close();             // DBを閉じる
-            });
-        });
-    });
-}
+                    */

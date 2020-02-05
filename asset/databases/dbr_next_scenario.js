@@ -26,6 +26,32 @@ function checkRelationNextScenario() {
 
                 // データが無ければ作成する
                 else if (row == null) {
+                    db.run('INSERT INTO relation_next_scenario (id_current, id_next) VALUES '
+                        + '(1, 2), '
+                        + '(2, 3), (2, 4), '
+                        + '(3, 5), (3, 6), '
+                        + '(4, 3), (4, 5), '
+                        + '(5, 6), (5, 10), '
+                        + '(6, 7), '
+                        + '(7, 8), '
+                        + '(8, 9), '
+                        + '(9, 10), '
+                        + '(10, 11) '
+                    );
+
+                    resolve("new");     // Promiseで返すresolveを設定
+                }
+                else {
+                    resolve(row);     // Promiseで返すresolveを設定
+                }
+
+                db.close();             // DBを閉じる
+            });
+        });
+    });
+}
+
+/*
                     const stmt = db.prepare('INSERT INTO relation_next_scenario (id_current, id_next) VALUES (?, ?)');
 
                     stmt.run([1, 2]);
@@ -50,15 +76,4 @@ function checkRelationNextScenario() {
                     stmt.run([10, 11]);
 
                     stmt.finalize();
-
-                    resolve("new");     // Promiseで返すresolveを設定
-                }
-                else {
-                    resolve(row);     // Promiseで返すresolveを設定
-                }
-
-                db.close();             // DBを閉じる
-            });
-        });
-    });
-}
+ */

@@ -11,10 +11,8 @@ var player = {
 };
 
 /* ----- シナリオデータ ----- */
-var scenarioID;             // 現在のシナリオのID
-
-var scenariosetID;  // シナリオセットのID
-var scenariosID;    // シナリオのID配列
+var g_scenarioset;      // シナリオセットのID
+var g_scenario;         // 現在のシナリオのID
 
 /* ----- 問題データ ----- */
 var quizData = {

@@ -27,6 +27,33 @@ function checkRelationScenarioQuiz() {
 
                 // データが存在しない場合、初期の問題を挿入
                 else if (row == null) {
+                    db.run('INSERT INTO relation_scenario_quiz (id_scenario, id_quiz) VALUES '
+                        + '(1, 7), '
+                        + '(2, 8), '
+                        + '(3, 9), '
+                        + '(4, 10), '
+                        + '(5, 11), '
+                        + '(6, 13), '
+                        + '(7, 14), '
+                        + '(8, 15), '
+                        + '(9, 16), '
+                        + '(10, 12), '
+                        + '(11, 17) '
+                    );
+
+                    resolve("new");     // Promiseで返すresolveを設定
+                }
+                else {
+                    resolve(row);     // Promiseで返すresolveを設定
+                }
+
+                db.close();             // DBを閉じる
+            });
+        });
+    });
+}
+
+/*
                     const stmt = db.prepare('INSERT INTO relation_scenario_quiz (id_scenario, id_quiz) VALUES (?, ?)');
 
                     stmt.run([1, 7]);
@@ -42,15 +69,4 @@ function checkRelationScenarioQuiz() {
                     stmt.run([11, 17]);
 
                     stmt.finalize();
-
-                    resolve("new");     // Promiseで返すresolveを設定
-                }
-                else {
-                    resolve(row);     // Promiseで返すresolveを設定
-                }
-
-                db.close();             // DBを閉じる
-            });
-        });
-    });
-}
+ */

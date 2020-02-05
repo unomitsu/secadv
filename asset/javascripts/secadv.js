@@ -24,12 +24,14 @@ appendScript("./asset/databases/select.js");
 appendScript("./asset/databases/dbf_image.js");
 appendScript("./asset/databases/dbf_quiz.js");
 
+// 実体テーブル
 appendScript("./asset/databases/db_quiz.js");
 appendScript("./asset/databases/db_scenario.js");
 appendScript("./asset/databases/db_scenario_element.js");
 appendScript("./asset/databases/db_scenarioset.js");
 appendScript("./asset/databases/db_answer.js");
 
+// 関連テーブル
 appendScript("./asset/databases/dbr_scenarioset_scenario.js");
 appendScript("./asset/databases/dbr_scenario_quiz.js");
 appendScript("./asset/databases/dbr_quiz_answer.js");
@@ -45,9 +47,9 @@ appendScript("./asset/javascripts/result.js");
 appendScript("./asset/javascripts/select.js");
 appendScript("./asset/javascripts/continue.js");
 appendScript("./asset/javascripts/home.js");
-appendScript("./asset/javascripts/main.js");
 
 appendScript("./asset/javascripts/admin.js");
 appendScript("./asset/javascripts/makequiz.js");
 appendScript("./asset/javascripts/makescenario.js");
 
+appendScript("./asset/javascripts/main.js");

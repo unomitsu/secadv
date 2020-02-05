@@ -1,3 +1,7 @@
+function busyWait(num) {
+    for (let i = 0; i < num; i++) { }
+}
+
 async function dbStartup() {
 	/* ===== 問題とシナリオの初期処理 ===== */
 
@@ -10,29 +14,29 @@ async function dbStartup() {
     
     // 画像分類テーブル
     console.log(" [F]image_type check ->", await checkImageType());
-
+    
 
     /* ----- 実体テーブルの確認 ----- */
     // クイズテーブル
     console.log(" [ ]quiz check", await checkQuiz());
-    
+
     // シナリオテーブル
     console.log(" [ ]scenario check ->", await checkScenario());
-    
+
     // シナリオセットテーブル
     console.log(" [ ]scenario_set check ->", await checkScenarioSet());
-    
+
     // シナリオ要素テーブル
     console.log(" [ ]scenario_element check ->", await checkScenarioElement());
-    
+
     // 選択肢テーブル
     console.log(" [ ]quiz_answer ->", await checkQuizAnswer());
-
+    
 
     /* ----- 関連テーブルの確認 ----- */
     // シナリオセット シナリオ
-    console.log(" [R]_scenarioset_scenario check ->", await checkRelationScenariosetScenario());
-    
+    //console.log(" [R]_scenarioset_scenario check ->", await checkRelationScenariosetScenario());
+
     // シナリオとクイズ
     console.log(" [R]_scenario_quiz check ->", await checkRelationScenarioQuiz());
     

@@ -5,17 +5,14 @@ var l_nono = "wakatakeru";
 /* ===== シーン シナリオ ===== */
 class SceneScenario extends Scene {
     constructor() {
-        console.log("[BEGIN] SceneScenario load...");
-        currentSceneName = "SCENARIO";
-
         super();  // 親クラスの読み込み
         this.initialize();  // 初期処理
     }
     async initialize() {
-        // シナリオ配列
-        this.scenarios = "";
-        // シナリオ添字
-        this.scenarioId = 0;
+        // シナリオを表示するための変数
+        this.scenarios = "";        // シナリオ要素配列
+        this.scenarioId = 0;        // シナリオ要素の添字
+
         console.log("SCENARIO_", this.scenarioId);
 
         // 親クラスの初期設定
@@ -29,7 +26,7 @@ class SceneScenario extends Scene {
             // 親クラスの初期設定
             this.setDivMainText();
             this.setDivPlayerData();
-
+            console.log(this.scenarios);
             // 初期設定
             this.setScenarioMove();
         });
@@ -72,12 +69,8 @@ class SceneScenario extends Scene {
 
     /* ----- シナリオの読み込み ----- */
     async loadScenarios() {
-        console.log("[BEGIN] Scenario load...");
-
-        console.log("NOW_SCENARIOS => ", scenariosID);
-
         // 現在のシナリオを読み込む
-        await dbSelectWhereAll("scenario_element", `id_scenario=${scenarioID}`).then(res => {
+        await selectScenarioElement(scenarioID).then(res => {
             currentScene.scenarios = res;
         });
 
@@ -86,7 +79,9 @@ class SceneScenario extends Scene {
             this.scenarios = ["シナリオがありません。"];
         }
 
-        console.log("NOW_SCENARIOS => ", scenariosID);
+        console.log("SCENARIOS => ", scenariosID);
+        console.log("NOW_SCENARIOS => ", this.scenarios);
+        /*
         // 読み込んだデータを削除する
         for (let i = 0; i < scenariosID.length; i++) {
             if (scenariosID[i]["id"] == scenarioID) {
@@ -94,6 +89,7 @@ class SceneScenario extends Scene {
                 break;
             }
         }
+        */
         
         console.log("[FINISH] Scenario -> ", currentScene.scenarios);
         return "resolve";

@@ -1,10 +1,7 @@
 ﻿
 class SceneScenarioSelect extends Scene {
     constructor() {
-        console.log("[BEGIN] SceneScenarioSelect load...");
-        currentSceneName = "SCENARIOSELECT";
-
-        super();  // 親クラスの読み込み
+        super();            // 親クラスの読み込み
         this.initialize();  // 初期処理
     }
     async initialize() {
@@ -18,20 +15,14 @@ class SceneScenarioSelect extends Scene {
         await this.getScenarioSet();        // シナリオセットの取得
         this.setTextScenarioSelect();       // シナリオ選択のテキスト設定
         this.setButtonScenarioSet();        // シナリオ選択のボタンを設置
-
-        console.log("[FINISH] SceneScenarioSelect !");
     }
 
     // シナリオセットを取得
     async getScenarioSet() {
-        console.log("[BEGIN] ScenarioSet load...");
-
-        // DBからシナリオセットデータの読み込み
-        const result = await dbSelectAll("scenarioset").then(res => {
+        // DBから全シナリオセットの読み込み
+        await selectScenarioSetAll().then(res => {
             currentScene.scenarioSet = res;
         });
-
-        console.log("[FINISH] ScenarioSet !");
     }
 
     // シナリオ選択のテキスト設定
@@ -79,19 +70,12 @@ class SceneScenarioSelect extends Scene {
     // シナリオシーンへの遷移イベント
     async buttonScenarioSet_clickEvent() {
         // シナリオセットIDの格納
-        scenariosetID = currentScene.scenarioSet[this.id];
-
-        // 対応するシナリオの情報を取得
-        await dbSelectWhereAll("scenario, relation_scenarioset_scenario", `scenario.id = relation_scenarioset_scenario.id_scenario`).then(res => {
-            scenariosID = res;
-        });
+        g_scenarioset = currentScene.scenarioSet[this.id];
 
         // 始めのシナリオIDを格納
-        scenarioID = scenariosetID['start'];
+        g_scenario = g_scenarioset['start'];
 
-        console.log("> scenariosetID   ", scenariosetID);
-        console.log("> scenariosID     ", scenariosID);
-        console.log("> startscenarioID ", scenarioID);
+        console.log("scenarioset : ", g_scenarioset);
 
         currentScene = new SceneScenario();
     }
