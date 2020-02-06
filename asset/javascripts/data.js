@@ -33,7 +33,7 @@ var g_backImagePath;  // 背景画像のパス
 
 /* ----- database ----- */
 var sqlite3 = require('sqlite3');
-var dbName = ('./asset/databases/example.sqlite');
+var dbName = ('./sqlite/example.sqlite');
 
 /* ===== game start ====== 
 function gameStart() {

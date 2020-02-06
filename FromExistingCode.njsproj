@@ -115,7 +115,6 @@
     <Compile Include="asset\javascripts\scenarioselect.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="gulpfile.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->

@@ -1,0 +1,21 @@
+h1.Title {
+    color: white;
+    position: absolute;
+
+    left: calc(var(--adv-width) / 3);
+    top: calc(var(--adv-height) / 3);
+}
+
+.buttonL.startButton {
+    left: calc(var(--adv-width) / 2 - var(--adv-width) / 8);
+    top: calc(var(--adv-height) / 2);
+}
+
+.buttonM.buttonAdmin {
+    left: calc(var(--adv-width) / 20);
+    top: calc(var(--adv-height) * 5 / 6);
+}
+
+.MakeElement {
+    margin: calc(var(--adv-height) / 20);
+}

@@ -1,0 +1,39 @@
+
+/* 管理者用ページメインメニュー */
+
+/*  buttonL  */
+/*  width   var(--adv-width) / 4    */
+/*  height  var(--adv-height) / 6   */
+
+/*  side span        var(--adv-width) / 30  */
+/*  vertical span    var(--adv-height) / 20  */
+
+
+/* center.left - width - span */
+.buttonL.adminMenuLeft {
+    left: calc(((var(--adv-width) / 2) - (var(--adv-width) / 8)) - (var(--adv-width) / 4) - (var(--adv-width) / 30));
+}
+/* left: 真ん中からボタンの幅の半分の位置 */
+.buttonL.adminMenuCenter {
+    left: calc((var(--adv-width) / 2) - (var(--adv-width) / 8));
+}
+
+/* center.left + width + span */
+.buttonL.adminMenuRight {
+    left: calc(((var(--adv-width) / 2) - (var(--adv-width) / 8)) + (var(--adv-width) / 4) + (var(--adv-width) / 30));
+}
+
+/* middle.top - span - height */
+.buttonL.adminMenuUp {
+    top: calc((var(--adv-height) / 2) - (var(--adv-height) / 12) - (var(--adv-height) / 20) - (var(--adv-height) / 6));
+}
+
+/* top: 真ん中からボタンの高さ半分の位置 */
+.buttonL.adminMenuMiddle {
+    top: calc((var(--adv-height) / 2) - (var(--adv-height) / 12));
+}
+
+/* middle.top + height + span */
+.buttonL.adminMenuDown {
+    top: calc((var(--adv-height) / 2) - (var(--adv-height) / 12) + (var(--adv-height) / 6) + (var(--adv-height) / 20));
+}

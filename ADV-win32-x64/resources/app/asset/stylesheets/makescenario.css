@@ -1,0 +1,72 @@
+
+/* シナリオ作成ページ テキストエリア */
+
+div.makescenario {
+    position: absolute;
+    overflow: scroll;
+
+    width: calc(var(--adv-width) * 17 / 32);
+    height: calc(var(--adv-height) * 2 / 3);
+
+    top: calc(var(--adv-height) / 4);
+    left: calc(var(--adv-width) / 20);
+}
+
+input.makescenario {
+    position: absolute;
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-height) / 25);
+    top: calc(var(--adv-height) / 10);
+    left: calc(var(--adv-width) / 20);
+}
+
+select.makescenario {
+    position: absolute;
+    width: calc(var(--adv-width) / 6);
+    height: calc(var(--adv-height) / 25);
+    top: calc(var(--adv-height) / 6);
+}
+    select.makescenario.left {
+        left: calc(var(--adv-width) / 20);
+    }
+    select.makescenario.center {
+        left: calc(var(--adv-width) / 20 + var(--adv-width) / 6 + var(--adv-width) / 50);
+    }
+    select.makescenario.right {
+        left: calc(var(--adv-width) / 20 + 2 * var(--adv-width) / 6 + 2 * var(--adv-width) / 50);
+    }
+
+textarea.makescenario {
+    resize: none;
+    width: calc(var(--adv-width) / 2);
+    height: calc(var(--adv-height) / 12);
+}
+
+.makescenario.input {
+    height: calc(var(--adv-height) / 4);
+    top: calc(var(--adv-height) / 10);
+}
+
+.makescenario.output {
+    height: calc(var(--adv-height) / 2);
+    top: calc(var(--adv-height) / 10 + var(--adv-height) / 3);
+}
+
+
+/* admin.css内のadminButton継承 */
+
+.buttonL.makescenario {
+    left: calc(var(--adv-width) * 2 / 3);
+}
+
+.makescenario.backAdmin {
+    top: calc(var(--adv-height) / 10);
+}
+
+.makescenario.addTemporaryScenario {
+    top: calc(var(--adv-height) / 5 + var(--adv-height) / 6);
+}
+
+.makescenario.addScenarioToDB {
+    top: calc(var(--adv-height) * 2 / 5 + var(--adv-height) / 4);
+}
